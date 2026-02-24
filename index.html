@@ -1,0 +1,1333 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Al lume della Ragione – referendum degli Illuministi</title>
+
+<style>
+  :root{
+    --bg1:#fbf7ef;
+    --bg2:#f2eadc;
+    --panel:#fbf8f1;
+    --panel2:#f7f0e2;
+    --ink:#fffdf8;
+    --text:#1f2937;
+    --muted:#51606b;
+    --ok:#1f8a6b;
+    --bad:#b23b2a;
+    --warn:#b0892e;
+    --line:#d6ccbd;
+    --line2:#cbbfae;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
+  }
+
+  *{ box-sizing:border-box; }
+
+  body{
+    margin:0;
+    font-family:var(--sans);
+    background:
+      radial-gradient(1200px 500px at 20% 0%, rgba(176,137,46,0.10), transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, rgba(31,138,107,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg1), var(--bg2));
+    color:var(--text);
+    padding-bottom: 20px;
+  }
+
+  header{
+    padding:18px 16px;
+    border-bottom:1px solid var(--line);
+    background: rgba(251,248,241,0.92);
+  }
+  header h1{ 
+    margin:0 0 6px 0; 
+    font-size:clamp(18px, 5vw, 24px); 
+    line-height:1.3;
+  }
+  header p{ margin:0; color:var(--muted); max-width:1100px; line-height:1.45; font-size:clamp(12px, 4vw, 14px); }
+
+  main{
+    max-width:1240px;
+    margin:0 auto;
+    padding:16px;
+    display:grid;
+    grid-template-columns: 1.05fr 0.95fr;
+    gap:16px;
+  }
+  @media(max-width:980px){ main{ grid-template-columns:1fr; } }
+
+  .card{
+    background:rgba(251,248,241,0.92);
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:14px;
+    box-shadow: 0 10px 28px rgba(31,41,55,0.12);
+  }
+  .card h2{ margin:0 0 10px 0; font-size:clamp(14px, 4vw, 16px); font-weight:900; letter-spacing:0.5px; }
+  .sub{ color:var(--muted); font-size:clamp(11px, 3.5vw, 13px); line-height:1.45; }
+  .hr{ height:1px; background:var(--line); margin:10px 0; }
+  .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
+
+  .chip{
+    background:rgba(247,240,226,0.8);
+    border:1px solid var(--line2);
+    padding:8px 10px;
+    border-radius:999px;
+    font-size:clamp(11px, 3.5vw, 13px);
+  }
+  .chip b{ font-family:var(--mono); font-weight:900; }
+  .chip.ok{ border-color: rgba(31,138,107,0.35); }
+  .chip.bad{ border-color: rgba(178,59,42,0.35); }
+  .chip.warn{ border-color: rgba(176,137,46,0.55); }
+
+  table{
+    width:100%;
+    border-collapse:separate;
+    border-spacing:0;
+    overflow-x:auto;
+    display:block;
+    border-radius:12px;
+    border:1px solid var(--line);
+    background: rgba(255,253,248,0.85);
+  }
+  th, td{ padding:8px 6px; border-bottom:1px solid var(--line); vertical-align:top; min-width:80px; }
+  th{ background:rgba(247,240,226,0.9); font-size:12px; color:var(--muted); text-align:left; font-weight:900; }
+  tr:last-child td{ border-bottom:none; }
+
+  .code{ font-family:var(--mono); color:#334155; font-weight:900; }
+  .desc{ color:var(--muted); font-size:11px; line-height:1.4; }
+  .why{ color:#344256; font-size:11px; line-height:1.35; margin-top:6px; }
+
+  input[type=number]{
+    width:70px; padding:8px 4px;
+    background:var(--ink); color:var(--text);
+    border:1px solid var(--line);
+    border-radius:10px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+
+  button{
+    background:rgba(247,240,226,0.95);
+    color:var(--text);
+    border:1px solid var(--line2);
+    border-radius:12px;
+    padding:10px 12px;
+    cursor:pointer;
+    font-weight:900;
+    font-size:clamp(11px, 3.5vw, 13px);
+    transition: all 0.1s ease;
+  }
+  button:hover{ filter:brightness(1.02); background:rgba(247,240,226,1); }
+  button.secondary{
+    background:rgba(251,248,241,0.92);
+    font-weight:800;
+  }
+
+  canvas{
+    background:var(--ink);
+    border:1px solid var(--line);
+    border-radius:14px;
+    width:100%;
+    height:auto;
+    aspect-ratio:16/9;
+    display:block;
+    scroll-margin-top: 20px;
+  }
+
+  .kpi{
+    display:grid; gap:10px; grid-template-columns:1fr 1fr;
+  }
+  .kpi .box{
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px;
+    background:rgba(247,240,226,0.65);
+  }
+  .kpi .val{ font-family:var(--mono); font-size:clamp(16px, 5vw, 20px); font-weight:900; margin-top:4px; }
+  .kpi .lab{ color:var(--muted); font-size:11px; }
+
+  details{
+    border:1px solid var(--line);
+    border-radius:12px;
+    padding:10px 12px;
+    background:rgba(247,240,226,0.55);
+    margin-top:10px;
+  }
+  details summary{ cursor:pointer; font-weight:900; font-size:clamp(12px, 4vw, 14px); }
+  details p, details li{ color:var(--muted); font-size:12px; line-height:1.45; }
+
+  .profiles{ display:grid; gap:12px; }
+  .profile{
+    display:grid; grid-template-columns: 84px 1fr; gap:12px;
+    border:1px solid var(--line);
+    border-radius:14px;
+    padding:12px;
+    background:rgba(255,253,248,0.75);
+  }
+  @media(max-width:480px){
+    .profile{ grid-template-columns:1fr; }
+    .profile img{ width:100%; height:auto; max-width:200px; }
+  }
+  .profile.compareOn{
+    border-color: rgba(176,137,46,0.75);
+    box-shadow: 0 0 0 1px rgba(176,137,46,0.22) inset;
+  }
+  .profile img{
+    width:84px; height:84px;
+    object-fit:cover;
+    border-radius:14px;
+    border:1px solid var(--line);
+    background:rgba(0,0,0,0.03);
+  }
+  .profile h3{ margin:0; font-size:14px; }
+  .profile .bio{ margin-top:4px; color:var(--muted); font-size:12px; line-height:1.4; }
+  .profile .quote{
+    margin-top:8px;
+    padding:8px 10px;
+    border-left:4px solid rgba(176,137,46,0.95);
+    background:rgba(247,240,226,0.55);
+    border-radius:10px;
+    color:var(--text);
+    font-size:12px;
+    line-height:1.45;
+  }
+  .profile .btnrow{ margin-top:10px; display:flex; gap:10px; flex-wrap:wrap; }
+
+  .profile details {
+    margin-top: 8px;
+    background: rgba(247,240,226,0.3);
+    border: 1px solid var(--line2);
+  }
+  .profile details summary {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 0;
+  }
+  .profile .miniTable {
+    margin-top: 0;
+    border: none;
+    background: transparent;
+  }
+  .profile .miniTable table {
+    background: rgba(255,253,248,0.9);
+  }
+
+  .miniTable{
+    margin-top:10px;
+    border:1px solid var(--line);
+    border-radius:12px;
+    overflow-x:auto;
+    background:rgba(255,253,248,0.75);
+  }
+  .miniTable table{ border:none; border-radius:0; background:transparent; min-width:300px; }
+  .miniTable th, .miniTable td{ border-bottom:1px solid var(--line); padding:8px; }
+  .miniTable tr:last-child td{ border-bottom:none; }
+  .miniTable th{ background:rgba(247,240,226,0.85); }
+
+  /* Nuovo stile per le info di progetto sempre visibili */
+  .project-info {
+    max-width: 1240px;
+    margin: 20px auto 0;
+    padding: 12px 16px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+    background: rgba(247,240,226,0.5);
+    border: 1px solid var(--line);
+    border-radius: 40px;
+    font-size: 12px;
+  }
+  .project-info span, .project-info a {
+    color: var(--text);
+  }
+  .project-info a {
+    text-decoration: underline dotted;
+  }
+  .project-info a:hover {
+    text-decoration: underline solid;
+  }
+
+  .notes-section{
+    max-width:1240px;
+    margin:20px auto 0;
+    padding:0 16px;
+  }
+  .notes-section details{
+    background:rgba(251,248,241,0.96);
+    border:1px solid var(--line);
+  }
+  .bibliography{
+    margin-top:12px;
+    font-size:11px;
+    background:rgba(247,240,226,0.7);
+    padding:8px;
+    border-radius:12px;
+  }
+  .bibliography ul{ margin:4px 0 0 16px; padding-left:0; }
+  .bibliography p{ margin:8px 0 0; }
+
+  .letterBox{
+    border:1px solid rgba(176,137,46,0.45);
+    background: linear-gradient(180deg, rgba(247,240,226,0.85), rgba(255,253,248,0.85));
+    border-radius:14px;
+    padding:12px 12px 10px 12px;
+    margin-top:10px;
+  }
+  .letterBox .sig{
+    margin-top:8px;
+    color: var(--muted);
+    font-size:12px;
+    text-align:right;
+    font-style:italic;
+  }
+  .letterBox .dropcap{ font-family: var(--serif); }
+  .letterBox .dropcap::first-letter{
+    float:left;
+    font-size:34px;
+    line-height:1;
+    padding-right:6px;
+    font-weight:900;
+    color: rgba(176,137,46,0.95);
+    font-family: var(--serif);
+  }
+
+  .legendRow{
+    display:flex; gap:10px; flex-wrap:wrap; align-items:center;
+    margin-top:8px;
+  }
+  .legend{
+    display:flex; align-items:center; gap:8px;
+    font-size:12px; color:var(--muted);
+    border:1px solid var(--line);
+    background:rgba(247,240,226,0.55);
+    padding:6px 10px;
+    border-radius:999px;
+  }
+  .dot{ width:10px; height:10px; border-radius:999px; display:inline-block; }
+
+  .tilt{
+    margin-top:6px;
+    font-size:12px;
+    color: rgba(176,137,46,0.95);
+    font-weight:900;
+  }
+  .tilt small{
+    color:var(--muted);
+    font-weight:700;
+  }
+  #visitCount{ font-weight:900; }
+</style>
+</head>
+
+<body>
+<header>
+  <h1>Al lume della Ragione, ovvero come voterebbero gli Illuministi al Referendum. Pamphlet in forma di Lettere. Stampato in Milano, MMXXVI.</h1>
+  <p>
+    Qual sia l'ufficio Vostro: piacciavi assegnare un voto, in misura da uno (1) a dieci (10), per ogni proposto criterio.<br>
+    Avrete altresì facoltà di porre a confronto un differente profilo d'un'illuminata mente, pur mantenendo immutati i suffragi da voi già espressi, sovrapponendolo con garbo al vostro prospetto radiale.
+  </p>
+</header>
+
+<main>
+  <!-- COLONNA DI SINISTRA -->
+  <section class="card">
+    <h2>I) Del giudizio che a Voi, discreto Lettore, s'appartiene (scala dall'uno al dieci)</h2>
+    <div class="sub">
+      Non è d'uopo che Voi suddividiate cento punti fra i vari capi, come talvolta in altri consessi s'usa. Basta, e avanza, che a ciascun Criterio attribuiate un voto, secondo il peso che la Vostra ragione gli assegna.<br>
+      Qualora due Criteri Vi paiano di pari importanza, non dubitate di onorarli col medesimo giudizio.
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <span class="chip warn" id="sumChip">Somma de' Vostri voti = <b>—</b></span>
+      <span class="chip ok" id="normChip">Pesi (ridotti a misura) = <b>1.00</b></span>
+      <span style="margin-left:auto; display:flex; gap:8px;">
+        <button id="btnReset">⟲ Ripristina</button>
+        <button id="btnAll5">⟡ Tutti al valore medio (5)</button>
+      </span>
+    </div>
+
+    <div class="hr"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:7%">Cod.</th>
+          <th>Criterio</th>
+          <th style="width:16%">Il Vostro voto (1–10)</th>
+          <th style="width:12%">Peso <i>w</i></th>
+        </tr>
+      </thead>
+      <tbody id="criteriaBody"></tbody>
+    </table>
+
+    <details>
+      <summary>Delle motivazioni, in compendio</summary>
+      <ul id="motivationList"></ul>
+      <p class="desc">
+        Il modello che Vi proponiamo è "trasparente": esso mostra eziandio se un Criterio, per come sono stimati i punteggi, inclini lievemente verso il SÌ o verso il NO.<br>
+        (Questa scelta riflette una lettura "settecentesca" prudenziale, attenta al rischio che leve politiche o disciplinari possano, col tempo, comprimere l'indipendenza del giudicare).
+      </p>
+    </details>
+
+    <!-- Riepilogo dei valori assegnati in un dettaglio -->
+    <details style="margin-top:12px;">
+      <summary>Mostra riepilogo dei valori assegnati (C)</summary>
+      <div class="miniTable" style="margin-top:8px;">
+        <table>
+          <thead>
+            <tr><th colspan="4">Riepilogo del Vostro giudizio — per Criterio</th></tr>
+            <tr><th>Cod.</th><th>Vostro Voto</th><th>Peso <i>w</i></th><th>Nota</th></tr>
+          </thead>
+          <tbody id="electorSummary"></tbody>
+        </table>
+      </div>
+    </details>
+  </section>
+
+  <!-- COLONNA DI DESTRA -->
+  <aside class="card">
+    <h2>II) Del prospetto radiale e dell'esito del Vostro giudizio</h2>
+
+    <div class="kpi">
+      <div class="box">
+        <div class="lab">Indice SÌ (0–10)</div>
+        <div id="siScore" class="val">—</div>
+      </div>
+      <div class="box">
+        <div class="lab">Indice NO (0–10)</div>
+        <div id="noScore" class="val">—</div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:10px">
+      <span class="chip" id="winner">Esito: <b>—</b></span>
+      <span class="chip" id="delta">Differenza (SÌ−NO): <b>—</b></span>
+    </div>
+
+    <div class="sub" id="whyChoice" style="margin-top:8px">—</div>
+
+    <details style="margin-top:10px;">
+      <summary>Perché vince il SÌ o il NO (contributi per Criterio)</summary>
+      <div class="desc" style="margin-top:8px;">
+        La differenza totale è la somma di <b>w × (SÌ−NO)</b> su ciascun Criterio:
+        se la somma è positiva, tende al SÌ; se negativa, tende al NO.
+      </div>
+      <div class="miniTable" style="margin-top:10px;">
+        <table>
+          <thead>
+            <tr><th colspan="5">Contributi al risultato</th></tr>
+            <tr>
+              <th style="width:8%">Cod.</th>
+              <th>Criterio</th>
+              <th style="width:12%">Peso w</th>
+              <th style="width:12%">SÌ−NO</th>
+              <th style="width:16%">w×(SÌ−NO)</th>
+            </tr>
+          </thead>
+          <tbody id="contribBody"></tbody>
+          <tfoot>
+            <tr>
+              <th colspan="4">Somma contributi (Δ)</th>
+              <th id="contribSum">—</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </details>
+
+    <div class="letterBox">
+      <div style="font-weight:900; margin-bottom:6px;">Lettera persiana</div>
+      <div id="lettreElector" class="dropcap" style="font-size:13px; line-height:1.55;">—</div>
+      <div class="sig" id="lettreElectorSig">—</div>
+    </div>
+
+    <div class="hr"></div>
+
+    <canvas id="radar" width="980" height="520"></canvas>
+
+    <div class="legendRow">
+      <div class="legend"><span class="dot" style="background: rgba(176,137,46,0.95)"></span> Elettore (Voi)</div>
+      <div class="legend" id="legendCompare" style="display:none;">
+        <span class="dot" style="background: rgba(31,138,107,0.95)"></span> <span id="legendCompareName">Profilo</span>
+      </div>
+    </div>
+
+    <div class="sub" id="compareNote" style="margin-top:8px; display:none;">—</div>
+
+    <div class="hr"></div>
+
+    <h2>III) De' profili de' Lumi e del confronto con essi</h2>
+    <div class="sub">
+      Potete eziandio confrontare un altro profilo, sovrapponendolo al Vostro prospetto radiale, senza punto alterare i giudizi che avete sin qui espresso. Così, con un colpo d'occhio, potrete scorgere affinità e divergenze, come si suole fare nelle accademie ben ordinate.<br>
+      <b>Confronta</b> = sovrappone i voti del profilo ai Vostri nel prospetto radiale (senza modificarli).<br>
+      <b>Giudizio del profilo</b> = calcola l'esito "come se" quel profilo fosse l'elettore.
+    </div>
+
+    <div class="profiles" id="profiles"></div>
+  </aside>
+</main>
+
+<!-- Info di progetto sempre visibili (fuori dalle note) -->
+<div class="project-info">
+  <span>📖 Progetto posto in luce a cura della <b>Luca Cetara Publishing (1796)</b></span>
+  <span>🄯 Licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank">CC BY-SA 4.0 – Ogni cittadino è libero di condividere e adattare, purché ne citi la fonte e condivida allo stesso modo.</a></span>
+  <span>📧 Per corrispondenza: <a href="mailto:lcpublishing@mail.com">lcpublishing@mail.com</a></span>
+  <span>👁️ Visite: <span id="visitCount">0</span></span>
+</div>
+
+<!-- Sezione note e bibliografia (a comparsa) -->
+<div class="notes-section">
+  <details>
+    <summary>Note e bibliografia</summary>
+    <div class="desc" style="margin-top:8px;">
+      <b>Nota bene:</b> il risultato che otterrete è una <i>raccomandazione di coerenza</i> con i Vostri stessi principî; il prospetto radiale mostra le Vostre priorità (importanze relative).<br>
+      Il modello conserva un lieve "inclinarsi prudenziale" (tipico di molte teorie settecentesche) verso il rischio che leve politiche o disciplinari possano, nel tempo, comprimere l'indipendenza del giudicare.
+      <br><br>
+      <b>Sull'Alta Corte disciplinare (contesto):</b> la riforma prevede un nuovo organo disciplinare, con una quota laica anche legata a elenchi predisposti dal Parlamento e a nomine, e un presidente eletto fra i laici; varie analisi discutono se tale scelta accresca l'equilibrio fra i poteri o introduca nuovi rischi di interferenza.
+    </div>
+
+    <div class="bibliography">
+      <strong>Bibliografia essenziale, per chi volesse approfondire</strong>
+      <ul>
+        <li><b>Montesquieu</b> – Dello Spirito delle Leggi (1748)</li>
+        <li><b>Cesare Beccaria</b> – Dei Delitti e delle Pene (1764)</li>
+        <li><b>James Madison</b> – Il Federalista, n. 10 e n. 51 (1788)</li>
+        <li><b>David Hume</b> – Saggi Morali e Politici (1741-42)</li>
+        <li><b>Edmund Burke</b> – Riflessioni sulla Rivoluzione in Francia (1790)</li>
+        <li><b>Immanuel Kant</b> – Risposta alla domanda: che cos'è l'Illuminismo? (1784)</li>
+        <li><b>Alexis de Tocqueville</b> – La Democrazia in America (1835-40)</li>
+        <li><b>Denis Diderot</b> – Enciclopedia (1751-72)</li>
+        <li><b>Gaetano Filangieri</b> – Scienza della Legislazione (1780-85)</li>
+      </ul>
+      <p><b>Fonti contemporanee di riferimento:</b><br>
+      • M. Shapiro, <i>Courts: A Comparative and Political Analysis</i>, Chicago 1981.<br>
+      • R. Hirschl, <i>Towards Juristocracy</i>, Harvard 2004.<br>
+      • L. Ceccarini, <i>Giustizia e opinione pubblica</i>, Bologna 2021.<br>
+      • L. Di Lonardo & T. Dragu, "When salience undermines representation: democratic dilemmas in security and counterterrorism policy", <i>Political Science Research and Methods</i>, Cambridge UP, 2025.<br>
+      • P. Dal Bó, A. Foster, K. Kamei, "The democracy effect: A weights-based estimation strategy", <i>Journal of Economic Behavior and Organization</i>, Elsevier, 2024.<br>
+      • "Optimal weights in a two-tier voting system with mean-field voters", <i>Social Choice and Welfare</i>, Springer, 2025.<br>
+      • "Costly voting in weighted committees: The case of moral costs", <i>European Economic Review</i>, Elsevier, 2024.
+      </p>
+    </div>
+  </details>
+</div>
+
+<script>
+/* ===========================
+   VISITOR COUNTER (localStorage)
+   =========================== */
+(function(){
+  let visits = localStorage.getItem('illuministi_visits');
+  if(visits === null) visits = 1;
+  else visits = Number(visits) + 1;
+  localStorage.setItem('illuministi_visits', visits);
+  document.getElementById('visitCount').textContent = visits;
+})();
+
+/* ===========================
+   0) Criteri + punteggi (con lieve tilt prudenziale)
+   =========================== */
+const criteria = [
+  { code:"C1",
+    title:"Della distanza del giudicare dalle passioni politiche",
+    short:"Politica",
+    si:6, no:9,
+    sci:"Quanto l'ordinamento preserva il magistrato da pressioni e incentivi di parte (poiché il modo di nominare non dee confondersi col diritto di controllare): il timore d'interferenza è nemico giurato della libertà.",
+    quote:"Un giudice che teme, non protegge: obbedisce.",
+    tiltNote:"Lettura prudenziale: cautela settecentesca nel sottrarre la giurisdizione a leve politiche."
+  },
+  { code:"C2",
+    title:"Della terzietà e imparzialità percepita del giudice",
+    short:"Terzietà",
+    si:8, no:6,
+    sci:"Quanto l'assetto rende credibile l'equilibrio fra accusa e difesa. Nel linguaggio de' Lumi: separare i ruoli per scemare sospetto e pregiudizio.",
+    quote:"La giustizia dee non solo essere giusta, ma eziandio parere tale.",
+    tiltNote:"Lettura: enfasi sulla neutralità del magistrato."
+  },
+  { code:"C3",
+    title:"Della libertà intesa come sicurezza (fiducia nel processo)",
+    short:"Sicurezza",
+    si:6, no:6,
+    sci:"Quanto l'ordinamento accresce la prevedibilità e riduce il timore dell'arbitrio. Qui tanto il SÌ quanto il NO invocano 'sicurezza': muta soltanto la natura del rischio che più si teme.",
+    quote:"La libertà comincia ove cessa il timore dell'arbitrio.",
+    tiltNote:"Lettura: dipende da quali pericoli Voi reputate più gravi."
+  },
+  { code:"C4",
+    title:"Della chiarezza delle leggi e della moderazione nell'interpretare",
+    short:"Chiarezza",
+    si:7, no:7,
+    sci:"Quanto l'assetto favorisce norme intelligibili e applicate con costanza (riducendo varianza e discrezionalità indebita).",
+    quote:"La legge dee parlare chiaro, affinché il cittadino la intenda.",
+    tiltNote:"Lettura: equilibrio."
+  },
+  { code:"C5",
+    title:"De' preservativi contro la cattura, le fazioni e la disciplina credibile",
+    short:"Anticattura",
+    si:7, no:6,
+    sci:"Quanto l'assetto previene la 'cattura' del sistema (correntismo o altre fazioni) e rende credibile la disciplina. Tuttavia: un nuovo organo disciplinare, con quota laica legata a elenchi o nomine, può leggersi come garanzia di responsabilità (SÌ) o come leva di pressione politica (NO).",
+    quote:"Chi controlla i controllori decide, sovente, più di quanto dichiari.",
+    tiltNote:"Lettura: favorevole, ma con onesta ambivalenza sul profilo del controllo politico."
+  },
+  { code:"C6",
+    title:"De' contrappesi nel lungo corso del tempo (stabilità e anti-deriva)",
+    short:"Contrappesi",
+    si:6, no:7,
+    sci:"Quanto l'architettura regge al trascorrere degli anni: contrappesi, indipendenza e responsabilità debbono coesistere anche al mutar delle maggioranze e degli incentivi. Qui rileva eziandio come si percepisca il nuovo sistema disciplinare (garanzia o leva).",
+    quote:"Ciò che regge oggi, dee reggere eziandio domani.",
+    tiltNote:"Lettura: prudenza: diffidenza verso nuovi centri di potere nel tempo."
+  }
+];
+
+function tiltLabel(diff){
+  if(diff>0) return "tende al SÌ";
+  if(diff<0) return "tende al NO";
+  return "neutra";
+}
+
+/* ===========================
+   1) Elettore + confronto
+   =========================== */
+let electorVotes = [5,5,5,5,5,5];
+let compareKey = null;
+
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+function sum(arr){ return arr.reduce((a,b)=>a+b,0); }
+function normalizeVotes(votes){
+  const s = sum(votes);
+  if(s<=0) return votes.map(_=>1/votes.length);
+  return votes.map(v=>v/s);
+}
+function scoreOption(weights, which){
+  let total = 0;
+  for(let i=0;i<criteria.length;i++){
+    const perf = (which==="si") ? criteria[i].si : criteria[i].no;
+    total += weights[i] * perf;
+  }
+  return total;
+}
+
+/* ===========================
+   2) Lettere (tutte in italiano)
+   =========================== */
+function hashStr(s){
+  let h=2166136261>>>0;
+  for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); }
+  return h>>>0;
+}
+function pick(arr, seed){ return arr[seed % arr.length]; }
+
+function electorLetter(recLabel, p1, p2, delta){
+  const seed = hashStr([recLabel,p1,p2,String(Math.round(delta*100))].join("|"));
+  const sal = pick(["Mio caro amico,","Signore,","Caro compatriota,"], seed);
+  const incipit = pick([
+    "Ho veduto che, quando gli uomini parlano di giustizia, spesso parlano di sé; e perciò conviene pesare più che applaudire.",
+    "In questi tempi la parola libertà corre come moneta; ma si conosce la moneta vera quando non trema nella mano.",
+    "Molti chiamano ragione ciò che è abitudine; io ho preferito far tacere l’abitudine e ascoltare l’ordine delle importanze."
+  ], seed>>>1);
+  const nodo = pick([
+    `Tra tutte le cose, due ti hanno guidato più delle altre: <b>${p1}</b> e <b>${p2}</b>.`,
+    `Nel tuo bilancio primeggiano <b>${p1}</b> e <b>${p2}</b>, e da qui muove il resto.`,
+    `I tuoi pesi si raccolgono in due capi: <b>${p1}</b> e <b>${p2}</b>.`
+  ], seed>>>2);
+
+  const esito =
+    recLabel==="si" ? "Per questi pesi, mi pare più conforme dare assenso." :
+    recLabel==="no" ? "Per questi pesi, mi pare più conforme negare l’assenso." :
+    "Per questi pesi, la bilancia non si dichiara; ed io non forzo la bilancia.";
+
+  const chiosa = pick([
+    "Non ti mando un decreto, ma una misura: e la misura, se è onesta, non grida.",
+    "Non ho l’arte di profetare; ho solo la pazienza di pesare.",
+    "S’io errassi, errerei con te: perché i pesi sono tuoi, non miei."
+  ], seed>>>3);
+
+  return { text:`${sal}<br>${incipit}<br>${nodo}<br>${esito}<br><span style="color:rgba(81,96,107,0.95)">${chiosa}</span>`, sig:"— Usbek" };
+}
+
+const authorLetters = {
+  montesquieu: ({p1,p2,rec}) => ({
+    sig:"— Montesquieu",
+    text:`Caro Rica,<br>
+      la libertà non è un clamore: è una tranquillità dell’animo, nata dall’opinione di essere al sicuro.<br>
+      Se tu poni in cima <b>${p1}</b>, guardi alla forma che impedisce al potere di confondersi; se innalzi <b>${p2}</b>, cerchi che la sentenza non porti odore di parte.<br>
+      Per questa disposizione, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">I poteri si toccano per frenarsi; ma guai se s’abbracciano per dominare.</span>`
+  }),
+  beccaria: ({p1,p2,rec}) => ({
+    sig:"— Beccaria",
+    text:`Signore,<br>
+      in materia penale la prima virtù è la certezza, la seconda è la chiarezza; e dove mancano, nasce l’arbitrio con maschera d’equità.<br>
+      Io ragiono come in un sillogismo: la maggiore è <b>${p1}</b>; la minore è <b>${p2}</b>; la conseguenza dev’essere libertà o pena, non capriccio.<br>
+      Secondo questo ordine, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">Quando il giudizio diventa invenzione, la sorte del cittadino diventa caso.</span>`
+  }),
+  madison: ({p1,p2,rec}) => ({
+    sig:"— Madison",
+    text:`Al Popolo,<br>
+      un governo deve prima governare gli uomini, e poi costringere sé stesso a non oltrepassare misura.<br>
+      Quando mi dici <b>${p1}</b> e <b>${p2}</b>, io odo una domanda: la struttura offre mezzi e motivi perché un potere arresti l’altro?<br>
+      Per questa architettura, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">Se gli uomini non sono angeli, le istituzioni non devono comportarsi come se lo fossero.</span>`
+  }),
+  hume: ({p1,p2,rec}) => ({
+    sig:"— Hume",
+    text:`Signore,<br>
+      conviene supporre che molti agiscano per interesse più che per virtù; e non è ingiuria, è prudenza.<br>
+      Se tu esalti <b>${p1}</b> e <b>${p2}</b>, bada che l’interesse privato, incanalato, finisca per cooperare al bene pubblico.<br>
+      Per questa considerazione, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">La libertà non vive di fiducia: vive di diffidenze ordinate.</span>`
+  }),
+  burke: ({p1,p2,rec}) => ({
+    sig:"— Burke",
+    text:`Caro Signore,<br>
+      io diffido delle rotture che promettono perfezione: spesso rompono ciò che non sapevano riparare.<br>
+      Se tu poni <b>${p1}</b> e <b>${p2}</b> a governo del giudizio, domanda se il mutamento corregge la parte che devia, senza decomporre l’intero corpo.<br>
+      Per questo criterio, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">Si cambi per conservare: il rimedio migliore guarisce senza uccidere il paziente.</span>`
+  }),
+  kant: ({p1,p2,rec}) => ({
+    sig:"— Kant",
+    text:`Cittadino,<br>
+      la questione non è soltanto che cosa decidere, ma se tu possa giustificare la regola davanti a chiunque, senza eccezioni.<br>
+      Se i tuoi primi pesi sono <b>${p1}</b> e <b>${p2}</b>, tu chiedi che il giudizio non dipenda dall’umore, ma da una forma che valga per tutti.<br>
+      Perciò, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">La libertà non è licenza: è vivere sotto leggi che la ragione può dichiarare.</span>`
+  }),
+  tocqueville: ({p1,p2,rec}) => ({
+    sig:"— Tocqueville",
+    text:`Signore,<br>
+      le democrazie hanno una pendenza naturale verso la centralizzazione; e la libertà, invece, è un’arte faticosa.<br>
+      Se tu innalzi <b>${p1}</b> e <b>${p2}</b>, chiedi che la giustizia non divenga un solo centro da cui tutto dipende, ma un ordine di responsabilità e controlli.<br>
+      Per questa ragione, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">Dove tutto si decide in alto, in basso si disimpara a volere.</span>`
+  }),
+  diderot: ({p1,p2,rec}) => ({
+    sig:"— Diderot",
+    text:`Amico,<br>
+      il primo abuso è l’oscurità: quando ciò che decide della tua libertà è opaco, già comanda più del dovuto.<br>
+      Se metti davanti <b>${p1}</b> e <b>${p2}</b>, tu vuoi che la giustizia sia un mestiere leale e comprensibile, non un rito che vive di segreti.<br>
+      Per questo, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">La chiarezza è una forma di giustizia; l’oscurità, una forma di comando.</span>`
+  }),
+  filangieri: ({p1,p2,rec}) => ({
+    sig:"— Filangieri",
+    text:`Signore,<br>
+      la legislazione non è un discorso: è un’arte di garanzie. Se la regola è incerta, la libertà diventa un favore.<br>
+      Quando tu elevi <b>${p1}</b> e <b>${p2}</b>, chiedi che l’ordine riduca l’occasione dell’arbitrio e renda stabile ciò che oggi è conteso.<br>
+      Per questo, ${rec}.<br>
+      <span style="color:rgba(81,96,107,0.95)">Si cerchi la regola che dura: non la promessa che brilla.</span>`
+  })
+};
+
+function buildLettre(recLabel, topPrinciples, delta, authorKey){
+  const p1 = topPrinciples[0] || "un primo principio";
+  const p2 = topPrinciples[1] || "un secondo principio";
+  const rec =
+    recLabel==="si" ? "mi pare più conforme dare assenso" :
+    recLabel==="no" ? "mi pare più conforme negare l’assenso" :
+    "mi pare più conforme sospendere il giudizio";
+
+  if(!authorKey) return electorLetter(recLabel, p1, p2, delta);
+  const fn = authorLetters[authorKey];
+  if(!fn) return electorLetter(recLabel, p1, p2, delta);
+  return fn({p1,p2,rec,delta});
+}
+
+/* ===========================
+   3) Profili (con voti in dettaglio a comparsa)
+   =========================== */
+function imgWithFallback(localPath, commonsFileName){
+  const remote = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(commonsFileName);
+  return { local: localPath, remote };
+}
+
+const profileData = {
+  montesquieu: {
+    name:"Montesquieu", years:"1689–1755", icon:"⚖️",
+    img: imgWithFallback("img/montesquieu.png","Montesquieu_1.png"),
+    bio:"Libertà come sicurezza e separazione dei poteri.",
+    coreQuotes:["« La libertà è il diritto di fare tutto ciò che le leggi permettono. » (Lo spirito delle leggi, XI, 3)", "« Il potere frena il potere. » (ibid., XI, 4)"],
+    votes:[9,8,8,4,4,7]
+  },
+  beccaria: {
+    name:"Cesare Beccaria", years:"1738–1794", icon:"📜",
+    img: imgWithFallback("img/beccaria.jpg","Cesare_Beccaria_1738-1794.jpg"),
+    bio:"Anti‑arbitrio: legge chiara, giudice vincolato alla legge.",
+    coreQuotes:["« L’interpretazione delle leggi non può essere affidata ai giudici. » (Dei delitti e delle pene, §4)", "« È meglio prevenire i delitti che punirli. » (ibid., §41)"],
+    votes:[6,6,7,10,6,4]
+  },
+  madison: {
+    name:"James Madison", years:"1751–1836", icon:"🏛️",
+    img: imgWithFallback("img/madison.jpg","James_Madison_Portrait2.jpg"),
+    bio:"Contrappesi interni: ambizione contro ambizione.",
+    coreQuotes:["« Se gli uomini fossero angeli, non sarebbe necessario alcun governo. » (Federalista n. 51)", "« L’ambizione deve essere contrapposta all’ambizione. » (ibid.)"],
+    votes:[6,6,6,3,8,10]
+  },
+  hume: {
+    name:"David Hume", years:"1711–1776", icon:"🧠",
+    img: imgWithFallback("img/hume.jpg","David_Hume.jpg"),
+    bio:"Scettico istituzionale: assumere interesse privato, costruire controlli.",
+    coreQuotes:["« Ogni uomo dev’essere considerato un furfante, e agire sempre secondo il proprio interesse. » (Saggio sull’indipendenza del Parlamento)", "« La libertà non vive di fiducia: vive di diffidenze ordinate. » (Trattato sulla natura umana)"],
+    votes:[6,5,6,4,8,9]
+  },
+  burke: {
+    name:"Edmund Burke", years:"1729–1797", icon:"🧱",
+    img: imgWithFallback("img/burke.jpg","Edmund_Burke_EMWEA.jpg"),
+    bio:"Prudenza politica: riformare per preservare; diffida delle rotture.",
+    coreQuotes:["« Uno Stato privo dei mezzi per cambiare è privo dei mezzi per conservarsi. » (Riflessioni sulla Rivoluzione in Francia)", "« Il rimedio migliore guarisce senza uccidere il paziente. » (ibid.)"],
+    votes:[8,6,8,5,7,9]
+  },
+  kant: {
+    name:"Immanuel Kant", years:"1724–1804", icon:"🕊️",
+    img: imgWithFallback("img/kant.jpg","Immanuel_Kant_(portrait).jpg"),
+    bio:"Emancipazione intellettuale e riforma graduale.",
+    coreQuotes:["« Abbi il coraggio di servirti della tua propria intelligenza! » (Che cos’è l’Illuminismo?)", "« La libertà è vivere sotto leggi che la ragione può dichiarare. » (Metafisica dei costumi)"],
+    votes:[7,7,7,6,6,6]
+  },
+  tocqueville: {
+    name:"Alexis de Tocqueville", years:"1805–1859", icon:"🕯️",
+    img: imgWithFallback("img/tocqueville.jpg","Alexis_de_tocqueville.jpg"),
+    bio:"Libertà come “arte”: la centralizzazione cresce naturalmente.",
+    coreQuotes:["« La centralizzazione sarà per natura il governo della democrazia. » (La democrazia in America, II, IV, 3)", "« Dove tutto si decide in alto, in basso si disimpara a volere. » (ibid.)"],
+    votes:[6,5,7,5,7,9]
+  },
+  diderot: {
+    name:"Denis Diderot", years:"1713–1784", icon:"📚",
+    img: imgWithFallback("img/diderot.jpg","Denis_Diderot_portrait.jpg"),
+    bio:"Enciclopedista: sospetto verso autorità non giustificate; spirito critico.",
+    coreQuotes:["« La chiarezza è una forma di giustizia; l’oscurità, una forma di comando. » (Enciclopedia, voce «Giustizia»)", "« L’autorità che non si giustifica è tirannia. » (ibid., voce «Autorità politica»)"],
+    votes:[7,7,6,6,7,6]
+  },
+  filangieri: {
+    name:"Gaetano Filangieri", years:"1752–1788", icon:"🏺",
+    img: imgWithFallback("img/filangieri.jpg","Portrait_of_Gaetano_Filangieri_MET_DP805362.jpg"),
+    bio:"Riformatore giuridico: garanzie, chiarezza delle leggi, anti‑arbitrio.",
+    coreQuotes:["« La scienza della legislazione deve ridurre l’arbitrio e garantire la libertà. » (Scienza della legislazione, I)", "« Si cerchi la regola che dura: non la promessa che brilla. » (ibid., III)"],
+    votes:[7,7,7,9,6,6]
+  }
+};
+
+function getCompareVotes(){
+  if(!compareKey) return null;
+  return profileData[compareKey]?.votes || null;
+}
+
+/* ===========================
+   4) UI render
+   =========================== */
+const criteriaBody = document.getElementById("criteriaBody");
+const motivationList = document.getElementById("motivationList");
+const electorSummary = document.getElementById("electorSummary");
+const contribBody = document.getElementById("contribBody");
+const contribSum = document.getElementById("contribSum");
+
+function renderCriteria(){
+  criteriaBody.innerHTML = "";
+  motivationList.innerHTML = "";
+  for(let i=0;i<criteria.length;i++){
+    const c = criteria[i];
+    const diff = c.si - c.no;
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="code">${c.code}</td>
+      <td>
+        <b>${c.title}</b>
+        <div class="desc">${c.sci}</div>
+        <div class="tilt">Tendenza: ${tiltLabel(diff)} <small>(${c.si} vs ${c.no})</small></div>
+        <div class="desc">${c.tiltNote || ""}</div>
+        <div class="why"><i>${c.quote}</i></div>
+      </td>
+      <td>
+        <input type="number" min="1" max="10" step="1" value="${electorVotes[i]}" id="v_${i}">
+        <div class="desc">1 = di lieve conto · 10 = di somma importanza</div>
+      </td>
+      <td><span class="chip"><b id="w_${i}">—</b></span></td>
+    `;
+    criteriaBody.appendChild(tr);
+
+    const li = document.createElement("li");
+    li.innerHTML = `<b>${c.title}:</b> ${c.sci}`;
+    motivationList.appendChild(li);
+  }
+
+  for(let i=0;i<criteria.length;i++){
+    document.getElementById(`v_${i}`).addEventListener("input", (e)=>{
+      electorVotes[i] = clamp(Number(e.target.value)||1, 1, 10);
+      updateAll();
+    });
+  }
+}
+
+function renderProfiles(){
+  const box = document.getElementById("profiles");
+  box.innerHTML = "";
+
+  Object.keys(profileData).forEach(key=>{
+    const p = profileData[key];
+    const card = document.createElement("div");
+    card.className = "profile";
+    card.id = `profile_${key}`;
+
+    let miniRows = "";
+    for(let i=0;i<criteria.length;i++){
+      miniRows += `<tr><td class="code">${criteria[i].code}</td><td>${criteria[i].title}</td><td><b>${p.votes[i]}</b></td></tr>`;
+    }
+
+    const quotesHtml = p.coreQuotes.join('<br>');
+
+    card.innerHTML = `
+      <img src="${p.img.local}" alt="Ritratto di ${p.name}"
+           onerror="this.onerror=null; this.src='${p.img.remote}';">
+      <div>
+        <h3>${p.icon} ${p.name} <span class="desc">(${p.years})</span></h3>
+        <div class="bio">${p.bio}</div>
+        <div class="quote">${quotesHtml}</div>
+
+        <!-- Dettaglio a comparsa per i voti del profilo -->
+        <details>
+          <summary>Mostra voti del profilo (per criterio)</summary>
+          <div class="miniTable">
+            <table>
+              <thead>
+                <tr><th style="width:7%">Cod.</th><th>Criterio</th><th style="width:10%">Voto</th></tr>
+              </thead>
+              <tbody>${miniRows}</tbody>
+            </table>
+          </div>
+        </details>
+
+        <div class="btnrow">
+          <button data-compare="${key}">Confronta questi voti con i miei</button>
+          <button data-eval="${key}" class="secondary">Giudizio del profilo</button>
+        </div>
+
+        <div class="desc" id="profileEval_${key}" style="margin-top:10px; display:none;"></div>
+      </div>
+    `;
+    box.appendChild(card);
+  });
+
+  box.querySelectorAll("button[data-compare]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const key = btn.getAttribute("data-compare");
+      compareKey = (compareKey===key) ? null : key;
+      refreshCompareHighlight();
+      updateAll();
+      
+      // Scorrimento fluido al prospetto radiale
+      const radar = document.getElementById('radar');
+      if(radar) {
+        radar.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+  });
+
+  box.querySelectorAll("button[data-eval]").forEach(btn=>{
+    btn.addEventListener("click", ()=>{
+      const key = btn.getAttribute("data-eval");
+      const el = document.getElementById(`profileEval_${key}`);
+      if(!el) return;
+      const open = el.style.display === "block";
+      el.style.display = open ? "none" : "block";
+      if(!open) el.innerHTML = buildProfileJudgementHTML(key);
+    });
+  });
+
+  refreshCompareHighlight();
+}
+
+function refreshCompareHighlight(){
+  const legend = document.getElementById("legendCompare");
+  const legendName = document.getElementById("legendCompareName");
+  Object.keys(profileData).forEach(k=>{
+    const el = document.getElementById(`profile_${k}`);
+    if(el) el.classList.toggle("compareOn", compareKey===k);
+  });
+  if(compareKey){
+    legend.style.display="flex";
+    legendName.textContent = profileData[compareKey].name;
+  }else{
+    legend.style.display="none";
+  }
+}
+
+/* ===========================
+   5) Sintesi / giudizi
+   =========================== */
+function topCriteriaFromWeights(weights){
+  return weights.map((w,i)=>({w,i})).sort((a,b)=>b.w-a.w).slice(0,2).map(p=>p.i);
+}
+
+function buildJudgementText(si, no, weights){
+  const d = si-no;
+  const top2 = topCriteriaFromWeights(weights);
+  const a = criteria[top2[0]], b = criteria[top2[1]];
+  const baseWhy = `I principi dominanti (secondo i Vostri pesi) sono: “${a.title}” e “${b.title}”.`;
+
+  if(Math.abs(d) < 0.0001) return { label:"pareggio", text:`Pareggio: SÌ e NO risultano equivalenti. ${baseWhy}` };
+  if(d>0) return { label:"si", text:`Consiglio di coerenza: tende a favorire SÌ. ${baseWhy}` };
+  return { label:"no", text:`Consiglio di coerenza: tende a favorire NO. ${baseWhy}` };
+}
+
+function diffSummary(aVotes, bVotes){
+  const diffs = aVotes.map((v,i)=>({i, d: (bVotes[i]-v)}));
+  diffs.sort((x,y)=>Math.abs(y.d)-Math.abs(x.d));
+  const top = diffs.slice(0,3);
+  const meanAbs = diffs.reduce((acc,x)=>acc+Math.abs(x.d),0)/diffs.length;
+  const parts = top.map(x=>{
+    const sign = x.d>0 ? "+" : "";
+    return `${sign}${x.d} in “${criteria[x.i].title}”`;
+  });
+  return { parts, meanAbs: meanAbs.toFixed(2) };
+}
+
+function buildProfileJudgementHTML(key){
+  const p = profileData[key];
+  const w = normalizeVotes(p.votes);
+  const si = scoreOption(w, "si");
+  const no = scoreOption(w, "no");
+  const d = si-no;
+  const top2 = topCriteriaFromWeights(w);
+
+  const topText = top2.map(i=>`“${criteria[i].title}”`).join(" + ");
+  const rec = d>0 ? "favorisce SÌ" : d<0 ? "favorisce NO" : "pareggio";
+
+  const topPrinciples = top2.map(i => criteria[i].title);
+  const lettre = buildLettre(d>0 ? "si" : d<0 ? "no" : "pareggio", topPrinciples, d, key);
+
+  return `
+    <b>Giudizio sintetico (${p.name}):</b> indice SÌ=${si.toFixed(2)}, NO=${no.toFixed(2)} ⇒ <b>${rec}</b>.<br>
+    <b>Perché:</b> questo profilo dà più peso a ${topText}.<br>
+    <span class="desc">• ${p.coreQuotes[0] || ""}</span>
+
+    <div class="letterBox" style="margin-top:10px;">
+      <div style="font-weight:900; margin-bottom:6px;">Lettera persiana</div>
+      <div class="dropcap" style="font-size:13px; line-height:1.55;">${lettre.text}</div>
+      <div class="sig">${lettre.sig}</div>
+    </div>
+  `;
+}
+
+/* ===========================
+   6) Radar poligonale (prospetto radiale)
+   =========================== */
+const radarCanvas = document.getElementById("radar");
+const radarCtx = radarCanvas.getContext("2d");
+
+function fitCanvasToCSS(canvas){
+  const dpr = window.devicePixelRatio || 1;
+  const rect = canvas.getBoundingClientRect();
+  const w = Math.max(320, Math.floor(rect.width));
+  const h = Math.max(320, Math.floor(rect.height));
+  const need = canvas.width !== Math.floor(w*dpr) || canvas.height !== Math.floor(h*dpr);
+  if(need){
+    canvas.width = Math.floor(w*dpr);
+    canvas.height = Math.floor(h*dpr);
+  }
+  return { w, h, dpr };
+}
+
+function drawRadar(){
+  const { w, h, dpr } = fitCanvasToCSS(radarCanvas);
+  radarCtx.setTransform(dpr,0,0,dpr,0,0);
+  radarCtx.clearRect(0,0,w,h);
+
+  const n = criteria.length;
+  const labels = criteria.map(c=>c.code);
+  const full = criteria.map(c => `${c.code} · ${c.short}`);
+  
+  const A = electorVotes.map(v=>clamp(Number(v)||0,0,10));
+  const Braw = getCompareVotes();
+  const B = Braw ? Braw.map(v=>clamp(Number(v)||0,0,10)) : null;
+
+  const cx = w*0.5, cy = h*0.56;
+  const R = Math.min(w, h) * 0.3;
+  const rot = -Math.PI/2;
+
+  radarCtx.fillStyle = "rgba(31,41,55,0.92)";
+  radarCtx.font = `${Math.max(10, Math.floor(w/70))}px var(--sans)`;
+  radarCtx.textAlign = "center";
+  radarCtx.textBaseline = "top";
+  radarCtx.fillText("Prospetto radiale: importanze (1–10) — Voi e il profilo a confronto", cx, 10);
+
+  const gridStroke = "rgba(203,191,174,0.55)";
+  for(let r=1;r<=5;r++) polygon((R*r)/5, gridStroke, 1);
+
+  const axisCol = "rgba(203,191,174,0.65)";
+  for(let i=0;i<n;i++){
+    const ang = rot + i*(2*Math.PI/n);
+    line(cx,cy,cx+R*Math.cos(ang), cy+R*Math.sin(ang), axisCol, 1);
+  }
+
+  radarCtx.fillStyle = "rgba(95,107,115,0.9)";
+  radarCtx.font = `${Math.max(8, Math.floor(w/80))}px var(--mono)`;
+  radarCtx.textBaseline = "middle";
+  for(let t=0;t<=10;t+=2){
+    const rr = (R*t)/10;
+    radarCtx.fillText(String(t), cx, cy-rr);
+  }
+
+  radarCtx.fillStyle = "rgba(31,41,55,0.92)";
+  radarCtx.font = `${Math.max(8, Math.floor(w/70))}px var(--sans)`;
+  for(let i=0;i<n;i++){
+    const ang = rot + i*(2*Math.PI/n);
+    const ux = Math.cos(ang), uy = Math.sin(ang);
+    const x = cx + (R + (w<500?16:24) )*ux;
+    const y = cy + (R + (w<500?16:24) )*uy;
+
+    radarCtx.textAlign = (ux>0.25)?"left":(ux<-0.25)?"right":"center";
+    radarCtx.textBaseline = (uy>0.25)?"top":(uy<-0.25)?"bottom":"middle";
+    const maxW = w < 500 ? 70 : (w < 800 ? 120 : 180);
+    wrapText(full[i], x, y, maxW, Math.max(8, Math.floor(w/80)));
+  }
+
+  const AStroke="rgba(176,137,46,0.95)";
+  const AFill  ="rgba(176,137,46,0.18)";
+  const BStroke="rgba(31,138,107,0.95)";
+  const BFill  ="rgba(31,138,107,0.14)";
+
+  const ptsA = valuesToPts(A);
+  drawDataset(ptsA, AStroke, AFill);
+  drawPoints(ptsA, AStroke);
+  drawPointLabels(ptsA, A, labels, AStroke, w<500 ? -4 : -8);
+
+  if(B){
+    const ptsB = valuesToPts(B);
+    drawDataset(ptsB, BStroke, BFill);
+    drawPoints(ptsB, BStroke);
+    drawPointLabels(ptsB, B, labels, BStroke, w<500 ? 4 : 8);
+
+    radarCtx.strokeStyle = "rgba(95,107,115,0.35)";
+    radarCtx.lineWidth = 1;
+    for(let i=0;i<n;i++){
+      radarCtx.beginPath();
+      radarCtx.moveTo(ptsA[i].x, ptsA[i].y);
+      radarCtx.lineTo(ptsB[i].x, ptsB[i].y);
+      radarCtx.stroke();
+    }
+  }
+
+  function valuesToPts(values){
+    const pts=[];
+    for(let i=0;i<n;i++){
+      const ang=rot+i*(2*Math.PI/n);
+      const rr=R*(values[i]/10);
+      pts.push({x:cx+rr*Math.cos(ang), y:cy+rr*Math.sin(ang), ang});
+    }
+    return pts;
+  }
+  function polygon(rr, stroke, lw){
+    radarCtx.beginPath();
+    for(let i=0;i<n;i++){
+      const a=rot+i*(2*Math.PI/n);
+      const x=cx+rr*Math.cos(a), y=cy+rr*Math.sin(a);
+      if(i===0) radarCtx.moveTo(x,y); else radarCtx.lineTo(x,y);
+    }
+    radarCtx.closePath();
+    radarCtx.strokeStyle=stroke; radarCtx.lineWidth=lw; radarCtx.stroke();
+  }
+  function line(x1,y1,x2,y2,col,lw){
+    radarCtx.beginPath();
+    radarCtx.moveTo(x1,y1); radarCtx.lineTo(x2,y2);
+    radarCtx.strokeStyle=col; radarCtx.lineWidth=lw; radarCtx.stroke();
+  }
+  function drawDataset(pts, stroke, fill){
+    radarCtx.beginPath();
+    pts.forEach((p,idx)=> idx===0?radarCtx.moveTo(p.x,p.y):radarCtx.lineTo(p.x,p.y));
+    radarCtx.closePath();
+    radarCtx.fillStyle=fill; radarCtx.fill();
+    radarCtx.strokeStyle=stroke; radarCtx.lineWidth=2; radarCtx.stroke();
+  }
+  function drawPoints(pts, color){
+    radarCtx.fillStyle=color;
+    pts.forEach(p=>{
+      radarCtx.beginPath();
+      radarCtx.arc(p.x,p.y, (w<500 ? 3 : 4), 0, Math.PI*2);
+      radarCtx.fill();
+    });
+  }
+  function drawPointLabels(pts, values, codes, color, perpShift){
+    radarCtx.font = `${Math.max(7, Math.floor(w/90))}px var(--mono)`;
+    radarCtx.fillStyle=color;
+    for(let i=0;i<pts.length;i++){
+      const p=pts[i];
+      const ux=Math.cos(p.ang), uy=Math.sin(p.ang);
+      const px=-uy, py=ux;
+      const out = w<500 ? 6 : 10;
+      const lx = p.x + ux*out + px*perpShift;
+      const ly = p.y + uy*out + py*perpShift;
+
+      radarCtx.textAlign=(ux>0.25)?"left":(ux<-0.25)?"right":"center";
+      radarCtx.textBaseline=(uy>0.25)?"top":(uy<-0.25)?"bottom":"middle";
+
+      const text=`${codes[i]} ${values[i].toFixed(0)}`;
+      strokeText(text,lx,ly,"rgba(255,253,248,0.95)",2);
+      radarCtx.fillText(text,lx,ly);
+    }
+  }
+  function wrapText(text, x, y, maxW, lineH){
+    const words=String(text).split(" ");
+    let line="", lines=[];
+    for(let i=0;i<words.length;i++){
+      const test = line ? (line + " " + words[i]) : words[i];
+      if(radarCtx.measureText(test).width>maxW && line){
+        lines.push(line); line=words[i];
+      }else{
+        line=test;
+      }
+    }
+    if(line) lines.push(line);
+
+    const base=radarCtx.textBaseline;
+    if(base==="bottom"){
+      for(let i=0;i<lines.length;i++){
+        radarCtx.fillText(lines[i], x, y-(lines.length-1-i)*lineH);
+      }
+    }else{
+      for(let i=0;i<lines.length;i++){
+        radarCtx.fillText(lines[i], x, y+i*lineH);
+      }
+    }
+  }
+  function strokeText(text,x,y,strokeColor,strokeWidth){
+    radarCtx.save();
+    radarCtx.strokeStyle=strokeColor;
+    radarCtx.lineWidth=strokeWidth;
+    radarCtx.lineJoin="round";
+    radarCtx.strokeText(text,x,y);
+    radarCtx.restore();
+  }
+}
+
+/* ===========================
+   7) Update
+   =========================== */
+function updateAll(){
+  const weights = normalizeVotes(electorVotes);
+
+  document.getElementById("sumChip").innerHTML = `Somma de' Vostri voti = <b>${sum(electorVotes)}</b>`;
+  document.getElementById("normChip").innerHTML = `Pesi (ridotti a misura) = <b>${sum(weights).toFixed(2)}</b>`;
+
+  for(let i=0;i<criteria.length;i++){
+    const el = document.getElementById(`w_${i}`);
+    if(el) el.textContent = weights[i].toFixed(3);
+  }
+
+  const si = scoreOption(weights,"si");
+  const no = scoreOption(weights,"no");
+  const d  = si-no;
+
+  document.getElementById("siScore").textContent = si.toFixed(2);
+  document.getElementById("noScore").textContent = no.toFixed(2);
+
+  const win = document.getElementById("winner");
+  const delta = document.getElementById("delta");
+  win.classList.remove("ok","bad");
+  delta.classList.remove("ok","bad");
+  delta.innerHTML = `Differenza (SÌ−NO): <b>${d.toFixed(2)}</b>`;
+
+  const judgement = buildJudgementText(si,no,weights);
+  if(judgement.label==="si"){
+    win.innerHTML = `Esito: <b>favorisce SÌ</b>`;
+    win.classList.add("ok"); delta.classList.add("ok");
+  }else if(judgement.label==="no"){
+    win.innerHTML = `Esito: <b>favorisce NO</b>`;
+    win.classList.add("bad"); delta.classList.add("bad");
+  }else{
+    win.innerHTML = `Esito: <b>pareggio</b>`;
+  }
+
+  document.getElementById("whyChoice").innerHTML =
+    `<b>Giudizio sintetico (elettore):</b> ${judgement.text}`;
+
+  contribBody.innerHTML = "";
+  let sumContrib = 0;
+  for(let i=0;i<criteria.length;i++){
+    const diff = (criteria[i].si - criteria[i].no);
+    const contrib = weights[i] * diff;
+    sumContrib += contrib;
+    contribBody.innerHTML += `
+      <tr>
+        <td class="code">${criteria[i].code}</td>
+        <td>${criteria[i].title}</td>
+        <td>${weights[i].toFixed(3)}</td>
+        <td>${diff.toFixed(0)}</td>
+        <td>${contrib.toFixed(3)}</td>
+      </tr>
+    `;
+  }
+  contribSum.textContent = sumContrib.toFixed(3);
+
+  electorSummary.innerHTML = "";
+  const top2 = topCriteriaFromWeights(weights);
+  for(let i=0;i<criteria.length;i++){
+    const isTop = top2.includes(i);
+    electorSummary.innerHTML += `
+      <tr>
+        <td class="code">${criteria[i].code}</td>
+        <td><b>${electorVotes[i]}</b></td>
+        <td>${weights[i].toFixed(3)}</td>
+        <td class="desc">${isTop ? "Fra i più influenti nel Vostro risultato" : "—"}</td>
+      </tr>
+    `;
+  }
+
+  const top2principles = top2.map(i => criteria[i].title);
+  const lettre = buildLettre(judgement.label, top2principles, d, null);
+  document.getElementById("lettreElector").innerHTML = lettre.text;
+  document.getElementById("lettreElectorSig").textContent = lettre.sig;
+
+  const note = document.getElementById("compareNote");
+  const B = getCompareVotes();
+  const legend = document.getElementById("legendCompare");
+  const legendName = document.getElementById("legendCompareName");
+
+  if(compareKey && B){
+    legend.style.display = "flex";
+    legendName.textContent = profileData[compareKey].name;
+    const s = diffSummary(electorVotes, B);
+    note.style.display = "block";
+    note.innerHTML = `<b>Confronto con ${profileData[compareKey].name}:</b> differenze maggiori: ${s.parts.join("; ")}.
+      <br><span class="desc">Distanza media (assoluta): <b>${s.meanAbs}</b> punti su 10.</span>`;
+  }else{
+    legend.style.display = "none";
+    note.style.display = "none";
+    note.innerHTML = "";
+  }
+
+  drawRadar();
+}
+
+/* ===========================
+   8) Init
+   =========================== */
+function init(){
+  renderCriteria();
+  renderProfiles();
+
+  document.getElementById("btnReset").addEventListener("click", ()=>{
+    electorVotes = [5,5,5,5,5,5];
+    for(let i=0;i<criteria.length;i++) document.getElementById(`v_${i}`).value = electorVotes[i];
+    updateAll();
+  });
+
+  document.getElementById("btnAll5").addEventListener("click", ()=>{
+    electorVotes = [5,5,5,5,5,5];
+    for(let i=0;i<criteria.length;i++) document.getElementById(`v_${i}`).value = electorVotes[i];
+    updateAll();
+  });
+
+  updateAll();
+  window.addEventListener("resize", drawRadar);
+}
+
+init();
+</script>
+</body>
+</html>
