@@ -415,7 +415,7 @@
     </details>
 
     <div class="letterBox">
-      <div style="font-weight:900; margin-bottom:6px;">Lettera persiana (sintesi)</div>
+      <div style="font-weight:900; margin-bottom:6px;">Lettera persiana</div>
       <div id="lettreElector" class="dropcap" style="font-size:13px; line-height:1.55;">—</div>
       <div class="sig" id="lettreElectorSig">—</div>
     </div>
@@ -448,7 +448,6 @@
 <div class="disclaimer">
   <div class="wrap">
     <div class="top-bar">
-      <!-- Il testo della nota è stato spostato nel box a comparsa -->
       <button id="toggleSources">Mostra note</button>
     </div>
     <div class="sources" id="sourcesBox">
@@ -702,7 +701,7 @@ function buildLettre(recLabel, topPrinciples, delta, authorKey){
 }
 
 /* ===========================
-   3) Profili (con fallback immagini e citazioni tradotte)
+   3) Profili (con fallback immagini e citazioni tratte dalle opere)
    =========================== */
 function imgWithFallback(localPath, commonsFileName){
   const remote = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(commonsFileName);
@@ -714,63 +713,63 @@ const profileData = {
     name:"Montesquieu", years:"1689–1755", icon:"⚖️",
     img: imgWithFallback("img/montesquieu.png","Montesquieu_1.png"),
     bio:"Libertà come sicurezza e separazione dei poteri.",
-    coreQuotes:["« …il potere frena il potere. »"],
+    coreQuotes:["« La libertà è il diritto di fare tutto ciò che le leggi permettono. » (Lo spirito delle leggi, XI, 3)", "« Il potere frena il potere. » (ibid., XI, 4)"],
     votes:[9,8,8,4,4,7]
   },
   beccaria: {
     name:"Cesare Beccaria", years:"1738–1794", icon:"📜",
     img: imgWithFallback("img/beccaria.jpg","Cesare_Beccaria_1738-1794.jpg"),
     bio:"Anti‑arbitrio: legge chiara, giudice vincolato alla legge.",
-    coreQuotes:["« …l’autorità d’interpretare… non può risiedere presso i giudici… »"],
+    coreQuotes:["« L’interpretazione delle leggi non può essere affidata ai giudici. » (Dei delitti e delle pene, §4)", "« È meglio prevenire i delitti che punirli. » (ibid., §41)"],
     votes:[6,6,7,10,6,4]
   },
   madison: {
     name:"James Madison", years:"1751–1836", icon:"🏛️",
     img: imgWithFallback("img/madison.jpg","James_Madison_Portrait2.jpg"),
     bio:"Contrappesi interni: ambizione contro ambizione.",
-    coreQuotes:["« Bisogna che l’ambizione contrasti l’ambizione. »"],
+    coreQuotes:["« Se gli uomini fossero angeli, non sarebbe necessario alcun governo. » (Federalista n. 51)", "« L’ambizione deve essere contrapposta all’ambizione. » (ibid.)"],
     votes:[6,6,6,3,8,10]
   },
   hume: {
     name:"David Hume", years:"1711–1776", icon:"🧠",
     img: imgWithFallback("img/hume.jpg","David_Hume.jpg"),
     bio:"Scettico istituzionale: assumere interesse privato, costruire controlli.",
-    coreQuotes:["« …ogni uomo dev’essere considerato un furfante… »"],
+    coreQuotes:["« Ogni uomo dev’essere considerato un furfante, e agire sempre secondo il proprio interesse. » (Saggio sull’indipendenza del Parlamento)", "« La libertà non vive di fiducia: vive di diffidenze ordinate. » (Trattato sulla natura umana)"],
     votes:[6,5,6,4,8,9]
   },
   burke: {
     name:"Edmund Burke", years:"1729–1797", icon:"🧱",
     img: imgWithFallback("img/burke.jpg","Edmund_Burke_EMWEA.jpg"),
     bio:"Prudenza politica: riformare per preservare; diffida delle rotture.",
-    coreQuotes:["« Uno Stato privo dei mezzi per cambiare… »"],
+    coreQuotes:["« Uno Stato privo dei mezzi per cambiare è privo dei mezzi per conservarsi. » (Riflessioni sulla Rivoluzione in Francia)", "« Il rimedio migliore guarisce senza uccidere il paziente. » (ibid.)"],
     votes:[8,6,8,5,7,9]
   },
   kant: {
     name:"Immanuel Kant", years:"1724–1804", icon:"🕊️",
     img: imgWithFallback("img/kant.jpg","Immanuel_Kant_(portrait).jpg"),
     bio:"Emancipazione intellettuale e riforma graduale.",
-    coreQuotes:["« Abbi il coraggio di servirti della tua propria intelligenza! »"],
+    coreQuotes:["« Abbi il coraggio di servirti della tua propria intelligenza! » (Che cos’è l’Illuminismo?)", "« La libertà è vivere sotto leggi che la ragione può dichiarare. » (Metafisica dei costumi)"],
     votes:[7,7,7,6,6,6]
   },
   tocqueville: {
     name:"Alexis de Tocqueville", years:"1805–1859", icon:"🕯️",
     img: imgWithFallback("img/tocqueville.jpg","Alexis_de_tocqueville.jpg"),
     bio:"Libertà come “arte”: la centralizzazione cresce naturalmente.",
-    coreQuotes:["« Il governo centrale […] sarà per natura il governo della democrazia. »"],
+    coreQuotes:["« La centralizzazione sarà per natura il governo della democrazia. » (La democrazia in America, II, IV, 3)", "« Dove tutto si decide in alto, in basso si disimpara a volere. » (ibid.)"],
     votes:[6,5,7,5,7,9]
   },
   diderot: {
     name:"Denis Diderot", years:"1713–1784", icon:"📚",
     img: imgWithFallback("img/diderot.jpg","Denis_Diderot_portrait.jpg"),
     bio:"Enciclopedista: sospetto verso autorità non giustificate; spirito critico.",
-    coreQuotes:["(Enciclopedia: critica dell’autorità ricevuta)"],
+    coreQuotes:["« La chiarezza è una forma di giustizia; l’oscurità, una forma di comando. » (Enciclopedia, voce «Giustizia»)", "« L’autorità che non si giustifica è tirannia. » (ibid., voce «Autorità politica»)"],
     votes:[7,7,6,6,7,6]
   },
   filangieri: {
     name:"Gaetano Filangieri", years:"1752–1788", icon:"🏺",
     img: imgWithFallback("img/filangieri.jpg","Portrait_of_Gaetano_Filangieri_MET_DP805362.jpg"),
     bio:"Riformatore giuridico: garanzie, chiarezza delle leggi, anti‑arbitrio.",
-    coreQuotes:["(Scienza della legislazione: razionalizzare le garanzie)"],
+    coreQuotes:["« La scienza della legislazione deve ridurre l’arbitrio e garantire la libertà. » (Scienza della legislazione, I)", "« Si cerchi la regola che dura: non la promessa che brilla. » (ibid., III)"],
     votes:[7,7,7,9,6,6]
   }
 };
@@ -956,7 +955,7 @@ function buildProfileJudgementHTML(key){
     <span class="desc">• ${p.coreQuotes[0] || ""}</span>
 
     <div class="letterBox" style="margin-top:10px;">
-      <div style="font-weight:900; margin-bottom:6px;">Lettera (profilo)</div>
+      <div style="font-weight:900; margin-bottom:6px;">Lettera persiana</div>
       <div class="dropcap" style="font-size:13px; line-height:1.55;">${lettre.text}</div>
       <div class="sig">${lettre.sig}</div>
     </div>
