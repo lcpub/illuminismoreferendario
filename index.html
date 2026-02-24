@@ -3,27 +3,22 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Come voterebbe un illuminista? — Profili, radar e lettere</title>
+<title>Al lume della Ragione – referendum degli Illuministi</title>
 
 <style>
   :root{
-    /* Palette “pergamena / carta da zucchero” (chiara ma non abbagliante) */
     --bg1:#fbf7ef;
     --bg2:#f2eadc;
     --panel:#fbf8f1;
     --panel2:#f7f0e2;
     --ink:#fffdf8;
-
     --text:#1f2937;
     --muted:#51606b;
-
     --ok:#1f8a6b;
     --bad:#b23b2a;
     --warn:#b0892e;
-
     --line:#d6ccbd;
     --line2:#cbbfae;
-
     --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
     --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
     --serif: ui-serif, Georgia, "Times New Roman", Times, serif;
@@ -39,7 +34,7 @@
       radial-gradient(900px 500px at 90% 10%, rgba(31,138,107,0.10), transparent 60%),
       linear-gradient(180deg, var(--bg1), var(--bg2));
     color:var(--text);
-    padding-bottom: 120px;
+    padding-bottom: 140px;
   }
 
   header{
@@ -49,8 +44,12 @@
     backdrop-filter: blur(6px);
     position: sticky; top:0; z-index: 10;
   }
-  header h1{ margin:0 0 6px 0; font-size:20px; }
-  header p{ margin:0; color:var(--muted); max-width:1100px; line-height:1.45; }
+  header h1{ 
+    margin:0 0 6px 0; 
+    font-size:clamp(18px, 5vw, 24px); 
+    line-height:1.3;
+  }
+  header p{ margin:0; color:var(--muted); max-width:1100px; line-height:1.45; font-size:clamp(12px, 4vw, 14px); }
 
   main{
     max-width:1240px;
@@ -69,8 +68,8 @@
     padding:14px;
     box-shadow: 0 10px 28px rgba(31,41,55,0.12);
   }
-  .card h2{ margin:0 0 10px 0; font-size:16px; }
-  .sub{ color:var(--muted); font-size:13px; line-height:1.45; }
+  .card h2{ margin:0 0 10px 0; font-size:clamp(14px, 4vw, 16px); }
+  .sub{ color:var(--muted); font-size:clamp(11px, 3.5vw, 13px); line-height:1.45; }
   .hr{ height:1px; background:var(--line); margin:10px 0; }
   .row{ display:flex; gap:10px; align-items:center; flex-wrap:wrap; }
 
@@ -79,7 +78,7 @@
     border:1px solid var(--line2);
     padding:8px 10px;
     border-radius:999px;
-    font-size:13px;
+    font-size:clamp(11px, 3.5vw, 13px);
   }
   .chip b{ font-family:var(--mono); font-weight:900; }
   .chip.ok{ border-color: rgba(31,138,107,0.35); }
@@ -90,21 +89,22 @@
     width:100%;
     border-collapse:separate;
     border-spacing:0;
-    overflow:hidden;
+    overflow-x:auto;
+    display:block;
     border-radius:12px;
     border:1px solid var(--line);
     background: rgba(255,253,248,0.85);
   }
-  th, td{ padding:10px 8px; border-bottom:1px solid var(--line); vertical-align:top; }
+  th, td{ padding:8px 6px; border-bottom:1px solid var(--line); vertical-align:top; min-width:80px; }
   th{ background:rgba(247,240,226,0.9); font-size:12px; color:var(--muted); text-align:left; }
   tr:last-child td{ border-bottom:none; }
 
   .code{ font-family:var(--mono); color:#334155; font-weight:900; }
-  .desc{ color:var(--muted); font-size:12px; line-height:1.4; }
-  .why{ color:#344256; font-size:12px; line-height:1.35; margin-top:6px; }
+  .desc{ color:var(--muted); font-size:11px; line-height:1.4; }
+  .why{ color:#344256; font-size:11px; line-height:1.35; margin-top:6px; }
 
   input[type=number]{
-    width:80px; padding:8px;
+    width:70px; padding:8px 4px;
     background:var(--ink); color:var(--text);
     border:1px solid var(--line);
     border-radius:10px;
@@ -120,6 +120,7 @@
     padding:10px 12px;
     cursor:pointer;
     font-weight:900;
+    font-size:clamp(11px, 3.5vw, 13px);
   }
   button:hover{ filter:brightness(1.02); }
   button.secondary{
@@ -132,7 +133,8 @@
     border:1px solid var(--line);
     border-radius:14px;
     width:100%;
-    height:430px;
+    height:auto;
+    aspect-ratio:16/9;
     display:block;
   }
 
@@ -145,8 +147,8 @@
     padding:12px;
     background:rgba(247,240,226,0.65);
   }
-  .kpi .val{ font-family:var(--mono); font-size:20px; font-weight:900; margin-top:4px; }
-  .kpi .lab{ color:var(--muted); font-size:12px; }
+  .kpi .val{ font-family:var(--mono); font-size:clamp(16px, 5vw, 20px); font-weight:900; margin-top:4px; }
+  .kpi .lab{ color:var(--muted); font-size:11px; }
 
   details{
     border:1px solid var(--line);
@@ -155,8 +157,8 @@
     background:rgba(247,240,226,0.55);
     margin-top:10px;
   }
-  details summary{ cursor:pointer; font-weight:900; }
-  details p, details li{ color:var(--muted); font-size:13px; line-height:1.45; }
+  details summary{ cursor:pointer; font-weight:900; font-size:clamp(12px, 4vw, 14px); }
+  details p, details li{ color:var(--muted); font-size:12px; line-height:1.45; }
 
   .profiles{ display:grid; gap:12px; }
   .profile{
@@ -165,6 +167,10 @@
     border-radius:14px;
     padding:12px;
     background:rgba(255,253,248,0.75);
+  }
+  @media(max-width:480px){
+    .profile{ grid-template-columns:1fr; }
+    .profile img{ width:100%; height:auto; max-width:200px; }
   }
   .profile.compareOn{
     border-color: rgba(176,137,46,0.75);
@@ -195,10 +201,10 @@
     margin-top:10px;
     border:1px solid var(--line);
     border-radius:12px;
-    overflow:hidden;
+    overflow-x:auto;
     background:rgba(255,253,248,0.75);
   }
-  .miniTable table{ border:none; border-radius:0; background:transparent; }
+  .miniTable table{ border:none; border-radius:0; background:transparent; min-width:300px; }
   .miniTable th, .miniTable td{ border-bottom:1px solid var(--line); padding:8px; }
   .miniTable tr:last-child td{ border-bottom:none; }
   .miniTable th{ background:rgba(247,240,226,0.85); }
@@ -206,27 +212,36 @@
   .disclaimer{
     position:fixed; left:0; right:0; bottom:0;
     border-top:1px solid var(--line);
-    background:rgba(251,248,241,0.94);
+    background:rgba(251,248,241,0.96);
     backdrop-filter: blur(6px);
     padding:10px 12px;
     z-index:9999;
+    max-height:60vh;
+    overflow-y:auto;
+    box-shadow:0 -4px 10px rgba(0,0,0,0.05);
   }
   .disclaimer .wrap{
     max-width:1240px; margin:0 auto;
+    display:flex; flex-direction:column; gap:8px;
+  }
+  .disclaimer .top-bar{
     display:flex; gap:10px; align-items:flex-start; justify-content:space-between; flex-wrap:wrap;
   }
   .disclaimer strong{ color:var(--warn); }
-  .disclaimer .text{
-    color:var(--muted);
-    font-size:12px;
-    line-height:1.4;
-    max-width:980px;
-  }
   .disclaimer button{
-    padding:8px 10px;
+    padding:6px 10px;
     border-radius:999px;
-    font-size:12px;
+    font-size:11px;
     background:rgba(247,240,226,0.95);
+  }
+  .disclaimer .extra-info{
+    display:flex; flex-wrap:wrap; gap:15px; align-items:center; font-size:11px;
+    border-top:1px dashed var(--line2); padding-top:8px; margin-top:4px;
+  }
+  .disclaimer .extra-info span{ color:var(--muted); }
+  .disclaimer .extra-info a{ color:var(--text); text-decoration:none; border-bottom:1px dotted; }
+  .disclaimer .bibliography{
+    margin-top:6px; font-size:11px; background:rgba(247,240,226,0.7); padding:8px; border-radius:12px;
   }
   .sources{
     display:none;
@@ -247,6 +262,8 @@
     margin-top:8px;
     color: var(--muted);
     font-size:12px;
+    text-align:right;
+    font-style:italic;
   }
   .letterBox .dropcap{ font-family: var(--serif); }
   .letterBox .dropcap::first-letter{
@@ -283,16 +300,16 @@
     color:var(--muted);
     font-weight:700;
   }
+  #visitCount{ font-weight:900; }
 </style>
 </head>
 
 <body>
 <header>
-  <h1>🗳️ Come voterebbe un illuminista? — confronto valori (1–10)</h1>
+  <h1>Al lume della Ragione, ovvero come voterebbero gli Illuministi al Referendum. Pamphlet in forma di Lettere. Stampato in Milano, MMXXVI.</h1>
   <p>
-    <b>Cosa fai tu:</b> dai un voto <b>da 1 a 10</b> a ogni criterio.
-    <br>
-    <b>In più:</b> puoi <b>confrontare</b> un profilo (senza cambiare i tuoi voti) sovrapponendolo nel radar.
+    Qual sia l'ufficio Vostro: piacciavi assegnare un voto, in misura da uno (1) a dieci (10), per ogni proposto criterio.<br>
+    Avrete altresì facoltà di porre a confronto un differente profilo d'un'illuminata mente, pur mantenendo immutati i suffragi da voi già espressi, sovrapponendolo con garbo al vostro grafico radiale.
   </p>
 </header>
 
@@ -430,25 +447,59 @@
 
 <div class="disclaimer">
   <div class="wrap">
-    <div class="text">
-      <strong>Nota:</strong> il risultato è una raccomandazione di coerenza; il radar mostra priorità (importanze).
-      <br>
-      <span class="desc">Il modello mantiene un <b>lieve</b> “tilt prudenziale” (tipico di molte teorie settecentesche) verso il rischio che leve politiche o disciplinari comprimano l’indipendenza nel tempo.</span>
+    <div class="top-bar">
+      <!-- Il testo della nota è stato spostato nel box a comparsa -->
+      <button id="toggleSources">Mostra note</button>
     </div>
-    <button id="toggleSources">Mostra note</button>
     <div class="sources" id="sourcesBox">
       <div class="desc">
+        <b>Nota:</b> il risultato è una raccomandazione di coerenza; il radar mostra priorità (importanze).<br>
+        Il modello mantiene un lieve “tilt prudenziale” (tipico di molte teorie settecentesche) verso il rischio che leve politiche o disciplinari comprimano l’indipendenza nel tempo.
+        <br><br>
         <b>Alta Corte disciplinare (contesto):</b> la riforma prevede un organo disciplinare nuovo con una quota laica anche legata a elenchi predisposti dal Parlamento e a nomine, e un presidente eletto tra i laici; varie analisi discutono il rischio (o il beneficio) di questa scelta in termini di equilibrio tra poteri.
       </div>
     </div>
+    <div class="extra-info">
+      <span>📖 Progetto a cura della <b>Luca Cetara Publishing (1796)</b></span>
+      <span>🄯 Licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank">CC BY-SA 4.0</a></span>
+      <span>📧 <a href="mailto:lcpublishing@mail.com">lcpublishing@mail.com</a></span>
+      <span>👁️ Visite: <span id="visitCount">0</span></span>
+    </div>
+    <details class="bibliography">
+      <summary>Bibliografia essenziale</summary>
+      <ul style="margin:4px 0 0 16px; padding-left:0;">
+        <li><b>Montesquieu</b> – Lo spirito delle leggi (1748)</li>
+        <li><b>Cesare Beccaria</b> – Dei delitti e delle pene (1764)</li>
+        <li><b>James Madison</b> – Il Federalista n. 10 e n. 51 (1788)</li>
+        <li><b>David Hume</b> – Saggi morali e politici (1741-42)</li>
+        <li><b>Edmund Burke</b> – Riflessioni sulla Rivoluzione in Francia (1790)</li>
+        <li><b>Immanuel Kant</b> – Risposta alla domanda: che cos’è l’Illuminismo? (1784)</li>
+        <li><b>Alexis de Tocqueville</b> – La democrazia in America (1835-40)</li>
+        <li><b>Denis Diderot</b> – Enciclopedia (1751-72)</li>
+        <li><b>Gaetano Filangieri</b> – Scienza della legislazione (1780-85)</li>
+      </ul>
+      <p style="margin:8px 0 0;"><b>Fonti contemporanee:</b><br>
+      • M. Shapiro, <i>Courts: A Comparative and Political Analysis</i>, Chicago 1981.<br>
+      • R. Hirschl, <i>Towards Juristocracy</i>, Harvard 2004.<br>
+      • L. Ceccarini, <i>Giustizia e opinione pubblica</i>, Bologna 2021.</p>
+    </details>
   </div>
 </div>
 
 <script>
 /* ===========================
+   VISITOR COUNTER (localStorage)
+   =========================== */
+(function(){
+  let visits = localStorage.getItem('illuministi_visits');
+  if(visits === null) visits = 1;
+  else visits = Number(visits) + 1;
+  localStorage.setItem('illuministi_visits', visits);
+  document.getElementById('visitCount').textContent = visits;
+})();
+
+/* ===========================
    0) Criteri + punteggi (con lieve tilt prudenziale)
-   Diffs (SÌ−NO): C1=-3, C2=+2, C3=0, C4=0, C5=+1, C6=-1
-   => lieve prudenza (NO) ma non schiacciante: C2 e C5 tengono vivo il SÌ.
    =========================== */
 const criteria = [
   { code:"C1",
@@ -524,7 +575,7 @@ function scoreOption(weights, which){
 }
 
 /* ===========================
-   2) Lettere (stabili)
+   2) Lettere (tutte in italiano)
    =========================== */
 function hashStr(s){
   let h=2166136261>>>0;
@@ -580,7 +631,7 @@ const authorLetters = {
   }),
   madison: ({p1,p2,rec}) => ({
     sig:"— Madison",
-    text:`To the People,<br>
+    text:`Al Popolo,<br>
       un governo deve prima governare gli uomini, e poi costringere sé stesso a non oltrepassare misura.<br>
       Quando mi dici <b>${p1}</b> e <b>${p2}</b>, io odo una domanda: la struttura offre mezzi e motivi perché un potere arresti l’altro?<br>
       Per questa architettura, ${rec}.<br>
@@ -588,7 +639,7 @@ const authorLetters = {
   }),
   hume: ({p1,p2,rec}) => ({
     sig:"— Hume",
-    text:`Sir,<br>
+    text:`Signore,<br>
       conviene supporre che molti agiscano per interesse più che per virtù; e non è ingiuria, è prudenza.<br>
       Se tu esalti <b>${p1}</b> e <b>${p2}</b>, bada che l’interesse privato, incanalato, finisca per cooperare al bene pubblico.<br>
       Per questa considerazione, ${rec}.<br>
@@ -651,7 +702,7 @@ function buildLettre(recLabel, topPrinciples, delta, authorKey){
 }
 
 /* ===========================
-   3) Profili (con fallback immagini)
+   3) Profili (con fallback immagini e citazioni tradotte)
    =========================== */
 function imgWithFallback(localPath, commonsFileName){
   const remote = "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(commonsFileName);
@@ -663,7 +714,7 @@ const profileData = {
     name:"Montesquieu", years:"1689–1755", icon:"⚖️",
     img: imgWithFallback("img/montesquieu.png","Montesquieu_1.png"),
     bio:"Libertà come sicurezza e separazione dei poteri.",
-    coreQuotes:["« …le pouvoir arrête le pouvoir. »"],
+    coreQuotes:["« …il potere frena il potere. »"],
     votes:[9,8,8,4,4,7]
   },
   beccaria: {
@@ -677,42 +728,42 @@ const profileData = {
     name:"James Madison", years:"1751–1836", icon:"🏛️",
     img: imgWithFallback("img/madison.jpg","James_Madison_Portrait2.jpg"),
     bio:"Contrappesi interni: ambizione contro ambizione.",
-    coreQuotes:["“Ambition must be made to counteract ambition.”"],
+    coreQuotes:["« Bisogna che l’ambizione contrasti l’ambizione. »"],
     votes:[6,6,6,3,8,10]
   },
   hume: {
     name:"David Hume", years:"1711–1776", icon:"🧠",
     img: imgWithFallback("img/hume.jpg","David_Hume.jpg"),
     bio:"Scettico istituzionale: assumere interesse privato, costruire controlli.",
-    coreQuotes:["« …every man ought to be supposed a knave… »"],
+    coreQuotes:["« …ogni uomo dev’essere considerato un furfante… »"],
     votes:[6,5,6,4,8,9]
   },
   burke: {
     name:"Edmund Burke", years:"1729–1797", icon:"🧱",
     img: imgWithFallback("img/burke.jpg","Edmund_Burke_EMWEA.jpg"),
     bio:"Prudenza politica: riformare per preservare; diffida delle rotture.",
-    coreQuotes:["“A state without the means of some change…”"],
+    coreQuotes:["« Uno Stato privo dei mezzi per cambiare… »"],
     votes:[8,6,8,5,7,9]
   },
   kant: {
     name:"Immanuel Kant", years:"1724–1804", icon:"🕊️",
     img: imgWithFallback("img/kant.jpg","Immanuel_Kant_(portrait).jpg"),
     bio:"Emancipazione intellettuale e riforma graduale.",
-    coreQuotes:["“Sapere aude!”"],
+    coreQuotes:["« Abbi il coraggio di servirti della tua propria intelligenza! »"],
     votes:[7,7,7,6,6,6]
   },
   tocqueville: {
     name:"Alexis de Tocqueville", years:"1805–1859", icon:"🕯️",
     img: imgWithFallback("img/tocqueville.jpg","Alexis_de_tocqueville.jpg"),
     bio:"Libertà come “arte”: la centralizzazione cresce naturalmente.",
-    coreQuotes:["“Centralization will be the natural government.”"],
+    coreQuotes:["« Il governo centrale […] sarà per natura il governo della democrazia. »"],
     votes:[6,5,7,5,7,9]
   },
   diderot: {
     name:"Denis Diderot", years:"1713–1784", icon:"📚",
     img: imgWithFallback("img/diderot.jpg","Denis_Diderot_portrait.jpg"),
     bio:"Enciclopedista: sospetto verso autorità non giustificate; spirito critico.",
-    coreQuotes:["(Encyclopédie: critica dell’autorità ricevuta)"],
+    coreQuotes:["(Enciclopedia: critica dell’autorità ricevuta)"],
     votes:[7,7,6,6,7,6]
   },
   filangieri: {
@@ -947,26 +998,21 @@ function drawRadar(){
   const R  = Math.min(w,h)*0.33;
   const rot = -Math.PI/2;
 
-  // titolo
   radarCtx.fillStyle = "rgba(31,41,55,0.92)";
   radarCtx.font = "14px var(--sans)";
   radarCtx.textAlign = "center";
   radarCtx.textBaseline = "top";
   radarCtx.fillText("Radar: importanze (1–10) — Elettore vs Profilo", cx, 10);
 
-  // griglia
-  const gridCol = "rgba(99,102,241,0.00)";
   const gridStroke = "rgba(203,191,174,0.55)";
   for(let r=1;r<=5;r++) polygon((R*r)/5, gridStroke, 1);
 
-  // assi
   const axisCol = "rgba(203,191,174,0.65)";
   for(let i=0;i<n;i++){
     const ang = rot + i*(2*Math.PI/n);
     line(cx,cy,cx+R*Math.cos(ang), cy+R*Math.sin(ang), axisCol, 1);
   }
 
-  // tacche
   radarCtx.fillStyle = "rgba(95,107,115,0.9)";
   radarCtx.font = "12px var(--mono)";
   radarCtx.textBaseline = "middle";
@@ -975,7 +1021,6 @@ function drawRadar(){
     radarCtx.fillText(String(t), cx, cy-rr);
   }
 
-  // etichette
   radarCtx.fillStyle = "rgba(31,41,55,0.92)";
   radarCtx.font = "11px var(--sans)";
   for(let i=0;i<n;i++){
@@ -1005,7 +1050,6 @@ function drawRadar(){
     drawPoints(ptsB, BStroke);
     drawPointLabels(ptsB, B, labels, BStroke, +8);
 
-    // segmenti distanza
     radarCtx.strokeStyle = "rgba(95,107,115,0.35)";
     radarCtx.lineWidth = 1;
     for(let i=0;i<n;i++){
@@ -1149,7 +1193,6 @@ function updateAll(){
   document.getElementById("whyChoice").innerHTML =
     `<b>Giudizio sintetico (elettore):</b> ${judgement.text}`;
 
-  // Contributi
   contribBody.innerHTML = "";
   let sumContrib = 0;
   for(let i=0;i<criteria.length;i++){
@@ -1168,7 +1211,6 @@ function updateAll(){
   }
   contribSum.textContent = sumContrib.toFixed(3);
 
-  // Riepilogo
   electorSummary.innerHTML = "";
   const top2 = topCriteriaFromWeights(weights);
   for(let i=0;i<criteria.length;i++){
@@ -1183,13 +1225,11 @@ function updateAll(){
     `;
   }
 
-  // Lettera elettore
   const top2principles = top2.map(i => criteria[i].title);
   const lettre = buildLettre(judgement.label, top2principles, d, null);
   document.getElementById("lettreElector").innerHTML = lettre.text;
   document.getElementById("lettreElectorSig").textContent = lettre.sig;
 
-  // Confronto profilo
   const note = document.getElementById("compareNote");
   const B = getCompareVotes();
   const legend = document.getElementById("legendCompare");
