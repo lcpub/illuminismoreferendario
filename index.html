@@ -367,6 +367,20 @@
     background: rgba(255,255,255,0.6);
   }
 
+  .social-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    margin-top: 5px;
+    font-style: italic;
+    border-top: 1px dashed var(--line2);
+    padding-top: 8px;
+  }
+  .social-links a {
+    color: var(--text);
+    text-decoration: underline wavy var(--warn) 1px;
+  }
+
   .notes-section{
     max-width:1240px;
     margin:20px auto 0;
@@ -649,7 +663,7 @@
   </aside>
 </main>
 
-<!-- Info di progetto sempre visibili, ora con pulsanti di condivisione testuali -->
+<!-- Info di progetto sempre visibili, con link social aggiunti -->
 <div class="project-info">
   <span>📖 Progetto posto in luce a cura della <b>Luca Cetara Publishing (1796)</b></span>
   <span>🄯 Licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank">CC BY-SA 4.0</a></span>
@@ -667,6 +681,15 @@
   </span>
 </div>
 
+<!-- Invito a seguire i profili social in stile illuminista -->
+<div class="notes-section">
+  <div class="social-links">
+    <p>🧠 <i>«Il mondo ama le risposte brevi, le soluzioni istantanee, i riassunti gridati. L'Illuminista, invece, è sospettoso: quando qualcosa gli pare troppo semplice, apre il libro, dubita, indaga.»</i> — Seguite le nostre pagine per continuare l'indagine:</p>
+    <span>📘 <a href="https://facebook.com/lcpubMDCCXCVI" target="_blank">facebook.com/lcpubMDCCXCVI</a></span>
+    <span>📷 <a href="https://www.instagram.com/lcpublishing2026?igsh=M3R0OWQ5OTBmODc1" target="_blank">@lcpublishing2026</a></span>
+  </div>
+</div>
+
 <!-- Sezione note e bibliografia (a comparsa) - ampliata con note metodologiche -->
 <div class="notes-section">
   <details>
@@ -680,6 +703,8 @@
       <b>Nota metodologica:</b> il sistema misura la distanza da un ideale illuminista "mainstream", non la posizione lungo uno spettro politico. Un caso emblematico è quello di Fouquier‑Tinville: il suo profilo produrrebbe un esito fortemente orientato al NO, ma per ragioni opposte a quelle di un Burke o di un Kant. Il primo era il braccio del Terrore, i secondi ne erano critici. Il modello non distingue queste differenze, e il Lettore è invitato a interpretare i risultati con questa consapevolezza. Parimenti, voti identici possono nascondere motivazioni opposte: la cifra numerica non narra l'intera storia.
       <br><br>
       <b>Nuovo criterio (C7):</b> l'efficienza e celerità del giudizio è stata aggiunta per coprire un aspetto centrale del dibattito contemporaneo, che i Lumi non ignoravano – basti ricordare l'adagio "giustizia ritardata è giustizia negata".
+      <br><br>
+      <b>Contatore visite:</b> il numero di visite mostrato si basa sulla memoria del vostro browser (localStorage) e non su un conteggio globale. Se navigate in modalità anonima o da un altro dispositivo, il conteggio ripartirà da 1. Per un conteggio complessivo dei visitatori sarebbe necessario un sistema server-side.
     </div>
 
     <div class="bibliography">
@@ -1061,7 +1086,7 @@ const profileData = {
   },
   fouquier: {
     name:"Antoine Fouquier-Tinville", years:"1746–1795", icon:"⚡⚖️",
-    img: imgWithFallback("img/fouquier.png","Antoine_Quentin_Fouquier-Tinville.jpg"),
+    img: imgWithFallback("img/fouquier.jpg","Antoine_Quentin_Fouquier-Tinville.jpg"),
     bio:"Pubblico accusatore del Tribunale rivoluzionario, incarnazione del Terrore giudiziario.",
     coreQuotes:[
       "« Il Tribunale rivoluzionario non è fatto per giudicare, ma per colpire. »",
