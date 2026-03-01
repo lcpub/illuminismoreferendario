@@ -886,46 +886,101 @@ function electorLetter(recLabel, p1, p2, delta){
 }
 
 const authorLetters = {
-  montesquieu: ({p1,p2,rec}) => ({
-    sig:"— Montesquieu",
-    text:`Caro Rica,<br>
-      la libertà non è un clamore: è una tranquillità dell’animo, nata dall’opinione di essere al sicuro.<br>
-      Se tu poni in cima <b>${p1}</b> e <b>${p2}</b>, guardi alla forma che impedisce al potere di confondersi; se innalzi <b>${p2}</b>, cerchi che la sentenza non porti odore di parte.<br>
-      Per questa disposizione, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">I poteri si toccano per frenarsi; ma guai se s’abbracciano per dominare.</span>`
-  }),
-  beccaria: ({p1,p2,rec}) => ({
-    sig:"— Beccaria",
-    text:`Signore,<br>
-      in materia penale la prima virtù è la certezza, la seconda è la chiarezza; e dove mancano, nasce l’arbitrio con maschera d’equità.<br>
-      Io ragiono come in un sillogismo: la maggiore è <b>${p1}</b>; la minore è <b>${p2}</b>; la conseguenza dev’essere libertà o pena, non capriccio.<br>
-      Secondo questo ordine, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">Quando il giudizio diventa invenzione, la sorte del cittadino diventa caso.</span>`
-  }),
-  madison: ({p1,p2,rec}) => ({
-    sig:"— Madison",
-    text:`Al Popolo,<br>
-      un governo deve prima governare gli uomini, e poi costringere sé stesso a non oltrepassare misura.<br>
-      Quando mi dici <b>${p1}</b> e <b>${p2}</b>, io odo una domanda: la struttura offre mezzi e motivi perché un potere arresti l’altro?<br>
-      Per questa architettura, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">Se gli uomini non sono angeli, le istituzioni non devono comportarsi come se lo fossero.</span>`
-  }),
-  hume: ({p1,p2,rec}) => ({
-    sig:"— Hume",
-    text:`Signore,<br>
-      conviene supporre che molti agiscano per interesse più che per virtù; e non è ingiuria, è prudenza.<br>
-      Se tu esalti <b>${p1}</b> e <b>${p2}</b>, bada che l’interesse privato, incanalato, finisca per cooperare al bene pubblico.<br>
-      Per questa considerazione, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">La libertà non vive di fiducia: vive di diffidenze ordinate.</span>`
-  }),
-  burke: ({p1,p2,rec}) => ({
-    sig:"— Burke",
-    text:`Caro Signore,<br>
-      io diffido delle rotture che promettono perfezione: spesso rompono ciò che non sapevano riparare.<br>
-      Se tu poni <b>${p1}</b> e <b>${p2}</b> a governo del giudizio, domanda se il mutamento corregge la parte che devia, senza decomporre l’intero corpo.<br>
-      Per questo criterio, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">Si cambi per conservare: il rimedio migliore guarisce senza uccidere il paziente.</span>`
-  }),
+  montesquieu: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Montesquieu",
+        text: `Caro Rica,<br>
+          poiché tutti i criteri hanno per voi uguale peso, la libertà rimane una tranquillità dell’animo, nata dall’opinione di essere al sicuro.<br>
+          Per questa disposizione, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">I poteri si toccano per frenarsi; ma guai se s’abbracciano per dominare.</span>`
+      };
+    }
+    return {
+      sig: "— Montesquieu",
+      text: `Caro Rica,<br>
+        la libertà non è un clamore: è una tranquillità dell’animo, nata dall’opinione di essere al sicuro.<br>
+        Se tu poni in cima <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, guardi alla forma che impedisce al potere di confondersi${p2 ? '' : ' e da sola questa ti guida'}; se innalzi ${p2 ? `<b>${p2}</b>` : 'questo principio'}, cerchi che la sentenza non porti odore di parte.<br>
+        Per questa disposizione, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">I poteri si toccano per frenarsi; ma guai se s’abbracciano per dominare.</span>`
+    };
+  },
+  beccaria: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Beccaria",
+        text: `Signore,<br>
+          quando tutti i criteri hanno uguale peso, la certezza e la chiarezza delle leggi sono ugualmente importanti, e la conseguenza non può che essere sospesa.<br>
+          Perciò, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">Quando il giudizio diventa invenzione, la sorte del cittadino diventa caso.</span>`
+      };
+    }
+    return {
+      sig: "— Beccaria",
+      text: `Signore,<br>
+        in materia penale la prima virtù è la certezza, la seconda è la chiarezza; e dove mancano, nasce l’arbitrio con maschera d’equità.<br>
+        Io ragiono come in un sillogismo: la maggiore è <b>${p1}</b>${p2 ? `; la minore è <b>${p2}</b>` : ', e non v\'è altra che le stia alla pari'}; la conseguenza dev’essere libertà o pena, non capriccio.<br>
+        Secondo questo ordine, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">Quando il giudizio diventa invenzione, la sorte del cittadino diventa caso.</span>`
+    };
+  },
+  madison: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Madison",
+        text: `Al Popolo,<br>
+          quando i pesi sono equamente distribuiti, la struttura istituzionale deve comunque garantire che l’ambizione contrasti l’ambizione.<br>
+          Per questa architettura, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">Se gli uomini non sono angeli, le istituzioni non devono comportarsi come se lo fossero.</span>`
+      };
+    }
+    return {
+      sig: "— Madison",
+      text: `Al Popolo,<br>
+        un governo deve prima governare gli uomini, e poi costringere sé stesso a non oltrepassare misura.<br>
+        Quando mi dici <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, io odo una domanda: la struttura offre mezzi e motivi perché un potere arresti l’altro?<br>
+        Per questa architettura, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">Se gli uomini non sono angeli, le istituzioni non devono comportarsi come se lo fossero.</span>`
+    };
+  },
+  hume: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Hume",
+        text: `Signore,<br>
+          se tutti i criteri hanno uguale peso, la prudenza ci insegna che l’interesse privato, incanalato, può cooperare al bene pubblico.<br>
+          Per questa considerazione, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">La libertà non vive di fiducia: vive di diffidenze ordinate.</span>`
+      };
+    }
+    return {
+      sig: "— Hume",
+      text: `Signore,<br>
+        conviene supporre che molti agiscano per interesse più che per virtù; e non è ingiuria, è prudenza.<br>
+        Se tu esalti <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, bada che l’interesse privato, incanalato, finisca per cooperare al bene pubblico.<br>
+        Per questa considerazione, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">La libertà non vive di fiducia: vive di diffidenze ordinate.</span>`
+    };
+  },
+  burke: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Burke",
+        text: `Caro Signore,<br>
+          in assenza di principi dominanti, la prudenza suggerisce di conservare ciò che esiste piuttosto che innovare senza una guida chiara.<br>
+          Per questo criterio, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">Si cambi per conservare: il rimedio migliore guarisce senza uccidere il paziente.</span>`
+      };
+    }
+    return {
+      sig: "— Burke",
+      text: `Caro Signore,<br>
+        io diffido delle rotture che promettono perfezione: spesso rompono ciò che non sapevano riparare.<br>
+        Se tu poni <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''} a governo del giudizio, domanda se il mutamento corregge la parte che devia, senza decomporre l’intero corpo.<br>
+        Per questo criterio, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">Si cambi per conservare: il rimedio migliore guarisce senza uccidere il paziente.</span>`
+    };
+  },
   kant: ({p1, p2, rec}) => {
     if (!p1) {
       return {
@@ -945,54 +1000,120 @@ const authorLetters = {
         <span style="color:rgba(81,96,107,0.95)">La libertà non è licenza: è vivere sotto leggi che la ragione può dichiarare.</span>`
     };
   },
-  tocqueville: ({p1,p2,rec}) => ({
-    sig:"— Tocqueville",
-    text:`Signore,<br>
-      le democrazie hanno una pendenza naturale verso la centralizzazione; e la libertà, invece, è un’arte faticosa.<br>
-      Se tu innalzi <b>${p1}</b> e <b>${p2}</b>, chiedi che la giustizia non divenga un solo centro da cui tutto dipende, ma un ordine di responsabilità e controlli.<br>
-      Per questa ragione, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">Dove tutto si decide in alto, in basso si disimpara a volere.</span>`
-  }),
-  diderot: ({p1,p2,rec}) => ({
-    sig:"— Diderot",
-    text:`Amico,<br>
-      il primo abuso è l’oscurità: quando ciò che decide della tua libertà è opaco, già comanda più del dovuto.<br>
-      Se metti davanti <b>${p1}</b> e <b>${p2}</b>, tu vuoi che la giustizia sia un mestiere leale e comprensibile, non un rito che vive di segreti.<br>
-      Per questo, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">La chiarezza è una forma di giustizia; l’oscurità, una forma di comando.</span>`
-  }),
-  filangieri: ({p1,p2,rec}) => ({
-    sig:"— Filangieri",
-    text:`Signore,<br>
-      la legislazione non è un discorso: è un’arte di garanzie. Se la regola è incerta, la libertà diventa un favore.<br>
-      Quando tu elevi <b>${p1}</b> e <b>${p2}</b>, chiedi che l’ordine riduca l’occasione dell’arbitrio e renda stabile ciò che oggi è conteso.<br>
-      Per questo, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">Si cerchi la regola che dura: non la promessa che brilla.</span>`
-  }),
-  pverri: ({p1,p2,rec}) => ({
-    sig:"— Pietro Verri",
-    text:`Caro fratello,<br>
-      la libertà si raggiunge con la certezza del diritto, ottenuta mediante la rigida separazione tra comando legislativo e meccanica esecuzione giudiziale limitata al fatto.<br>
-      Se tu poni in cima <b>${p1}</b> e <b>${p2}</b>, mi confermi che la legge deve essere chiara e il giudice sua semplice bocca.<br>
-      Per questo, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">L'interpretare significa far dire al legislatore più di quello che ha detto, e quel più è la misura della facoltà legislatrice che si arroga il giudice.</span>`
-  }),
-  averri: ({p1,p2,rec}) => ({
-    sig:"— Alessandro Verri",
-    text:`Mio caro,<br>
-      ho veduto co' miei occhi l'orrore del carcere e l'innocenza oppressa. La presunzione d'innocenza è l'unico scudo del debole.<br>
-      Se tu dai peso a <b>${p1}</b> e <b>${p2}</b>, sei sulla via della giustizia vera.<br>
-      Per questo, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">L'uomo finché non è convinto con chiare prove di un delitto, dee riguardarsi innocente.</span>`
-  }),
-  fouquier: ({p1,p2,rec}) => ({
-    sig:"— Fouquier-Tinville",
-    text:`Cittadini,<br>
-      la giustizia rivoluzionaria non conosce indugi né formalismi; il sospetto è già colpa, e la sentenza dev'essere fulminea.<br>
-      Se tu esalti <b>${p1}</b> e <b>${p2}</b>, forse credi ancora che la legge possa frenare la volontà popolare.<br>
-      Per questo, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">Il Tribunale rivoluzionario non è fatto per giudicare, ma per colpire.</span>`
-  })
+  tocqueville: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Tocqueville",
+        text: `Signore,<br>
+          quando tutti i criteri hanno uguale peso, la democrazia tende comunque alla centralizzazione, ma la libertà rimane un’arte faticosa.<br>
+          Per questa ragione, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">Dove tutto si decide in alto, in basso si disimpara a volere.</span>`
+      };
+    }
+    return {
+      sig: "— Tocqueville",
+      text: `Signore,<br>
+        le democrazie hanno una pendenza naturale verso la centralizzazione; e la libertà, invece, è un’arte faticosa.<br>
+        Se tu innalzi <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, chiedi che la giustizia non divenga un solo centro da cui tutto dipende, ma un ordine di responsabilità e controlli.<br>
+        Per questa ragione, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">Dove tutto si decide in alto, in basso si disimpara a volere.</span>`
+    };
+  },
+  diderot: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Diderot",
+        text: `Amico,<br>
+          se tutti i criteri hanno uguale peso, la chiarezza rimane una forma di giustizia, e l’oscurità una forma di comando.<br>
+          Per questo, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">La chiarezza è una forma di giustizia; l’oscurità, una forma di comando.</span>`
+      };
+    }
+    return {
+      sig: "— Diderot",
+      text: `Amico,<br>
+        il primo abuso è l’oscurità: quando ciò che decide della tua libertà è opaco, già comanda più del dovuto.<br>
+        Se metti davanti <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, tu vuoi che la giustizia sia un mestiere leale e comprensibile, non un rito che vive di segreti.<br>
+        Per questo, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">La chiarezza è una forma di giustizia; l’oscurità, una forma di comando.</span>`
+    };
+  },
+  filangieri: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Filangieri",
+        text: `Signore,<br>
+          in assenza di principi dominanti, la scienza della legislazione ci insegna che la regola che dura è meglio della promessa che brilla.<br>
+          Per questo, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">Si cerchi la regola che dura: non la promessa che brilla.</span>`
+      };
+    }
+    return {
+      sig: "— Filangieri",
+      text: `Signore,<br>
+        la legislazione non è un discorso: è un’arte di garanzie. Se la regola è incerta, la libertà diventa un favore.<br>
+        Quando tu elevi <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, chiedi che l’ordine riduca l’occasione dell’arbitrio e renda stabile ciò che oggi è conteso.<br>
+        Per questo, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">Si cerchi la regola che dura: non la promessa che brilla.</span>`
+    };
+  },
+  pverri: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Pietro Verri",
+        text: `Caro fratello,<br>
+          se tutti i criteri hanno uguale peso, la certezza del diritto rimane il fondamento della libertà, anche in assenza di una guida prevalente.<br>
+          Per questo, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">L'interpretare significa far dire al legislatore più di quello che ha detto.</span>`
+      };
+    }
+    return {
+      sig: "— Pietro Verri",
+      text: `Caro fratello,<br>
+        la libertà si raggiunge con la certezza del diritto, ottenuta mediante la rigida separazione tra comando legislativo e meccanica esecuzione giudiziale limitata al fatto.<br>
+        Se tu poni in cima <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, mi confermi che la legge deve essere chiara e il giudice sua semplice bocca.<br>
+        Per questo, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">L'interpretare significa far dire al legislatore più di quello che ha detto, e quel più è la misura della facoltà legislatrice che si arroga il giudice.</span>`
+    };
+  },
+  averri: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Alessandro Verri",
+        text: `Mio caro,<br>
+          quando tutti i criteri hanno uguale peso, la presunzione d'innocenza rimane l'unico scudo del debole.<br>
+          Per questo, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">L'uomo finché non è convinto con chiare prove di un delitto, dee riguardarsi innocente.</span>`
+      };
+    }
+    return {
+      sig: "— Alessandro Verri",
+      text: `Mio caro,<br>
+        ho veduto co' miei occhi l'orrore del carcere e l'innocenza oppressa. La presunzione d'innocenza è l'unico scudo del debole.<br>
+        Se tu dai peso a <b>${p1}</b>${p2 ? ` e a <b>${p2}</b>` : ''}, sei sulla via della giustizia vera.<br>
+        Per questo, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">L'uomo finché non è convinto con chiare prove di un delitto, dee riguardarsi innocente.</span>`
+    };
+  },
+  fouquier: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Fouquier-Tinville",
+        text: `Cittadini,<br>
+          se tutti i criteri hanno uguale peso, la giustizia rivoluzionaria non si ferma: il sospetto è già colpa.<br>
+          Per questo, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">Il Tribunale rivoluzionario non è fatto per giudicare, ma per colpire.</span>`
+      };
+    }
+    return {
+      sig: "— Fouquier-Tinville",
+      text: `Cittadini,<br>
+        la giustizia rivoluzionaria non conosce indugi né formalismi; il sospetto è già colpa, e la sentenza dev'essere fulminea.<br>
+        Se tu esalti <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, forse credi ancora che la legge possa frenare la volontà popolare.<br>
+        Per questo, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">Il Tribunale rivoluzionario non è fatto per giudicare, ma per colpire.</span>`
+    };
+  }
 };
 
 function buildLettre(recLabel, topPrinciples, delta, authorKey){
