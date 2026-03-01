@@ -890,7 +890,7 @@ const authorLetters = {
     sig:"— Montesquieu",
     text:`Caro Rica,<br>
       la libertà non è un clamore: è una tranquillità dell’animo, nata dall’opinione di essere al sicuro.<br>
-      Se tu poni in cima <b>${p1}</b>, guardi alla forma che impedisce al potere di confondersi; se innalzi <b>${p2}</b>, cerchi che la sentenza non porti odore di parte.<br>
+      Se tu poni in cima <b>${p1}</b> e <b>${p2}</b>, guardi alla forma che impedisce al potere di confondersi; se innalzi <b>${p2}</b>, cerchi che la sentenza non porti odore di parte.<br>
       Per questa disposizione, ${rec}.<br>
       <span style="color:rgba(81,96,107,0.95)">I poteri si toccano per frenarsi; ma guai se s’abbracciano per dominare.</span>`
   }),
@@ -926,14 +926,25 @@ const authorLetters = {
       Per questo criterio, ${rec}.<br>
       <span style="color:rgba(81,96,107,0.95)">Si cambi per conservare: il rimedio migliore guarisce senza uccidere il paziente.</span>`
   }),
-  kant: ({p1,p2,rec}) => ({
-    sig:"— Kant",
-    text:`Cittadino,<br>
-      la questione non è soltanto che cosa decidere, ma se tu possa giustificare la regola davanti a chiunque, senza eccezioni.<br>
-      Se i tuoi primi pesi sono <b>${p1}</b> e <b>${p2}</b>, tu chiedi che il giudizio non dipenda dall’umore, ma da una forma che valga per tutti.<br>
-      Perciò, ${rec}.<br>
-      <span style="color:rgba(81,96,107,0.95)">La libertà non è licenza: è vivere sotto leggi che la ragione può dichiarare.</span>`
-  }),
+  kant: ({p1, p2, rec}) => {
+    if (!p1) {
+      return {
+        sig: "— Kant",
+        text: `Cittadino,<br>
+          poiché tutti i criteri hanno per voi uguale peso, la ragione ci insegna che la libertà è vivere sotto leggi universali.<br>
+          Perciò, ${rec}.<br>
+          <span style="color:rgba(81,96,107,0.95)">La libertà non è licenza: è vivere sotto leggi che la ragione può dichiarare.</span>`
+      };
+    }
+    return {
+      sig: "— Kant",
+      text: `Cittadino,<br>
+        la questione non è soltanto che cosa decidere, ma se tu possa giustificare la regola davanti a chiunque, senza eccezioni.<br>
+        Se i tuoi primi pesi sono <b>${p1}</b>${p2 ? ` e <b>${p2}</b>` : ''}, tu chiedi che il giudizio non dipenda dall’umore, ma da una forma che valga per tutti.<br>
+        Perciò, ${rec}.<br>
+        <span style="color:rgba(81,96,107,0.95)">La libertà non è licenza: è vivere sotto leggi che la ragione può dichiarare.</span>`
+    };
+  },
   tocqueville: ({p1,p2,rec}) => ({
     sig:"— Tocqueville",
     text:`Signore,<br>
