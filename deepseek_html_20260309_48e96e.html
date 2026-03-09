@@ -1,0 +1,602 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Note metodologiche e bibliografia – Al lume della Ragione</title>
+<style>
+  /* =========================================================
+     PALETTE E STILI — identici al file principale index.html
+     ========================================================= */
+  :root {
+    --bg1: #f0f4f8;
+    --bg2: #e2e8f0;
+    --panel: #ffffff;
+    --panel2: #f8fafc;
+    --text: #1e293b;
+    --muted: #64748b;
+    --primary: #6088a5;
+    --primary-dark: #3a5f78;
+    --ok: #4b7b8a;
+    --bad: #b25d53;
+    --line: #cbd5e1;
+    --line2: #94a3b8;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --serif: "Georgia", "Times New Roman", Times, serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--serif) !important;
+    background:
+      radial-gradient(1200px 500px at 20% 0%, rgba(96,136,165,0.15), transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, rgba(58,95,120,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg1), var(--bg2));
+    color: var(--text);
+    padding-bottom: 40px;
+  }
+
+  p, div, span, td, th, h1, h2, h3, h4, h5, summary, a, li { font-family: var(--serif); }
+  code, .mono { font-family: var(--mono) !important; font-size: 0.93em; }
+
+  /* Layout colonna centrale */
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  /* Card standard */
+  .card {
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 28px 32px;
+    box-shadow: 0 10px 28px rgba(30,41,59,0.06);
+    box-sizing: border-box;
+  }
+  .card h2.card-title {
+    margin: 0 0 18px 0;
+    font-size: clamp(16px, 4vw, 19px);
+    font-weight: 900;
+    color: var(--primary-dark);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 10px;
+  }
+
+  /* Intro pamphlet — identico a index.html */
+  .intro-pamphlet {
+    max-width: 1100px;
+    margin: 20px auto 10px;
+    padding: 25px 30px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--line2);
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(30,41,59,0.08);
+    position: relative;
+  }
+  .intro-pamphlet::before {
+    content: "☙"; position: absolute; top: -15px; left: 20px; font-size: 30px;
+    color: var(--primary); background: var(--bg1); padding: 0 10px; border-radius: 50%;
+  }
+  .intro-pamphlet::after {
+    content: "❧"; position: absolute; bottom: -15px; right: 20px; font-size: 30px;
+    color: var(--primary); background: var(--bg1); padding: 0 10px; border-radius: 50%;
+  }
+  .intro-pamphlet h3 {
+    text-align: center; font-size: 22px; font-weight: 900; margin: 0 0 15px;
+    letter-spacing: 2px; border-bottom: 1px solid var(--line); padding-bottom: 10px;
+    color: var(--primary-dark);
+  }
+  .intro-pamphlet p { font-size: 15.5px; line-height: 1.6; margin: 15px 0; text-align: justify; }
+  .intro-pamphlet .dropcap { float: left; font-size: 50px; line-height: 0.8; margin-right: 8px; font-weight: 900; color: var(--primary); }
+  .signature { text-align: right; font-style: italic; margin-top: 15px; font-size: 14px; border-top: 1px solid var(--line); padding-top: 10px; color: var(--muted); }
+
+  /* Prosa interna alle card */
+  .prose { font-size: 15px; line-height: 1.7; color: var(--text); text-align: justify; }
+  .prose p { margin: 0 0 14px 0; }
+  .prose p:last-child { margin-bottom: 0; }
+  .prose strong { color: var(--primary-dark); }
+  .prose em { color: var(--text); }
+  .prose a { color: var(--primary-dark); text-decoration: underline dotted; font-weight: 700; }
+  .prose a:hover { color: var(--primary); text-decoration: underline; }
+
+  /* Indice / TOC */
+  .toc-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 10px;
+    margin-top: 16px;
+  }
+  .toc-item {
+    background: var(--panel2);
+    border-left: 3px solid var(--primary);
+    border-radius: 0 8px 8px 0;
+    padding: 10px 14px;
+    font-size: 13.5px;
+    transition: background 0.2s;
+  }
+  .toc-item:hover { background: rgba(96,136,165,0.08); }
+  .toc-item a { color: var(--primary-dark); text-decoration: none; font-weight: 700; font-size: 13px; }
+  .toc-item a:hover { color: var(--primary); }
+  .toc-item .toc-num { color: var(--muted); font-family: var(--mono) !important; font-size: 11px; display: block; margin-bottom: 3px; }
+
+  /* Tabelle */
+  table { width: 100%; border-collapse: separate; border-spacing: 0; overflow-x: auto; display: block; border-radius: 12px; border: 1px solid var(--line); background: #ffffff; margin: 16px 0; }
+  th, td { padding: 11px 10px; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 60px; font-size: 14px; line-height: 1.4; }
+  th { background: var(--panel2); color: var(--primary-dark); text-align: left; font-weight: 900; font-size: 13px; }
+  tr:last-child td { border-bottom: none; }
+  td.cod { font-family: var(--mono) !important; font-weight: 900; color: var(--primary); font-size: 13px; }
+  td.num { font-family: var(--mono) !important; font-weight: 700; text-align: center; color: var(--primary-dark); }
+  .text-center { text-align: center; }
+
+  /* Formule */
+  .formula-box {
+    background: var(--panel2);
+    border: 1px solid var(--line);
+    border-left: 4px solid var(--primary);
+    border-radius: 0 10px 10px 0;
+    padding: 14px 18px;
+    margin: 14px 0;
+    font-size: 14px;
+    line-height: 1.8;
+  }
+  .formula-box code { font-size: 1em; background: none; padding: 0; }
+
+  /* Chip (note a margine) */
+  .chip-note {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(96,136,165,0.08); border: 1px solid var(--primary);
+    border-radius: 999px; padding: 5px 12px; font-size: 12.5px;
+    color: var(--primary-dark); margin: 4px 2px; font-style: italic;
+  }
+  .chip-warn {
+    background: rgba(178,93,83,0.08); border-color: var(--bad); color: var(--bad);
+  }
+
+  /* Liste fonti storiche */
+  .source-list { list-style: none; padding: 0; margin: 0; }
+  .source-list li {
+    padding: 12px 14px 12px 14px;
+    border-bottom: 1px solid var(--line);
+    font-size: 14.5px;
+    line-height: 1.5;
+    position: relative;
+    padding-left: 36px;
+  }
+  .source-list li:last-child { border-bottom: none; }
+  .source-list li::before {
+    content: attr(data-icon);
+    position: absolute; left: 10px; top: 12px;
+    font-size: 15px;
+  }
+  .source-list li .nota-critica {
+    display: block; margin-top: 5px; font-size: 12.5px;
+    color: var(--bad); font-style: italic;
+    border-left: 2px solid var(--bad); padding-left: 8px;
+  }
+
+  /* Lista bibliografica numerata */
+  .bib-list { list-style: none; counter-reset: bib; padding: 0; margin: 0; }
+  .bib-list li {
+    counter-increment: bib;
+    padding: 10px 12px 10px 44px;
+    border-bottom: 1px solid var(--line);
+    font-size: 13.5px;
+    line-height: 1.5;
+    position: relative;
+  }
+  .bib-list li:last-child { border-bottom: none; }
+  .bib-list li::before {
+    content: "[" counter(bib) "]";
+    position: absolute; left: 8px; top: 10px;
+    font-family: var(--mono) !important;
+    font-size: 11.5px; color: var(--muted); font-weight: 700;
+  }
+
+  /* Privacy box */
+  .privacy-box {
+    background: rgba(75,123,138,0.06);
+    border: 1px solid var(--ok);
+    border-radius: 12px;
+    padding: 18px 22px;
+    font-size: 14.5px;
+    line-height: 1.6;
+  }
+
+  /* Footer project-info — identico a index.html */
+  .project-info {
+    max-width: 1100px; margin: 20px auto 0; padding: 20px;
+    display: flex; flex-wrap: wrap; gap: 20px;
+    align-items: center; justify-content: center;
+    background: var(--panel2); border: 1px solid var(--line);
+    border-radius: 20px; font-size: 13.5px;
+  }
+  .project-info a { color: var(--primary-dark); text-decoration: underline; font-family: var(--sans) !important; }
+
+  /* Separatore ornamentale */
+  .hr { height: 1px; background: var(--line); margin: 20px 0; }
+  .hr-dashed { height: 1px; background: repeating-linear-gradient(90deg, var(--line2) 0, var(--line2) 6px, transparent 6px, transparent 12px); margin: 20px 0; }
+
+  /* Avviso paradosso */
+  .paradox-box {
+    background: rgba(178,93,83,0.06);
+    border: 1px solid var(--bad);
+    border-radius: 12px;
+    padding: 16px 20px;
+    font-size: 14px;
+    line-height: 1.6;
+    margin-top: 16px;
+  }
+  .paradox-box strong { color: var(--bad); }
+
+  @media (max-width: 600px) {
+    .card { padding: 18px 16px; }
+    .intro-pamphlet { padding: 20px 18px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- INTESTAZIONE PAMPHLET -->
+<div class="intro-pamphlet">
+  <h3>NOTE AL LETTORE — METODO E FONTI</h3>
+  <p><span class="dropcap">Q</span>uesta pagina raccoglie i fondamenti metodologici, le fonti storiche e i riferimenti scientifici che reggono il progetto <a href="index.html">«Al lume della Ragione»</a>. Chi voglia scrutare la macchina, non soltanto adoperarla, troverà qui esposto con precisione come il sistema calcola, perché assegna certi pesi ai benchmark, e quali autorità — antiche e moderne — ne sostengono la validità.</p>
+  <p>Avvertiamo il Lettore: la trasparenza è parte integrante dell'istrumento. Un meccanismo che nascondesse le proprie ipotesi non sarebbe degno di un illuminista.</p>
+  <p style="border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 20px; font-size: 14px; color: var(--muted);"><strong style="color:var(--primary-dark);">P.S.</strong> — <em>La presente edizione incorpora il Ponderatore Quadratico (V²/ΣV²) in luogo della precedente normalizzazione lineare, e aggiorna il benchmark di C4 (SÌ da 7 a 8) per rispecchiare il dibattito referendario odierno sulla discrezionalità giudiziaria. Chi avesse già visitato le versioni anteriori riconoscerà, nel cambiamento, non capriccio, ma cura metodologica.</em></p>
+  <div class="signature">
+    — Luca Cetara Publishing, MDCCXCVI &nbsp;|&nbsp;
+    <a href="index.html">← Torna all'istrumento</a>
+  </div>
+</div>
+
+<main>
+
+  <!-- INDICE -->
+  <section class="card">
+    <h2 class="card-title">Indice delle materie</h2>
+    <div class="toc-grid">
+      <div class="toc-item"><span class="toc-num">§ 1</span><a href="#funzionamento">Il modello a Somma Ponderata (WSM)</a></div>
+      <div class="toc-item"><span class="toc-num">§ 2</span><a href="#benchmark">Tabella dei benchmark e «tilt prudenziale»</a></div>
+      <div class="toc-item"><span class="toc-num">§ 3</span><a href="#affinita">Il calcolo dell'affinità (Distanza di Manhattan)</a></div>
+      <div class="toc-item"><span class="toc-num">§ 4</span><a href="#macrodimensioni">Le macro-dimensioni istituzionali</a></div>
+      <div class="toc-item"><span class="toc-num">§ 5</span><a href="#paradosso">Il paradosso di Robespierre e Beccaria</a></div>
+      <div class="toc-item"><span class="toc-num">§ 6</span><a href="#fonti-storiche">Fonti storiche — gli autori del sistema</a></div>
+      <div class="toc-item"><span class="toc-num">§ 7</span><a href="#bibliografia">Bibliografia scientifica</a></div>
+      <div class="toc-item"><span class="toc-num">§ 8</span><a href="#privacy">Privacy e tracciamento</a></div>
+    </div>
+  </section>
+
+  <!-- § 1 — WSM -->
+  <section class="card" id="funzionamento">
+    <h2 class="card-title">§ 1 — Il modello a Somma Ponderata (Weighted Sum Model)</h2>
+    <div class="prose">
+      <p>Nella <a href="index.html">pagina principale</a> vi vengono presentati sette <strong>principî</strong>. Il vostro compito è assegnare a ciascuno un voto da <strong>1</strong> (di lieve conto) a <strong>10</strong> (di somma importanza). I voti non esprimono un accordo con un'affermazione: agiscono come <strong>pesi di importanza relativa</strong>, dichiarando quanto ciascun principio conti ai vostri occhi nella valutazione della riforma.</p>
+      <p>Il sistema adotta l'algoritmo decisionale noto come <strong>Weighted Sum Model (WSM)</strong>, ampiamente impiegato nella letteratura sul Multi-Criteria Decision Making (MCDM). I passaggi sono i seguenti:</p>
+    </div>
+
+    <div class="formula-box">
+      <strong>Passo 1 — Normalizzazione quadratica dei voti (Ponderatore Quadratico):</strong><br>
+      <code>w<sub>i</sub> = V<sub>i</sub><sup>2</sup> / Σ V<sub>j</sub><sup>2</sup></code><br>
+      <span style="color:var(--muted); font-size:13px;">I voti vengono elevati al quadrato prima della normalizzazione. Un voto di 10 produce un peso proporzionale a 100; un voto di 1 produce un peso proporzionale a 1. Se tutti i voti sono uguali, i pesi rimangono identici (1/7 ≈ 0.143); al crescere della differenziazione, i valori alti acquisiscono rilevanza marcatamente superiore.</span>
+    </div>
+    <div class="formula-box" style="background:rgba(96,136,165,0.04); border-color:var(--primary-dark);">
+      <strong>Nota sul Ponderatore Quadratico:</strong><br>
+      <span style="font-size:13.5px;">La scelta della normalizzazione quadratica risponde a un principio di autenticità dell'espressione di preferenza: se l'elettore assegna 9 a un principio e 3 a un altro, non intende che il primo valga tre volte il secondo — intende che il primo è <em>molto</em> più importante. Il quadrato amplifica questa intenzione in modo matematicamente coerente, schiacciando i valori bassi e valorizzando quelli sommamente prioritari. La distanza di Manhattan per l'affinità con i filosofi, per contro, resta <strong>lineare</strong>: è un confronto di valori grezzi, non di pesi.<br><br>
+      Sebbene la letteratura classica sul WSM (Hwang & Yoon, 1981 [11]) utilizzi prevalentemente la normalizzazione lineare, il modello è sufficientemente flessibile da accogliere trasformazioni non lineari dei voti quando si voglia modellare l'intensità delle preferenze. Studi recenti (O'Shea et al., 2026 [18]) dimostrano che l'analisi di stabilità dei pesi può essere estesa a funzioni di peso non lineari, confermando la robustezza dell'approccio. La scelta quadratica qui adottata è una di queste, e risulta particolarmente adatta a rappresentare l'enfasi che un elettore può attribuire ad alcuni principî rispetto ad altri.</span>
+    </div>
+    <div class="formula-box">
+      <strong>Passo 2 — Calcolo degli indici globali:</strong><br>
+      <code>Indice SÌ = Σ (w<sub>i</sub> × S<sub>i</sub>)</code><br>
+      <code>Indice NO = Σ (w<sub>i</sub> × N<sub>i</sub>)</code><br>
+      <span style="color:var(--muted); font-size:13px;">Dove S<sub>i</sub> e N<sub>i</sub> sono i benchmark predefiniti per il principio i-esimo.</span>
+    </div>
+    <div class="formula-box">
+      <strong>Passo 3 — Determinazione dell'esito:</strong><br>
+      <code>Δ = Indice SÌ − Indice NO</code><br>
+      <span style="color:var(--muted); font-size:13px;">Δ &gt; 0 → inclinazione al SÌ &nbsp;|&nbsp; Δ &lt; 0 → inclinazione al NO &nbsp;|&nbsp; Δ = 0 → pareggio.</span>
+    </div>
+
+    <div class="prose" style="margin-top:14px;">
+      <p>La colonna <strong>«Impatto sul risultato»</strong> nel riepilogo dell'elettore mostra per ogni criterio il valore <code>w<sub>i</sub> × (S<sub>i</sub> − N<sub>i</sub>)</code> con segno: positivo se quel principio tira verso il SÌ, negativo se verso il NO, prossimo a zero se neutro. Con il ponderatore quadratico, questo valore può essere assai elevato per i criteri con voto 9 o 10, e quasi nullo per quelli con voto 1 o 2 — il che rispecchia fedelmente l'intenzione dell'elettore.</p>
+      <p>Se i pesi sono identici per tutti i sette criteri, la normalizzazione quadratica non li distingue (25/175 = 1/7), e prevale unicamente la media dei benchmark predefiniti. Il sistema lo segnala con un avviso apposito.</p>
+    </div>
+  </section>
+
+  <!-- § 2 — BENCHMARK -->
+  <section class="card" id="benchmark">
+    <h2 class="card-title">§ 2 — Tabella dei benchmark e «tilt prudenziale»</h2>
+    <div class="prose">
+      <p>I valori di riferimento (<strong>benchmark</strong> S<sub>i</sub> e N<sub>i</sub>) indicano quanto l'opzione SÌ o l'opzione NO «soddisfi» ciascun principio illuminista secondo una lettura storica prudenziale. Essi non pretendono neutralità assoluta: recano un esplicito <strong>«tilt prudenziale»</strong>, ovvero una lieve diffidenza, tipicamente settecentesca, verso i mutamenti che rischiano di creare nuove concentrazioni di potere — siano esse politiche o corporative.</p>
+      <p>Tale inclinazione è dichiarata, non occultata, affinché il Lettore possa, se lo ritiene, correggerla attribuendo pesi deliberatamente diversi ai criteri che la esprimono.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:5%">Cod.</th>
+          <th>Principio</th>
+          <th class="text-center" style="width:7%">SÌ</th>
+          <th class="text-center" style="width:7%">NO</th>
+          <th>Tendenza / Interpretazione prudenziale</th>
+          <th>Fonti principali</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="cod">C1</td>
+          <td>Indipendenza dal politico</td>
+          <td class="num">6</td><td class="num">9</td>
+          <td>Tende al NO. Cautela nel sottrarre leve gestionali per riposizionarle sotto controllo politico indiretto.</td>
+          <td>Montesquieu; Hume</td>
+        </tr>
+        <tr>
+          <td class="cod">C2</td>
+          <td>Terzietà dell'arbitro</td>
+          <td class="num">8</td><td class="num">6</td>
+          <td>Tende al SÌ. Enfasi sulla separazione dei ruoli e sulla terzietà percepita dall'imputato.</td>
+          <td>Beccaria; Montesquieu</td>
+        </tr>
+        <tr>
+          <td class="cod">C3</td>
+          <td>Sicurezza del cittadino e universalità della norma</td>
+          <td class="num">6</td><td class="num">6</td>
+          <td>Neutra (pareggio). Il pericolo viene dal <em>legislatore</em>: norme instabili, retroattive, capricciose o ineguali. Entrambi gli scenari invocano forme diverse di certezza del patto tra Stato e cittadino.</td>
+          <td>Montesquieu; I. Kant</td>
+        </tr>
+        <tr>
+          <td class="cod">C4</td>
+          <td>Subordinazione del giudice alla legge scritta <em>(Aderenza alla Norma)</em></td>
+          <td class="num">8</td><td class="num">7</td>
+          <td>Tende al SÌ. Il pericolo viene dal <em>togato</em> che si fa legislatore via interpretazione creatrice: il SÌ riduce la discrezionalità pretoria, costringendo il giudice al sillogismo perfetto di Beccaria. Il benchmark SÌ=8 riflette la centralità di questo principio nell’attuale dibattito referendario.</td>
+          <td>C. Beccaria; G. Filangieri</td>
+        </tr>
+        <tr>
+          <td class="cod">C5</td>
+          <td>Anti-cattura e controlli</td>
+          <td class="num">7</td><td class="num">6</td>
+          <td>Tende al SÌ. Lieve favore verso riforme di trasparenza, con onesta ambivalenza sul profilo del controllo politico.</td>
+          <td>Madison; Hume</td>
+        </tr>
+        <tr>
+          <td class="cod">C6</td>
+          <td>Contrappesi nel tempo</td>
+          <td class="num">6</td><td class="num">7</td>
+          <td>Tende al NO. Diffidenza verso nuovi centri di potere non ancora collaudati dall'esperienza storica.</td>
+          <td>Tocqueville; Burke</td>
+        </tr>
+        <tr>
+          <td class="cod">C7</td>
+          <td>Celerità con garanzie</td>
+          <td class="num">7</td><td class="num">6</td>
+          <td>Tende al SÌ. Lieve favore verso lo snellimento delle tempistiche, nel rispetto invalicabile delle garanzie di base.</td>
+          <td>Beccaria; Verri</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>La somma ponderata di questi benchmark, quando tutti i pesi sono uguali, produce un Δ positivo: il sistema, in assenza di preferenze dell'utente, inclina al SÌ. Ciò è amplificato dall'aggiornamento del benchmark di <strong>C4</strong> (portato da 7 a 8 per il SÌ), che riflette l'interpretazione corrente secondo cui la riforma in esame mirerebbe, tra l'altro, a ridurre la discrezionalità interpretativa del giudicante. Chi desideri neutralizzare questa predisposizione può attribuire un peso maggiore ai principi C1 e C6, che inclinano al NO.</p>
+    </div>
+  </section>
+
+  <!-- § 3 — AFFINITÀ -->
+  <section class="card" id="affinita">
+    <h2 class="card-title">§ 3 — Il calcolo dell'affinità (Distanza di Manhattan)</h2>
+    <div class="prose">
+      <p>Per determinare quale pensatore storico sia più affine al Lettore, il sistema confronta i voti (da 1 a 10) inseriti dall'utente con quelli assegnati teoricamente a ciascun filosofo. La comparazione matematica utilizza la <strong>Distanza di Manhattan (Norma L1)</strong>, preferita alla distanza euclidea per la sua interpretabilità diretta: essa somma le differenze assolute criterio per criterio, senza l'effetto di amplificazione delle divergenze che caratterizza la norma L2. <strong>Nota importante:</strong> questa distanza opera sui <em>voti grezzi</em> (1–10), non sui pesi quadratici. Il Ponderatore Quadratico si applica esclusivamente al calcolo WSM (SÌ/NO); per l'affinità si usa il confronto diretto, più naturale e intuitivo.</p>
+    </div>
+
+    <div class="formula-box">
+      <code>Distanza = Σ | VotoElettore<sub>i</sub> − VotoFilosofo<sub>i</sub> |</code><br>
+      <span style="color:var(--muted); font-size:13px;">Distanza minima: 0 (accordo perfetto) &nbsp;|&nbsp; Distanza massima: 63 (massimo disaccordo su 7 criteri, ciascuno con scarto 9).</span>
+    </div>
+    <div class="formula-box">
+      <code>Sintonia d'idee = ( 1 − Distanza / 63 ) × 100%</code>
+    </div>
+
+    <div class="prose" style="margin-top:14px;">
+      <p>La percentuale di «Sintonia d'idee» è presentata accanto a ogni profilo e aggiornata in tempo reale al variare dei voti. Il profilo con distanza minima viene segnalato nel banner <strong>«Profilo più sodale»</strong>.</p>
+      <p>Per tre profili — <strong>Edmund Burke</strong>, <strong>Fouquier-Tinville</strong> e <strong>Maximilien Robespierre</strong> — il banner include un avviso ironico. Questi pensatori sono presenti nel sistema per ragioni storiche e narrative, ma le loro priorità istituzionali divergono in modo radicale dallo spirito illuminista riformatore: Burke per temperamento conservatore, Fouquier e Robespierre per il Terrore giacobino. Se il sistema li indicasse come «profilo più sodale» senza commento, rischierebbe di tradire l'ironia che li governa.</p>
+    </div>
+  </section>
+
+  <!-- § 4 — MACRO-DIMENSIONI -->
+  <section class="card" id="macrodimensioni">
+    <h2 class="card-title">§ 4 — Le macro-dimensioni istituzionali</h2>
+    <div class="prose">
+      <p>I sette principî possono essere raggruppati in quattro <strong>macro-dimensioni</strong> della teoria istituzionale democratica. Il modello matematico elabora i criteri singolarmente, ma questa aggregazione concettuale permette di leggere, a colpo d'occhio, quale famiglia di valori domini le priorità dell'utente o del filosofo. Le barre delle macro-dimensioni sono visualizzate sia nel pannello dell'elettore sia nelle schede dei profili storici.</p>
+    </div>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Macro-dimensione</th>
+          <th>Principî inclusi</th>
+          <th>Calcolo</th>
+          <th>Fonti teoriche principali</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Indipendenza</strong></td>
+          <td>C1, C2</td>
+          <td class="mono">(C1 + C2) / 2</td>
+          <td>Montesquieu [1]; La Porta et al. [12]</td>
+        </tr>
+        <tr>
+          <td><strong>Legalità</strong></td>
+          <td>C3, C4</td>
+          <td class="mono">(C3 + C4) / 2</td>
+          <td>Beccaria [2]; Filangieri [4]; Raitio [14]</td>
+        </tr>
+        <tr>
+          <td><strong>Contrappesi</strong></td>
+          <td>C5, C6</td>
+          <td class="mono">(C5 + C6) / 2</td>
+          <td>Madison [3]; Tocqueville [6]; Gratton & Morelli [15]</td>
+        </tr>
+        <tr>
+          <td><strong>Efficienza</strong></td>
+          <td>C7</td>
+          <td class="mono">C7</td>
+          <td>Voigt [16]; Beccaria [2]</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="prose">
+      <p>Nel pannello dell'elettore le barre sono orizzontali e mostrano la media in scala 1–10. Nelle schede dei profili storici, le stesse barre adottano un <strong>layout verticale</strong> (etichetta abbreviata + valore in cima, barra a piena larghezza sotto) per adattarsi allo spazio ristretto della griglia.</p>
+    </div>
+  </section>
+
+  <!-- § 5 — PARADOSSO -->
+  <section class="card" id="paradosso">
+    <h2 class="card-title">§ 5 — Il paradosso di Robespierre e Beccaria</h2>
+    <div class="prose">
+      <p>Il sistema genera, con perfida eleganza matematica, un paradosso degno di meditazione: <strong>Maximilien Robespierre</strong> e <strong>Cesare Beccaria</strong> ottengono entrambi un esito orientato al SÌ — eppure per ragioni diametralmente opposte.</p>
+    </div>
+
+    <div class="paradox-box">
+      <strong>Beccaria</strong> assegna somma importanza alla legalità e all'anti-arbitrio (C4, voto 10), vedendo nella riforma un freno al capriccio del giudice e una garanzia per l'imputato. La sua inclinazione al SÌ nasce da una profonda fede nella certezza del diritto.<br><br>
+      <strong>Robespierre</strong>, al contrario, riversa quasi ogni peso sulla celerità processuale (C7, voto 9), che nel suo universo mentale non è garanzia bensì velocità della ghigliottina rivoluzionaria. Il modello lo proietta sul SÌ per C7 (dove SÌ=7, NO=6), ignorando che la sua «efficienza» era il Terrore.<br><br>
+      Il numero coincide. Le motivazioni sono agli antipodi della storia.
+    </div>
+
+    <div class="prose" style="margin-top:16px;">
+      <p>Questo paradosso era già presente, in forma diversa, nel modello precedente basato sull'<em>affinità</em> (distanza da un ideale). In quella versione era <strong>Fouquier-Tinville</strong> a condividere il NO con Burke: l'uno per spirito conservatore, l'altro perché i suoi voti bassissimi su ogni criterio lo allontanavano dall'ideale illuminista tanto quanto dalla soglia del SÌ. Con il passaggio al modello dei <strong>pesi</strong> (WSM), Fouquier — che assegna 10 alla sola celerità e 1 a tutto il resto — finisce sul SÌ, agendo come esasperazione coerente di Robespierre.</p>
+      <p>Il modello, misurando soltanto la distanza da un ideale, <em>non può distinguere le diverse vie che conducono al medesimo numero</em>. La cifra non narra l'intera storia; è una traccia da interpretare con la propria ragione. Per questo l'introduzione del pamphlet lo avverte esplicitamente.</p>
+    </div>
+  </section>
+
+  <!-- § 6 — FONTI STORICHE -->
+  <section class="card" id="fonti-storiche">
+    <h2 class="card-title">§ 6 — Fonti storiche — gli autori del sistema</h2>
+    <div class="prose" style="margin-bottom:14px;">
+      <p>I tredici profili presenti nel sistema sono stati selezionati per la loro rilevanza rispetto ai sette principî e per la varietà delle posizioni istituzionali che incarnano. Tre di essi — Burke, Fouquier-Tinville e Robespierre — sono inseriti come <em>termini di paragone critici</em>, non come modelli da emulare.</p>
+    </div>
+
+    <ul class="source-list">
+      <li data-icon="⚖️">
+        <strong>Montesquieu</strong> (1689–1755) — <em>De l'esprit des lois</em> (1748).<br>
+        Per la separazione dei poteri, l'indipendenza del giudiziario e la libertà come garanzia strutturale. Riferimento principale per C1 e C2.
+      </li>
+      <li data-icon="📜">
+        <strong>Cesare Beccaria</strong> (1738–1794) — <em>Dei delitti e delle pene</em> (1764).<br>
+        Per il garantismo penale, la certezza della pena, la chiarezza delle leggi e l'efficienza processuale. Riferimento per C2, C4 e C7.
+      </li>
+      <li data-icon="🕊️">
+        <strong>Immanuel Kant</strong> (1724–1804) — <em>Metaphysik der Sitten</em> (1797); <em>Risposta alla domanda: che cos'è l'Illuminismo?</em> (1784).<br>
+        Per la concezione della libertà come coesistenza sotto leggi universali e per l'ideale dell'emancipazione intellettuale. Riferimento per C3.
+      </li>
+      <li data-icon="🏺">
+        <strong>Gaetano Filangieri</strong> (1752–1788) — <em>Scienza della legislazione</em> (1780–85).<br>
+        Per la chiarezza normativa, la limitazione dell'arbitrio giudiziario e l'ingegneria legislativa anti-feudale. Riferimento per C4.
+      </li>
+      <li data-icon="🏛️">
+        <strong>James Madison</strong> (1751–1836) — <em>The Federalist</em> n. 10 e 51 (1788).<br>
+        Per la teoria dei contrappesi, il controllo delle fazioni e l'architettura istituzionale di lungo periodo. Riferimento per C5 e C6.
+      </li>
+      <li data-icon="🕯️">
+        <strong>Alexis de Tocqueville</strong> (1805–1859) — <em>De la démocratie en Amérique</em> (1835–40).<br>
+        Per la riflessione sulla tirannia della maggioranza, la centralizzazione e la stabilità istituzionale. Riferimento per C6.
+      </li>
+      <li data-icon="🧠">
+        <strong>David Hume</strong> (1711–1776) — <em>Essays, Moral and Political</em> (1741–42).<br>
+        Per lo scetticismo istituzionale («si credano tutti furfanti»), la necessità dei controlli e la diffidenza verso le passioni politiche. Riferimento per C1 e C5.
+      </li>
+      <li data-icon="🧱">
+        <strong>Edmund Burke</strong> (1729–1797) — <em>Reflections on the Revolution in France</em> (1790).<br>
+        Per la prudenza riformatrice e il valore della continuità istituzionale. Riferimento per C6.
+        <span class="nota-critica">⚠ Profilo critico: Burke fu il più celebre avversario intellettuale della Rivoluzione. È illuminista per epoca, non per simpatia verso le riforme radicali.</span>
+      </li>
+      <li data-icon="📚">
+        <strong>Denis Diderot</strong> (1713–1784) — <em>Encyclopédie</em> (1751–72).<br>
+        Per l'insistenza sulla chiarezza, la pubblicità delle procedure e il sospetto verso le autorità imperscrutabili. Riferimento diffuso per C2 e C4.
+      </li>
+      <li data-icon="📊">
+        <strong>Pietro Verri</strong> (1728–1797) — <em>Osservazioni sulla tortura</em> (1777).<br>
+        Per la separazione rigorosa tra legislatore e giudice e la dogmatica della non-interpretazione creatrice. Riferimento per C1 e C4.
+      </li>
+      <li data-icon="✒️">
+        <strong>Alessandro Verri</strong> (1741–1816) — <em>Difese dei carcerati</em> (1763–65).<br>
+        Per l'anticipazione della presunzione d'innocenza e la protezione dello status processuale dell'imputato. Riferimento per C2 e C3.
+      </li>
+      <li data-icon="⚡">
+        <strong>Antoine Fouquier-Tinville</strong> (1746–1795) — <em>Atti del Tribunale rivoluzionario</em> (1793–94).<br>
+        Inserito come antitesi del modello: contro-esempio di giustizia illiberalmente «efficiente». Assegna tutto il peso a C7 (celerità), azzerando ogni garanzia.
+        <span class="nota-critica">⚠ Profilo critico: fu il Pubblico Accusatore del Terrore. La sua presenza nel sistema serve a mostrare che il numero non basta: le motivazioni contano.</span>
+      </li>
+      <li data-icon="🗡️">
+        <strong>Maximilien Robespierre</strong> (1758–1794) — <em>Discorsi alla Convenzione Nazionale</em> (1792–94).<br>
+        Inserito per illustrare il paradosso matematico: ottiene SÌ come Beccaria, ma per la sola celerità rivoluzionaria. La sua «legalità» (C4, voto 7) è quella del diritto rivoluzionario, non del garantismo.
+        <span class="nota-critica">⚠ Profilo critico: l'Incorruttibile trasformò la legge in ghigliottina. Condivide l'esito con Beccaria per un'identità numerica, non per affinità di spirito.</span>
+      </li>
+    </ul>
+  </section>
+
+  <!-- § 7 — BIBLIOGRAFIA -->
+  <section class="card" id="bibliografia">
+    <h2 class="card-title">§ 7 — Bibliografia scientifica</h2>
+    <div class="prose" style="margin-bottom:14px;">
+      <p>Le voci da [1] a [8] sono le fonti primarie degli autori storici. Le voci da [9] in poi sono i riferimenti scientifici moderni che supportano la validità metodologica del modello WSM e le scelte teoriche sulle macro-dimensioni istituzionali.</p>
+    </div>
+    <ol class="bib-list">
+      <li>Montesquieu, C.-L. de Secondat. (1748). <em>De l'esprit des lois</em>. Ginevra.</li>
+      <li>Beccaria, C. (1764). <em>Dei delitti e delle pene</em>. Livorno.</li>
+      <li>Madison, J. (1788). <em>The Federalist</em>, n. 10 e 51. New York.</li>
+      <li>Filangieri, G. (1780–85). <em>Scienza della legislazione</em>. Napoli.</li>
+      <li>Kant, I. (1784). <em>Beantwortung der Frage: Was ist Aufklärung?</em>. Berlino. — (1797). <em>Metaphysik der Sitten</em>. Königsberg.</li>
+      <li>Tocqueville, A. de (1835–40). <em>De la démocratie en Amérique</em>. Parigi.</li>
+      <li>Hume, D. (1741–42). <em>Essays, Moral and Political</em>. Edimburgo.</li>
+      <li>Burke, E. (1790). <em>Reflections on the Revolution in France</em>. Londra.</li>
+      <li>Robespierre, M. (1792–94). <em>Discorsi alla Convenzione Nazionale e al Club dei Giacobini</em>. Parigi. [Fonte storica critica — inserita per il profilo paradossale; non è fonte normativa del modello.]</li>
+      <li>Arrow, K. J. (1951/1963). <em>Social Choice and Individual Values</em>. New York: Wiley.</li>
+      <li>Hwang, C. L., &amp; Yoon, K. (1981). <em>Multiple Attributes Decision Making: Methods and Applications</em>. Springer-Verlag.</li>
+      <li>Sen, A. (1970). <em>Collective Choice and Social Welfare</em>. Holden-Day.</li>
+      <li>La Porta, R., Lopez-de-Silanes, F., Pop-Eleches, C., &amp; Shleifer, A. (2004). Judicial Checks and Balances. <em>Journal of Political Economy</em>, 112(2), 445–470.</li>
+      <li>Helmke, G., &amp; Rosenbluth, F. (2009). Regimes and the Rule of Law: Judicial Independence in Comparative Perspective. <em>Annual Review of Political Science</em>, 12, 345–366.</li>
+      <li>Raitio, J. (2023). The Rule of Law and Legal Certainty as Emblems of the Nordic Model. In <em>Liber Amicorum in Honour of Tuomas Pöysti</em>. Helsinki.</li>
+      <li>Gratton, G., &amp; Morelli, M. (2021). Optimal Checks and Balances under Policy Uncertainty. <em>CEPR Discussion Paper</em> No. DP16580.</li>
+      <li>Voigt, S. (2016). Determinants of Judicial Efficiency: A Survey. <em>European Journal of Law and Economics</em>, 42(2), 183–208.</li>
+      <li>O'Shea, R., Deeney, P., Triantaphyllou, E., Diaz-Balteiro, L., &amp; Armagan Tarim, S. (2026). Weight stability intervals for multi-criteria decision analysis using the weighted sum model. <em>Expert Systems With Applications</em>, 296(B), 128460.</li>
+      <li>Ersoy, N., &amp; Keleş, N. (2024). Comparison of multi-criteria decision-making methods with the same normalization procedure based on real-life applications. <em>Operations Research and Decisions</em>, 34(3), 87–100.</li>
+      <li>Mukhametzyanov, I., &amp; Pamucar, D. (2024). «Thin» Structure of Relations in MCDM Models. Equivalence of the MABAC, TOPSIS(L1) and RS Methods to the Weighted Sum Method. <em>Decision Making: Applications in Management and Engineering</em>, 7(2).</li>
+    </ol>
+  </section>
+
+  <!-- § 8 — PRIVACY E TRACCIAMENTO -->
+  <section class="card" id="privacy">
+    <h2 class="card-title">§ 8 — Privacy e tracciamento</h2>
+    <div class="privacy-box">
+      <p style="margin:0 0 10px 0;">Per comprendere meglio come viene utilizzato il sito e migliorare l'esperienza degli utenti, abbiamo integrato <strong>Microsoft Clarity</strong>, uno strumento che fornisce statistiche aggregate (numero di sessioni, durata, pagine visitate) e mappe di calore. Clarity rispetta la privacy degli utenti e maschera automaticamente eventuali dati sensibili. Non vengono raccolte informazioni personali identificabili.</p>
+      <p style="margin:0 0 10px 0;">Tutti i calcoli — l'inserimento dei voti, le normalizzazioni, il rendering del radar e il calcolo delle affinità — avvengono <strong>esclusivamente in locale</strong> sul Vostro browser (client-side). Nessun dato personale o preferenza di voto viene mai trasmessa ai nostri server. Il codice sorgente è leggibile direttamente nel file HTML, senza build step né offuscamento.</p>
+      <p style="margin:0;">Il sito non utilizza cookie di profilazione né altri strumenti di tracciamento invasivi. La presenza di Clarity è limitata a metriche anonime di navigazione, nel pieno rispetto della riservatezza del Lettore.</p>
+    </div>
+  </section>
+
+  <!-- NAVIGAZIONE FINALE -->
+  <section class="card" style="text-align:center; padding: 24px;">
+    <p style="margin:0 0 16px 0; font-style:italic; color:var(--primary-dark); font-size:15px;">
+      «La trasparenza è la prima forma di rispetto verso il Lettore.»
+    </p>
+    <a href="index.html" style="display:inline-block; background:var(--primary); color:#fff; padding:10px 22px; border-radius:8px; font-weight:700; font-size:14px; text-decoration:none; box-shadow: 0 2px 4px rgba(96,136,165,0.3);">← Torna all'istrumento</a>
+  </section>
+
+</main>
+
+<!-- FOOTER — identico a index.html -->
+<div class="project-info">
+  <span>📖 Progetto posto in luce a cura della <b style="color:var(--primary-dark);">Luca Cetara Publishing (MDCCXCVI)</b></span>
+  <span>🄯 Licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank">CC BY-SA 4.0</a></span>
+  <span>📧 <a href="/cdn-cgi/l/email-protection#7e121d0e0b1c12170d161710193e131f1712501d1113"><span class="__cf_email__" data-cfemail="f19d928184939d988299989f96b19c90989ddf929e9c">[email&#160;protected]</span></a></span>
+  <span style="font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 13px;">✦ <em>Editio secunda, emendata et aucta</em> — MMXXVI</span>
+  <span style="color:var(--muted); font-family:var(--sans); font-size:12.5px;">Ultimo aggiornamento: marzo 2026</span>
+</div>
+
+</body>
+</html>

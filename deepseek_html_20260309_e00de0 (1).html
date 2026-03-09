@@ -1,0 +1,1229 @@
+<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Al lume della Ragione – referendum degli Illuministi</title>
+<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --bg1: #f0f4f8;
+    --bg2: #e2e8f0;
+    --panel: #ffffff;
+    --panel2: #f8fafc;
+    --ink: #ffffff;
+    --text: #1e293b;
+    --muted: #64748b;
+    --primary: #6088a5;
+    --primary-dark: #3a5f78;
+    --ok: #4b7b8a;
+    --bad: #b25d53;
+    --warn: #6088a5;
+    --line: #cbd5e1;
+    --line2: #94a3b8;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+    --sans: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    --serif: "Georgia", "Times New Roman", Times, serif;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--serif) !important;
+    background:
+      radial-gradient(1200px 500px at 20% 0%, rgba(96,136,165,0.15), transparent 60%),
+      radial-gradient(900px 500px at 90% 10%, rgba(58,95,120,0.10), transparent 60%),
+      linear-gradient(180deg, var(--bg1), var(--bg2));
+    color: var(--text);
+    padding-bottom: 20px;
+  }
+
+  p, div, span, td, th, h1, h2, h3, h4, h5, summary, button, a, li { font-family: var(--serif); }
+  .code, .kpi .val, .chip, .miniTable th, .miniTable td.code, #v_0, input[type=number], .bar-value {
+    font-family: var(--mono) !important;
+  }
+  .bar-label, .social-links span, .social-links a, .legend {
+    font-family: var(--sans) !important;
+  }
+
+  main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px;
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 20px;
+  }
+
+  .card {
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 24px 30px;
+    box-shadow: 0 10px 28px rgba(30,41,59,0.06);
+    width: 100% !important;
+    max-width: 100% !important;
+    box-sizing: border-box;
+  }
+  .card h2.card-title {
+    margin: 0 0 15px 0;
+    font-size: clamp(16px, 4vw, 18px);
+    font-weight: 900;
+    color: var(--primary-dark);
+    border-bottom: 1px solid var(--line);
+    padding-bottom: 8px;
+  }
+
+  .intro-pamphlet {
+    max-width: 1100px;
+    margin: 20px auto 10px;
+    padding: 25px 30px;
+    background: rgba(255,255,255,0.95);
+    border: 1px solid var(--line2);
+    border-radius: 20px;
+    box-shadow: 0 15px 30px rgba(30,41,59,0.08);
+    position: relative;
+  }
+  .intro-pamphlet::before {
+    content: "☙"; position: absolute; top: -15px; left: 20px; font-size: 30px;
+    color: var(--primary); background: var(--bg1); padding: 0 10px; border-radius: 50%;
+  }
+  .intro-pamphlet::after {
+    content: "❧"; position: absolute; bottom: -15px; right: 20px; font-size: 30px;
+    color: var(--primary); background: var(--bg1); padding: 0 10px; border-radius: 50%;
+  }
+  .intro-pamphlet h3 {
+    text-align: center; font-size: 22px; font-weight: 900; margin: 0 0 15px;
+    letter-spacing: 2px; border-bottom: 1px solid var(--line); padding-bottom: 10px;
+    color: var(--primary-dark);
+  }
+  .intro-pamphlet .dropcap { float: left; font-size: 50px; line-height: 0.8; margin-right: 8px; font-weight: 900; color: var(--primary); }
+  .intro-pamphlet p { font-size: 15.5px; line-height: 1.6; margin: 15px 0; text-align: justify; }
+
+  .criteria-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 10px; margin: 20px 0 5px; }
+  .criteria-item {
+    background: var(--panel2); border-left: 3px solid var(--primary);
+    padding: 10px 14px; font-size: 13.5px; border-radius: 0 8px 8px 0;
+  }
+  .criteria-item strong { display: block; font-size: 14.5px; margin-bottom: 4px; color: var(--primary-dark); }
+  .signature { text-align: right; font-style: italic; margin-top: 15px; font-size: 14px; border-top: 1px solid var(--line); padding-top: 10px; color: var(--muted); }
+
+  .sub { color: var(--text); font-size: clamp(14px, 3.5vw, 15px); line-height: 1.6; }
+  .hr { height: 1px; background: var(--line); margin: 15px 0; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+  .chip { background: var(--panel2); border: 1px solid var(--line); padding: 8px 12px; border-radius: 999px; font-size: 13px; color: var(--text); }
+  .chip.ok { border-color: var(--ok); background: rgba(75,123,138,0.1); color: var(--ok); }
+  .chip.bad { border-color: var(--bad); background: rgba(178,93,83,0.1); color: var(--bad); }
+  .chip.warn { border-color: var(--primary); background: rgba(96,136,165,0.1); color: var(--primary-dark); }
+
+  table { width: 100%; border-collapse: separate; border-spacing: 0; overflow-x: auto; display: block; border-radius: 12px; border: 1px solid var(--line); background: #ffffff; }
+  th, td { padding: 12px 10px; border-bottom: 1px solid var(--line); vertical-align: top; min-width: 80px; font-size: 14.5px; line-height: 1.4; }
+  th { background: var(--panel2); color: var(--primary-dark); text-align: left; font-weight: 900; font-size: 13.5px; }
+  tr:last-child td { border-bottom: none; }
+  .code { color: var(--primary); font-weight: 900; }
+  .desc { color: var(--muted); font-size: 12px; line-height: 1.4; margin-top: 4px; }
+  .why { color: var(--primary-dark); font-size: 13px; line-height: 1.4; margin-top: 6px; font-style: italic; }
+
+  input[type=number] {
+    width: 70px; padding: 10px 4px; background: var(--bg1); color: var(--text);
+    border: 1px solid var(--line2); border-radius: 8px; font-size: 15px; text-align: center;
+  }
+
+  button { background: var(--primary); color: #ffffff; border: none; border-radius: 8px; padding: 10px 14px; cursor: pointer; font-weight: 700; font-size: 13px; transition: all 0.2s ease; box-shadow: 0 2px 4px rgba(96,136,165,0.3); }
+  button:hover { filter: brightness(1.1); transform: translateY(-1px); box-shadow: 0 4px 6px rgba(96,136,165,0.4); }
+  button.secondary { background: var(--panel2); color: var(--primary-dark); border: 1px solid var(--line2); box-shadow: none; }
+  button.secondary:hover { background: #e2e8f0; }
+
+  .kpi { display: grid; gap: 15px; grid-template-columns: 1fr 1fr; }
+  .kpi .box { border: 1px solid var(--primary); border-radius: 14px; padding: 20px; background: rgba(96,136,165,0.05); text-align: center; }
+  .kpi .val { font-size: clamp(24px, 5vw, 28px); font-weight: 900; margin-top: 6px; color: var(--primary-dark); }
+  .kpi .lab { color: var(--muted); font-size: 12.5px; text-transform: uppercase; letter-spacing: 1px; font-family: var(--sans) !important; font-weight: 600; }
+  canvas { background: var(--ink); border: 1px solid var(--line); border-radius: 14px; width: 100%; height: auto; display: block; margin-top: 15px; }
+
+  /* Macro-barre elettore (stile orizzontale originale, spazio sufficiente) */
+  .macro-wrapper {
+    background: var(--bg1); border: 1px solid var(--line); border-radius: 10px; padding: 15px 20px; margin-top: 12px;
+  }
+  .bar-container { display: flex; align-items: center; margin: 0.5rem 0; }
+  .bar-label { width: 130px; font-weight: 600; font-size: 0.95rem; color: var(--text); }
+  .bar-bg { flex: 1; height: 16px; background: var(--line); border-radius: 10px; margin: 0 12px; overflow: hidden; box-shadow: inset 0 1px 3px rgba(0,0,0,0.1); }
+  .bar-fill { height: 100%; border-radius: 10px; transition: width 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+  .bar-fill.user-bar { background: var(--primary); }
+  .bar-fill.profile-bar { background: var(--primary-dark); }
+  .bar-value { width: 40px; font-weight: 700; font-size: 0.95rem; text-align: right; color: var(--primary-dark); }
+
+  /* ── NUOVO: Macro-barre nei profili (layout verticale) ── */
+  .bar-container-v { margin: 0.45rem 0; }
+  .bar-container-v .bar-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 4px; font-size: 0.75rem; font-weight: 600;
+    color: var(--text); font-family: var(--sans);
+  }
+  .bar-container-v .bar-header .bv {
+    font-family: var(--mono) !important; font-weight: 700;
+    color: var(--primary-dark); font-size: 0.75rem; white-space: nowrap; margin-left: 6px;
+  }
+  .bar-container-v .bar-bg-v {
+    width: 100%; height: 10px; background: var(--line);
+    border-radius: 10px; overflow: hidden;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.08);
+  }
+  .bar-container-v .bar-fill-v {
+    height: 100%; border-radius: 10px;
+    background: var(--primary-dark);
+    transition: width 0.6s cubic-bezier(0.4,0,0.2,1);
+  }
+
+  /* ── NUOVO: Contributi qualitativi SÌ/NO ── */
+  .qual-row {
+    display: flex; align-items: center; gap: 10px;
+    margin: 5px 0; font-size: 13.5px; padding: 4px 0;
+    border-bottom: 1px solid var(--line);
+  }
+  .qual-row:last-child { border-bottom: none; }
+  .qual-icon { font-size: 15px; width: 22px; text-align: center; flex-shrink: 0; }
+  .qual-label { flex: 1; color: var(--text); font-size: 13px; }
+  .qual-dir { font-weight: 700; font-size: 12px; font-family: var(--sans); white-space: nowrap; }
+
+  .similar-profile-note { background: rgba(75,123,138,0.1); border: 1px solid var(--ok); border-radius: 12px; padding: 12px 16px; margin: 15px 0; font-size: 14px; text-align: center; }
+  .similar-profile-note a { color: var(--ok); text-decoration: underline; font-weight: bold; }
+
+  details { border: 1px solid var(--line); border-radius: 10px; padding: 12px 16px; background: var(--panel2); margin-top: 15px; }
+  details summary { cursor: pointer; font-weight: 900; font-size: 15px; color: var(--primary-dark); }
+  details p, details li { color: var(--text); font-size: 14px; line-height: 1.6; margin-top: 10px; }
+
+  .profiles { display: grid; gap: 16px; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); }
+  .profile {
+    display: flex; flex-direction: column; gap: 12px;
+    border: 1px solid var(--line); border-radius: 14px; padding: 20px; background: #ffffff;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+  }
+  .profile.compareOn { border-color: var(--primary); box-shadow: 0 0 0 2px var(--primary) inset; }
+  .profile.mostSimilar { border: 2px solid var(--ok); background: rgba(75,123,138,0.05); }
+  .profile img { width: 110px; height: 110px; object-fit: cover; border-radius: 50%; border: 2px solid var(--primary); margin: 0 auto; }
+  .profile h3 { margin: 0; font-size: 18px; text-align: center; color: var(--primary-dark); }
+  .profile .bio { margin-top: 4px; color: var(--muted); font-size: 13.5px; line-height: 1.5; text-align: center; font-style: italic; }
+  .profile .quote {
+    margin-top: 12px; padding: 12px 15px; border-left: 3px solid var(--primary);
+    background: var(--panel2); border-radius: 0 8px 8px 0; color: var(--text); font-size: 13.5px; line-height: 1.5;
+  }
+  .profile .btnrow { margin-top: auto; display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+
+  .social-links {
+    display: flex; flex-wrap: wrap; gap: 20px;
+    justify-content: center; align-items: center;
+    margin-top: 15px; padding-top: 20px; border-top: 1px dashed var(--line2);
+  }
+  .social-links p { width: 100%; text-align: center; margin-bottom: 5px; color: var(--muted); font-size: 14.5px;}
+  .social-links span { display: inline-flex; align-items: center; justify-content: center; gap: 6px; font-size: 15px; }
+  .social-links a { color: var(--primary-dark); font-weight: 700; text-decoration: none; border-bottom: 1px dotted var(--primary); padding-bottom: 2px; }
+  .social-links a:hover { color: var(--primary); border-bottom-style: solid; }
+
+  .legendRow { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; margin-top: 16px; justify-content: center; }
+  .legend { display: flex; align-items: center; gap: 8px; font-size: 13.5px; color: var(--text); border: 1px solid var(--line); background: var(--panel2); padding: 6px 14px; border-radius: 999px; }
+  .dot { width: 14px; height: 14px; border-radius: 50%; display: inline-block; }
+
+  .project-info {
+    max-width: 1100px; margin: 20px auto 0; padding: 20px; display: flex; flex-wrap: wrap; gap: 20px;
+    align-items: center; justify-content: center; background: var(--panel2); border: 1px solid var(--line); border-radius: 20px; font-size: 13.5px;
+  }
+  .project-info a { color: var(--primary-dark); text-decoration: underline; font-family: var(--sans) !important;}
+
+  .letterBox {
+    border: 1px solid var(--line2); background: linear-gradient(180deg, #ffffff, #f8fafc);
+    border-radius: 12px; padding: 25px; margin-top: 20px; box-shadow: inset 0 0 20px rgba(96,136,165,0.05);
+  }
+  .letterBox .sig { margin-top: 12px; color: var(--primary-dark); font-size: 14.5px; text-align: right; font-weight: bold; }
+  .letterBox .dropcap { font-size: 15.5px; color: var(--text); line-height: 1.6; }
+  .letterBox .dropcap::first-letter { float: left; font-size: 44px; line-height: 0.8; padding-right: 8px; font-weight: 900; color: var(--primary); }
+  .letter-luogo { text-align: right; font-style: italic; font-size: 12.5px; color: var(--muted); margin-bottom: 10px; letter-spacing: 0.3px; }
+
+  /* ── Classi precedentemente mancanti ── */
+  .tilt { color: var(--muted); font-size: 12px; margin-top: 4px; font-style: italic; }
+  .notes-section { max-width: 1100px; margin: 20px auto 0; padding: 0 16px; }
+  .equal-weights-note { background: rgba(96,136,165,0.08); border: 1px solid var(--primary); border-radius: 10px; padding: 10px 14px; font-size: 13.5px; }
+</style>
+</head>
+
+<body>
+
+<div class="intro-pamphlet">
+  <h3>AL LETTORE DISCRETO</h3>
+  <p><span class="dropcap">Q</span>uesto opuscolo, che trae luce dalla ragione e si rivolge al cittadino del nostro tempo, intende offrire un istrumento per ponderare, con metodo illuminato, le questioni che oggi si pongono al voto popolare. Esso non prescrive, ma aiuta a discernere: Voi stesso, assegnando un peso a ciascuno dei sette capi che seguono, potrete vedere verso quale partito inclini la Vostra bilancia, e paragonare il Vostro giudizio con quello di alcuni fra i più celebri pensatori del secolo decimottavo.</p>
+
+  <p>Il sistema, ispirato alle dottrine dei Lumi, traduce i Vostri voti in pesi, e li combina con valutazioni predefinite – frutto di una lettura prudente dei classici – per generare un indice di propensione al SÌ o al NO. Potrete inoltre sovrapporre al Vostro profilo quello di un filosofo, e leggere una lettera che egli potrebbe avervi inviato, quasi vi parlasse da Parigi o da Edimburgo.</p>
+
+  <p>Venendo al nostro tempo, l'Italia è chiamata a esprimersi sopra un referendum che investe l'ordinamento della giustizia. Un illuminista, posto dinanzi a tale quesito, non si lascerebbe guidare da passioni, ma esaminerebbe con freddo lume i principii che lo sorreggono. Ecco i criteri che abbiamo tratto dalle sue meditazioni:</p>
+
+  <div class="criteria-list">
+    <div class="criteria-item"><strong>1. Indipendenza dal politico</strong> – tratto da Montesquieu, che voleva il potere giudiziario separato e indipendente.</div>
+    <div class="criteria-item"><strong>2. Terzietà dell'arbitro</strong> – caro a Beccaria, per il quale accusa e giudizio debbono risiedere in menti distinte.</div>
+    <div class="criteria-item"><strong>3. Libertà come sicurezza (Certezza della norma)</strong> – Da Kant a Montesquieu, il principio per cui i diritti sono difesi solo se il sistema politico produce leggi stabili, universali e sottratte ai mutamenti repentini di Governo.</div>
+    <div class="criteria-item"><strong>4. Limitazione del giudice (Freno all’interpretazione)</strong> – Il precetto rigoroso di Beccaria e Filangieri, affinché il magistrato non si sostituisca al legislatore tramite l’uso creativo o personale delle sentenze.</div>
+    <div class="criteria-item"><strong>5. Anti-cattura e disciplina credibile</strong> – Madison avvertiva che occorrono controlli ragionevoli per ogni potere.</div>
+    <div class="criteria-item"><strong>6. Contrappesi nel lungo periodo</strong> – Tocqueville vide nella durata e stabilità delle istituzioni il baluardo contro le derive.</div>
+    <div class="criteria-item"><strong>7. Celerità con garanzie</strong> – I Lumi non ignoravano che una giustizia inutilmente ritardata è giustizia negata.</div>
+  </div>
+
+  <p>Il meccanismo che qui si presenta non ambisce a neutralità assoluta, ché anzi reca con sé quel lieve favor verso la cautela che i filosofi del secolo decimottavo solevano opporre ai disegni troppo arditi. Tale inclinazione, lungi dall'essere occultata, è dichiarata perché il Lettore possa, nel suo giudizio, tenerne conto e, se vorrà, correggerla con propri ponderati voti.</p>
+
+  <p>Avvertiamo tuttavia un paradosso degno di lunga meditazione, che il meccanismo genera con perfida eleganza: Maximilien Robespierre – l'Incorruttibile che trasformò la legge in ghigliottina – e Cesare Beccaria – il quale propose di abolire la stessa pena capitale – ottengono entrambi dal nostro sistema un esito orientato al SÌ. Epperò per ragioni diametralmente opposte: Beccaria assegna somma importanza alla legalità e all'anti-arbitrio (principio quarto), vedendo nella riforma un freno al capriccio del giudice e una garanzia per l'imputato; Robespierre, al contrario, riversa quasi ogni peso sulla celerità processuale (principio settimo), che nel suo universo mentale non è garanzia bensì velocità della ghigliottina rivoluzionaria. Il modello, misurando soltanto la distanza da un ideale illuminista, non può distinguere le diverse vie che conducono al medesimo numero. Il Lettore tenga dunque a mente che la cifra non narra l'intera storia, ma è soltanto una traccia da interpretare con la propria ragione.</p>
+
+  <p>Orsù, dunque: ponderate, confrontate, e lasciate che la ragione illumini il Vostro cammino.</p>
+
+  <p style="border-top: 1px dashed var(--line); padding-top: 12px; margin-top: 20px; font-size: 14px; color: var(--muted);"><strong style="color:var(--primary-dark);">P.S.</strong> — <em>Chi avesse già visitato questo opuscolo in una sua versione anteriore, vorrà perdonare la libertà che ci siamo presi di tornare sul lavoro. La presente edizione reca correzioni di metodo, nuovi profili di pensatori, e una più onesta dichiarazione dei paradossi che il calcolo genera. Abbiamo altresì rimosso alcune ridondanze che, come le prolisse prefazioni dei cattivi romanzi, occupavano spazio senza aggiungere lume. Confidiamo che il Lettore, confrontando il vecchio col nuovo, riconosca nel cambiamento non capriccio, ma cura.</em></p>
+  <div class="signature">
+    — LCP, MDCCXCVI <br>
+    <a href="#inizio" style="font-family: var(--sans);">Torna all'istrumento ▼</a>
+  </div>
+</div>
+
+<div id="inizio"></div>
+
+<main>
+
+  <section class="card" style="text-align: center; padding: 40px 30px;">
+    <h1 style="font-size: 2rem; font-weight: 900; color: var(--primary-dark); margin: 0 0 5px 0; line-height: 1.25;">
+      Al lume della Ragione, ovvero come voterebbero gli Illuministi al Referendum.
+    </h1>
+    <h2 style="font-size: 1.4rem; font-weight: 400; font-style: italic; color: var(--muted); margin: 0 0 10px 0;">
+      Pamphlet in forma di Lettere.
+    </h2>
+    <div style="font-family: var(--sans) !important; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 2.5px; color: var(--line2); margin-bottom: 35px;">
+      Stampato in Milano, MMXXVI.
+    </div>
+
+    <h3 style="text-align: left; font-size: 1.35rem; font-weight: bold; margin-bottom: 15px; border-bottom: 1px solid var(--line); padding-bottom: 10px; color: var(--primary-dark);">
+      Avvertenza per l'uso
+    </h3>
+    <div style="text-align: left; font-size: 1.1rem; color: var(--text); line-height: 1.6;">
+      <p style="margin-top: 0;">Qual sia l'ufficio Vostro: piacciavi assegnare un voto, in misura da uno (1) a dieci (10), per ogni proposto principio (1 = di lieve conto, 10 = di somma importanza).</p>
+      <p style="margin-bottom: 0;">Avrete altresì facoltà di porre a confronto un differente profilo d'un'illuminata mente, pur mantenendo immutati i suffragi da Voi già espressi, sovrapponendolo con garbo al Vostro prospetto radiale.</p>
+    </div>
+  </section>
+
+  <!-- SEZIONE DI VOTO -->
+  <section class="card">
+    <h2 class="card-title">I) Del giudizio che a Voi, discreto Lettore, s'appartiene</h2>
+    <div class="sub">
+      Non è d'uopo che Voi suddividiate cento punti fra i vari capi. Basta, e avanza, che a ciascun Principio attribuiate un voto, secondo il peso che la Vostra ragione gli assegna.<br>
+      Qualora due Principi Vi paiano di pari importanza, non dubitate di onorarli col medesimo giudizio.
+    </div>
+
+    <div class="row" style="margin-top:15px">
+      <span class="chip warn" id="sumChip">Somma de' Vostri voti = <b>—</b></span>
+      <span style="margin-left:auto; display:flex; gap:8px;">
+        <button id="btnReset">⟲ Ripristina i Valori a 5</button>
+      </span>
+    </div>
+
+    <div class="hr"></div>
+
+    <table>
+      <thead>
+        <tr>
+          <th style="width:7%">Cod.</th>
+          <th>Principio</th>
+          <th style="width:16%">Il Vostro voto (1–10)</th>
+          <th style="width:12%">Peso <i>w</i></th>
+        </tr>
+      </thead>
+      <tbody id="criteriaBody"></tbody>
+    </table>
+
+    <details>
+      <summary>Degli aspetti concettuali e filosofici de’ Principii adottati</summary>
+      <ul id="motivationList"></ul>
+      <div style="margin-top:16px; padding:14px 18px; background:rgba(96,136,165,0.06); border-left:3px solid var(--primary); border-radius:0 10px 10px 0; font-size:14px; line-height:1.7; color:var(--text);">
+        <p style="margin:0 0 8px 0;"><strong style="color:var(--primary-dark);">I due volti dell’arbitrio (Criteri 3 e 4).</strong></p>
+        <p style="margin:0 0 10px 0;">Per i pensatori dei Lumi, l’incertezza che toglie libertà al cittadino ha due origini ben distinte: il potere politico che scrive le leggi, e i tribunali che le applicano.</p>
+        <p style="margin:0 0 10px 0;"><strong>Assegnando un peso elevato al parametro C3</strong> (<em>Sicurezza e certezza della legge</em>), Voi difendete il cittadino <em>dinanzi allo Stato</em>: esigete un sistema in cui il legislatore non produca norme retroattive, volubili o ineguali.</p>
+        <p style="margin:0;"><strong>Assegnando un peso elevato al parametro C4</strong> (<em>Subordinazione del giudice</em>), Voi difendete il cittadino <em>dentro le aule di giustizia</em>: chiedete che il magistrato si limiti ad applicare strettamente il testo normativo, vietandogli di «reinterpretare» la legge secondo la sua personale visione morale o politica.</p>
+      </div>
+    </details>
+
+    <!-- MODIFICATO: da "Mostra riepilogo dei valori assegnati" a "Dettaglio delle priorità" -->
+    <details>
+      <summary>Dettaglio delle priorità</summary>
+      <div class="desc" style="margin-top:10px; margin-bottom:8px; font-size:13px; font-style:italic; border-left:3px solid var(--primary); padding-left:10px;">
+        La colonna <b>Impatto sul risultato</b> mostra quanto ciascun principio tira la bilancia, e in quale direzione: è il prodotto del Vostro peso per la differenza tra i punteggi SÌ e NO. Un valore positivo spinge verso il SÌ (🟢), uno negativo verso il NO (🔴); se è vicino a zero il principio è neutro (⚪).
+      </div>
+      <div class="miniTable" style="margin-top:10px;">
+        <table>
+          <thead>
+            <!-- MODIFICATO: "Influenza" → "Impatto sul risultato" -->
+            <tr><th colspan="4">Riepilogo del Vostro giudizio — per Principio</th></tr>
+            <tr><th>Cod.</th><th>Vostro Voto</th><th>Peso <i>w</i></th><th>Impatto sul risultato</th></tr>
+          </thead>
+          <tbody id="electorSummary"></tbody>
+        </table>
+      </div>
+    </details>
+
+    <details open>
+      <summary>🏛️ Macro-dimensioni istituzionali (Importanza assegnata)</summary>
+      <div class="desc" style="margin-top:10px; font-size:13px;">
+        Media dell'importanza (da 1 a 10) da Voi attribuita ai principî appartenenti a ciascuna famiglia istituzionale.<br>
+        <span style="font-style:italic; color:var(--primary-dark);">Le macro-dimensioni si rifanno agli scritti degli Illuministi — come più diffusamente esposto nelle <a href="note-bibliografia.html" style="color:var(--primary-dark);">Note metodologiche</a> — e aggregano i sette principî nelle quattro famiglie fondanti della teoria istituzionale: indipendenza della magistratura, legalità e certezza del diritto, contrappesi istituzionali, efficienza processuale.</span>
+      </div>
+      <div id="macroBars" class="macro-wrapper"></div>
+    </details>
+
+  </section>
+
+  <!-- SEZIONE RISULTATI E RADAR -->
+  <section class="card">
+    <h2 class="card-title">II) Del prospetto radiale e dell'esito del Vostro giudizio</h2>
+
+    <div class="kpi">
+      <div class="box">
+        <div class="lab">Indice SÌ (0–10)</div>
+        <div id="siScore" class="val">—</div>
+      </div>
+      <div class="box">
+        <div class="lab">Indice NO (0–10)</div>
+        <div id="noScore" class="val">—</div>
+      </div>
+    </div>
+
+    <div class="row" style="margin-top:15px">
+      <span class="chip" id="winner">Esito: <b>—</b></span>
+      <span class="chip" id="delta">Differenza (SÌ−NO): <b>—</b></span>
+    </div>
+
+    <div class="sub" id="whyChoice" style="margin-top:12px; font-size:14.5px;">—</div>
+
+    <div id="equalWeightsNote" class="equal-weights-note" style="display:none; color:var(--primary); font-style:italic; margin-top:10px;">
+      ⚖️ Avete attribuito la medesima importanza a tutti i principi. In tal caso il risultato è determinato unicamente dalla media dei valori predefiniti.
+    </div>
+
+    <div id="similarProfileNote" class="similar-profile-note" style="display:none;"></div>
+
+    <!-- MODIFICATO: sezione SÌ/NO ristrutturata -->
+    <details>
+      <summary>Come incidono i principî sul risultato</summary>
+      <!-- Vista qualitativa: visibile non appena si apre il details -->
+      <div id="qualContrib" style="margin-top:12px;"></div>
+      <!-- Tabella matematica nascosta in un details annidato -->
+      <details style="margin-top:14px;">
+        <summary style="font-size:13.5px; color:var(--muted);">Analisi matematica per i calcolatori</summary>
+        <div class="desc" style="margin-top:8px;">
+          La differenza totale è la somma di <b>w × (SÌ−NO)</b> su ciascun Criterio.
+        </div>
+        <div class="miniTable" style="margin-top:10px;">
+          <table>
+            <thead>
+              <tr><th colspan="5">Contributi matematici al calcolo</th></tr>
+              <tr>
+                <th style="width:8%">Cod.</th>
+                <th>Criterio</th>
+                <th style="width:12%">Peso w</th>
+                <th style="width:12%">SÌ−NO</th>
+                <th style="width:16%">w×(SÌ−NO)</th>
+              </tr>
+            </thead>
+            <tbody id="contribBody"></tbody>
+            <tfoot>
+              <tr>
+                <th colspan="4" style="text-align: right;">Somma contributi (Δ)</th>
+                <th id="contribSum" style="font-family:var(--mono);">—</th>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </details>
+    </details>
+
+    <div class="letterBox">
+      <div id="lettreElectorLabel" style="font-weight:900; margin-bottom:10px; font-family:var(--sans); color:var(--primary-dark); letter-spacing:1px; text-transform:uppercase; font-size:12px;">Lettera persiana</div>
+      <div class="letter-luogo" id="lettreElectorLuogo"></div>
+      <div id="lettreElector" class="dropcap">—</div>
+      <div class="sig" id="lettreElectorSig">—</div>
+    </div>
+
+    <!-- ESTRATTO DI STAMPA / SCARICA -->
+    <div style="margin-top:18px; padding:16px 20px; background:var(--panel2); border:1px solid var(--line); border-radius:12px; display:flex; flex-wrap:wrap; gap:12px; align-items:flex-end;">
+      <div style="flex:1; min-width:180px;">
+        <label style="font-family:var(--sans); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); font-weight:700; display:block; margin-bottom:6px;">Il vostro nome per l’estratto</label>
+        <input type="text" id="inputNomeLettore" placeholder="es. Giuseppe Parini" maxlength="60"
+          style="width:100%; padding:9px 12px; border:1px solid var(--line2); border-radius:8px; font-family:var(--serif); font-size:14px; background:var(--bg1); color:var(--text); box-sizing:border-box;">
+      </div>
+      <div style="min-width:150px;">
+        <label style="font-family:var(--sans); font-size:11px; text-transform:uppercase; letter-spacing:1px; color:var(--muted); font-weight:700; display:block; margin-bottom:6px;">Genere grammaticale</label>
+        <select id="inputGenere" style="width:100%; padding:9px 12px; border:1px solid var(--line2); border-radius:8px; font-family:var(--serif); font-size:14px; background:var(--bg1); color:var(--text);" onchange="debouncedUpdate()">
+          <option value="M">Maschile</option>
+          <option value="F">Femminile</option>
+          <option value="N">Non specificato</option>
+        </select>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
+        <button id="btnStampa" class="secondary" onclick="generateFoglioHTML()" style="font-size:13.5px; padding:10px 18px;">⬇ Scaricate il Vostro Foglio di Ragione</button>
+        <span style="font-family:var(--sans); font-size:11px; color:var(--muted); font-style:italic;">Sarà aperta l’opzione di stampa, a parte.<br>Scegliete «Salva l’estratto» per serbarne memoria.</span>
+      </div>
+    </div>
+
+    <div class="hr" style="margin:20px 0;"></div>
+
+    <canvas id="radar" width="980" height="600"></canvas>
+
+    <div class="legendRow">
+      <div class="legend"><span class="dot" style="background: #6088a5"></span> Elettore (Voi)</div>
+      <div class="legend" id="legendCompare" style="display:none;">
+        <span class="dot" style="background: #8b4040"></span> <span id="legendCompareName" style="font-weight:bold;">Profilo</span>
+      </div>
+    </div>
+
+    <div class="sub" id="compareNote" style="margin-top:15px; display:none; text-align:center; background:var(--panel2); padding:10px; border-radius:8px; border:1px solid var(--line);">—</div>
+
+    <div class="hr" style="margin:20px 0;"></div>
+
+    <h2 class="card-title">III) De' profili de' Lumi e del confronto con essi</h2>
+    <div class="sub" style="margin-bottom:15px;">
+      Potete eziandio confrontare un altro profilo, sovrapponendolo al Vostro prospetto radiale, senza punto alterare i giudizi che avete sin qui espresso.<br>
+      <ul style="margin:8px 0 0 20px; padding:0;">
+        <li><b>Confronta</b>: sovrappone i voti del profilo ai Vostri nel radar.</li>
+        <li><b>Giudizio del profilo</b>: calcola l'esito come se quel Lume fosse l'elettore.</li>
+      </ul>
+    </div>
+
+    <div class="profiles" id="profiles"></div>
+  </section>
+
+  <section class="card" style="padding: 25px; text-align: center;">
+    <p style="font-family: var(--serif); color: var(--primary-dark); font-style: italic; font-size: 15px; margin-top:0; margin-bottom: 20px; line-height: 1.6;">
+      🧠 «Il mondo ama le risposte brevi, le soluzioni istantanee, i riassunti gridati.<br>L'Illuminista, invece, è sospettoso: quando qualcosa gli pare troppo semplice, apre il libro, dubita, indaga.»
+    </p>
+    <div class="social-links">
+      <p>Seguite le nostre pagine per continuare l'indagine:</p>
+      <span>📘 <a href="https://facebook.com/lcpubMDCCXCVI" target="_blank">Facebook.com</a></span>
+      <span>📷 <a href="https://www.instagram.com/lcpublishing2026?igsh=M3R0OWQ5OTBmODc1" target="_blank">@lcpublishing2026</a></span>
+    </div>
+  </section>
+
+</main>
+
+<div class="project-info">
+  <span>📖 Progetto posto in luce a cura della <b style="color:var(--primary-dark);">LCP (MDCCXCVI)</b></span>
+  <span>🄯 Licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank">CC BY-SA 4.0</a></span>
+  <span>📧 <a href="/cdn-cgi/l/email-protection#620e011215020c09130c0d0a03220f030b0e4c010d0f"><span class="__cf_email__" data-cfemail="99f5faebe8fff1f4eef1f0f7fed9f4f8f0f5b7faf6f4">[email&#160;protected]</span></a></span>
+  <span style="font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 13px;">✦ <em>Editio secunda, emendata et aucta</em> — MMXXVI</span>
+  <div class="share-buttons">
+    <button onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiato negli appunti!'))" style="background:var(--line2); color:#fff; border-radius:99px; font-family:var(--sans);">🔗 Copia Link Pagina</button>
+  </div>
+</div>
+
+<div class="notes-section">
+  <details>
+    <summary>Note metodologiche e Bibliografia completa</summary>
+    <div class="desc" style="margin-top:12px; font-size:13.5px;">
+      <p>Per approfondimenti sul metodo di calcolo <i>Weighted Sum</i>, sulla formula di <i>Manhattan</i>, e sulla bibliografia scientifica integrale, consulta la <a href="note-bibliografia.html" style="font-weight:bold; color:var(--primary-dark);">pagina dedicata alle Note</a>.</p>
+      <h5 style="margin:16px 0 6px; font-size:14px; color:var(--text);">Fonti Primarie Essenziali:</h5>
+      <ul style="margin:0 0 12px 0; padding-left:20px; line-height:1.6;">
+        <li>Montesquieu – <em>Dello Spirito delle Leggi</em> (1748)</li>
+        <li>Cesare Beccaria – <em>Dei Delitti e delle Pene</em> (1764)</li>
+        <li>James Madison – <em>Il Federalista</em>, n. 10 e n. 51 (1788)</li>
+        <li>David Hume – <em>Saggi Morali e Politici</em> (1741-42)</li>
+        <li>Edmund Burke – <em>Riflessioni sulla Rivoluzione in Francia</em> (1790)</li>
+        <li>Immanuel Kant – <em>Risposta alla domanda: che cos'è l'Illuminismo?</em> (1784)</li>
+        <li>Alexis de Tocqueville – <em>La Democrazia in America</em> (1835-40)</li>
+        <li>Denis Diderot – <em>Enciclopedia</em> (1751-72)</li>
+        <li>Gaetano Filangieri – <em>Scienza della Legislazione</em> (1780-85)</li>
+        <li>Maximilien Robespierre – <em>Discorsi alla Convenzione Nazionale</em> (1792-94)</li>
+      </ul>
+      <p style="margin:10px 0 0 0; font-style:italic; color:var(--primary-dark); font-size:13px;">
+        Per le fonti antiche e moderne ulteriori — compresi i riferimenti alla letteratura scientifica sul <em>Weighted Sum Model</em>, sulla distanza di Manhattan e sulla teoria istituzionale comparata — si rimanda alla <a href="note-bibliografia.html" style="font-weight:bold; color:var(--primary-dark);">pagina delle Note metodologiche e Bibliografia</a>, ove ogni autorità è citata con piena indicazione bibliografica.
+      </p>
+    </div>
+  </details>
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const criteria = [
+  { code:"C1", title:"Indipendenza dal politico (separazione dei poteri)", short:"Politica", si:6, no:9,
+    sci:"Quanto l'ordinamento preserva il magistrato da pressioni e incentivi di parte (poiché il modo di nominare non dee confondersi col diritto di controllare): il timore d'interferenza è nemico giurato della libertà.", quote:"Un giudice che teme, non protegge: obbedisce.", tiltNote:"Lettura prudenziale: cautela settecentesca nel sottrarre la giurisdizione a leve politiche.", sources:"Montesquieu; Hume" },
+  { code:"C2", title:"Terzietà dell'arbitro (accusa ≠ giudice)", short:"Terzietà", si:8, no:6,
+    sci:"Quanto l'assetto rende credibile l'equilibrio fra accusa e difesa. Nel linguaggio de' Lumi: separare i ruoli per scemare sospetto e pregiudizio.", quote:"La giustizia dee non solo essere giusta, ma eziandio parere tale.", tiltNote:"Lettura: enfasi sulla neutralità percepita del magistrato.", sources:"Beccaria; Montesquieu" },
+  { code:"C3", title:"Sicurezza del cittadino e universalità della norma", short:"Sicurezza", si:6, no:6,
+    sci:"L'argine dinanzi all'imprevedibilità del Potere politico e legislativo. Misura la preferenza per un ordinamento stabile, universale e uguale per tutti, in cui l'individuo non tema cambi improvvisi delle regole.", quote:"«La libertà politica in un cittadino è quella tranquillità di spirito che deriva dalla consapevolezza individuale della propria sicurezza.» (Montesquieu, Dello spirito delle leggi, XI, 6).", tiltNote:"Lettura: dipende da quali pericoli Voi reputate più gravi — l'instabilità normativa o la rigidità del sistema.", sources:"Montesquieu; I. Kant" },
+  { code:"C4", title:"Subordinazione del giudice alla legge scritta", short:"Aderenza alla Norma", si:8, no:7,
+    sci:"L'argine dinanzi al Tribunale. Misura l'avversione verso il giudice che «reinterpreta» i testi: l'Illuminista pretende la pura esecuzione materiale della norma, impedendo che i togati si facciano artefici di nuovi precetti secondo fini o morali proprie.", quote:"«In ogni delitto si deve fare dal giudice un sillogismo perfetto […]. Quando il giudice sia costretto, o voglia fare anche due soli sillogismi, vi sarà la porta aperta all'incertezza.» (C. Beccaria, Dei delitti e delle pene, IV).", tiltNote:"Lettura: favorevole al SÌ. Chi riduce la discrezionalità interpretativa del giudice presidia questa dimensione meglio del NO.", sources:"C. Beccaria; G. Filangieri" },
+  { code:"C5", title:"Anti-cattura e disciplina credibile (controlli ragionevoli)", short:"Anticattura", si:7, no:6,
+    sci:"Quanto l'assetto previene la 'cattura' del sistema (correntismo o altre fazioni) e rende credibile la disciplina.", quote:"Chi controlla i controllori decide, sovente, più di quanto dichiari.", tiltNote:"Lettura: lievemente favorevole, con onesta ambivalenza sul profilo del controllo politico.", sources:"Madison; Hume" },
+  { code:"C6", title:"Contrappesi nel lungo periodo (stabilità anti-deriva)", short:"Contrappesi", si:6, no:7,
+    sci:"Quanto l'architettura regge al trascorrere degli anni: contrappesi, indipendenza e responsabilità debbono coesistere anche al mutar delle maggioranze e degli incentivi.", quote:"Ciò che regge oggi, dee reggere eziandio domani.", tiltNote:"Lettura: prudenza e diffidenza verso nuovi centri di potere proiettati nel tempo.", sources:"Tocqueville; Burke" },
+  { code:"C7", title:"Celerità con garanzie (efficienza non tiranna)", short:"Efficienza", si:7, no:6,
+    sci:"Quanto l'ordinamento garantisce processi rapidi e non defatiganti. I Lumi sapevano che 'giustizia ritardata è giustizia negata'.", quote:"La giustizia che tarda è ingiustizia.", tiltNote:"Lettura: lieve favore all'efficienza, col vincolo invalicabile delle garanzie di base.", sources:"Beccaria; Verri" }
+];
+
+function tiltLabel(diff){ if(diff>0) return "tende al SÌ"; if(diff<0) return "tende al NO"; return "neutra"; }
+
+let electorVotes = [5,5,5,5,5,5,5];
+let compareKey = null;
+
+function clamp(x,a,b){ return Math.max(a, Math.min(b, x)); }
+function sum(arr){ return arr.reduce((a,b)=>a+b,0); }
+function normalizeVotes(votes){
+  // Ponderatore Quadratico: w_i = V_i² / Σ(V_j²)
+  // I voti alti (9, 10) pesano in modo marcatamente superiore; i voti bassi sono schiacciati.
+  // La distanza di Manhattan (findMostSimilarProfile) rimane LINEARE — vedi commento in manhattanDist.
+  const sq = votes.map(v => v * v);
+  const s = sq.reduce((a, b) => a + b, 0);
+  if(s <= 0) return votes.map(() => 1 / votes.length);
+  return sq.map(q => q / s);
+}
+function scoreOption(weights, which){
+  let total = 0;
+  for(let i=0;i<criteria.length;i++){
+    const perf = (which==="si") ? criteria[i].si : criteria[i].no;
+    total += weights[i] * perf;
+  }
+  return total;
+}
+
+function manhattanDist(a, b){ let s = 0; for(let i=0; i<criteria.length; i++) s += Math.abs(a[i] - b[i]); return s; }
+function manhattanPct(dist, dims){ return (1 - dist / (dims * 9)) * 100; }
+function findMostSimilarProfile(userVotes) {
+  let minDist = Infinity, bestKey = null;
+  for (let key in profileData) {
+    const p = profileData[key];
+    const dist = manhattanDist(userVotes, p.votes);
+    if (dist < minDist) { minDist = dist; bestKey = key; }
+  }
+  return { bestKey, minDist, pct: bestKey ? manhattanPct(minDist, criteria.length) : null };
+}
+
+function getMacroDimensions(votes) {
+  return {
+    ind: (votes[0] + votes[1]) / 2,
+    leg: (votes[2] + votes[3]) / 2,
+    con: (votes[4] + votes[5]) / 2,
+    eff: votes[6]
+  };
+}
+
+function hashStr(s){ let h=2166136261>>>0; for(let i=0;i<s.length;i++){ h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h>>>0; }
+function pick(arr, seed){ return arr[seed % arr.length]; }
+/* ── Articoli determinativi per i criteri ── */
+function artDef(s){ // articolo semplice: la / l' / i
+  if(!s) return '';
+  if(s==='Contrappesi') return 'i ';
+  if(/^[AEIOUaeiou]/.test(s)) return "l'";
+  return 'la ';
+}
+function artA(s){ // a + articolo: alla / all' / ai
+  if(!s) return 'alla ';
+  if(s==='Contrappesi') return 'ai ';
+  if(/^[AEIOUaeiou]/.test(s)) return "all'";
+  return 'alla ';
+}
+function artSu(s){ // su + articolo: sulla / sull' / sui
+  if(!s) return 'sulla ';
+  if(s==='Contrappesi') return 'sui ';
+  if(/^[AEIOUaeiou]/.test(s)) return "sull'";
+  return 'sulla ';
+}
+
+function electorLetter(recLabel, p1, p2, delta, genere){
+  const seed = hashStr([recLabel,p1,p2,String(Math.round(delta*100))].join("|"));
+  const sal = genere==='F' ? 'Mia cara amica,' : genere==='M' ? 'Mio caro amico,' : 'Signore, Signora,';
+  const incipit = pick(["Ho veduto che, quando gli uomini parlano di giustizia, spesso parlano di sé — e di ciò che temono di perdere.","In questi tempi la parola libertà corre come moneta: tutti la spendono, pochi ne soppesano il conio.","Molti chiamano ragione ciò che è abitudine, e abitudine ciò che è privilegio acquisito."], seed>>>1);
+  let nodo = (!p1 || !p2)
+    ? pick(["La bilancia è sospesa: avete pesato tutto con ugual mano, e la mano uguale non decide.", "Nessun principio prevale sugli altri — la bilancia tace, come tace chi non ha ancora scelto."], seed>>>2)
+    : pick([`Tra le vostre voci, <em style="font-style:italic;">${artDef(p1)+p1.toLowerCase()}</em> e <em style="font-style:italic;">${artDef(p2)+p2.toLowerCase()}</em> parlano più forte di tutte — e la bilancia le ascolta.`, `Avete posto <em style="font-style:italic;">${artDef(p1)+p1.toLowerCase()}</em> in cima, e <em style="font-style:italic;">${artDef(p2)+p2.toLowerCase()}</em> con essa: la bilancia inclina di conseguenza.`], seed>>>2);
+  const esito = recLabel==="si" ? "Per come avete pesato le cose, la bilancia pende verso il sì." : recLabel==="no" ? "Per come avete pesato le cose, la bilancia pende verso il no." : "La bilancia tace.";
+  const chiosa = pick(["S'io errassi, errerei con voi.","Misuro, non decido: i pesi son vostri, io reggo la stadera.","I pesi son vostri; io non faccio che leggere dove la bilancia inclina."], seed>>>3);
+  return { text:`${sal}<br><br>${incipit}<br>${nodo}<br>${esito}<br><br><span style="color:var(--muted); font-size:13.5px; font-style:italic;">${chiosa}</span>`, sig:"— Usbek", luogo:"Ispahan" };
+}
+
+const authorLetters = {
+  montesquieu: ({p1,p2,rec,genere}) => ({sig:"— Montesquieu", luogo:"La Brède", text:`${genere==='F'?'Cara amica,':genere==='M'?'Caro Rica,':'Caro Rica, cara lettrice,'}<br>la libertà non è un clamore di piazza: è una forma silenziosa che separa chi comanda da chi punisce. Chi onora sopra ogni cosa <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'la ragione'}</em> ha già inteso l'essenziale — che il potere non si sorveglia da solo. ${rec}.<br><span style="color:var(--muted); font-style:italic;">I poteri si toccano per frenarsi; guai se s'abbracciano.</span>`}),
+  beccaria: ({p1,p2,rec,genere}) => ({sig:"— Beccaria", luogo:"Milano", text:`${genere==='F'?'Signora,':genere==='M'?'Signore,':'Signore, Signora,'}<br>la prima virtù della legge è la certezza: non il terrore, non la clemenza, ma il confine preciso. Chi porta in cima <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'la chiarezza'}</em> ha scelto la norma contro l'arbitrio del giudice-sovrano. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Se il giudizio divien invenzione, il cittadino divien sorte.</span>`}),
+  madison: ({p1,p2,rec,genere}) => ({sig:"— Madison", luogo:"Filadelfia", text:`Al Popolo, Cittadini e Cittadine,<br>il governo deve prima frenare i governati, poi sé stesso — o divien tirannide con firma legale. Chi eleva <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'i contrappesi'}</em> a principio supremo chiede alla macchina di mordere i propri ingranaggi: questo è esattamente ciò che le chiediamo. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Se gli uomini fosser angeli, non v'è duopo di patti.</span>`}),
+  hume: ({p1,p2,rec,genere}) => ({sig:"— Hume", luogo:"Edimburgo", text:`${genere==='F'?'Signora,':genere==='M'?'Signore,':'Signore, Signora,'}<br>si credano tutti furfanti: è la sola ipotesi che costruisce istituzioni durature. Chi pone <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'i controlli'}</em> al primo posto non si affida ai buoni propositi altrui, e fa bene — i freni reggono quando gli ideali non bastano. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Le libertà nascon dalle diffidenze ordinate.</span>`}),
+  burke: ({p1,p2,rec,genere}) => ({sig:"— Burke", luogo:"Londra", text:`${genere==='F'?'Signora,':genere==='M'?'Signore,':'Signore, Signora,'}<br>non s'innovi dove s'ignori, e non si distrugga ciò che, lentamente, ha imparato a reggersi. La devozione <em style="font-style:italic;">${p1 ? artA(p1)+p1.toLowerCase() : 'alla stabilità'}</em> non è inerzia: è prudenza di chi sa che ogni istituzione nuova eredita anche i vizi di chi la fonda. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Il rimedio guarisce non spezzando il paziente.</span>`}),
+  kant: ({p1,p2,rec,genere}) => ({sig:"— Kant", luogo:"Königsberg", text:`${genere==='F'?'Cittadina,':genere==='M'?'Cittadino,':'Cittadino, Cittadina,'}<br>agite solo secondo la massima che potreste volere legge universale. Chi porta in cima <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'la ragione'}</em> non sceglie per sé, ma traccia la norma che vorrebbe valesse per ogni essere ragionevole: questo è il solo fondamento degno di uomini liberi. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Libertà è ragion universale, mai deroga.</span>`}),
+  tocqueville: ({p1,p2,rec,genere}) => ({sig:"— Tocqueville", luogo:"Parigi", text:`${genere==='F'?'Signora,':genere==='M'?'Signore,':'Signore, Signora,'}<br>tutto volge, nelle democrazie, verso un unico centro: la comodità del comando uniforme. Chi insiste <em style="font-style:italic;">${p1 ? artSu(p1)+p1.toLowerCase() : 'sui contrappesi'}</em> oppone resistenza a questa gravità silenziosa. Senza freni il dispotismo ritorna — sorride, non rugge, ma è dispotismo. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Tutto che cala d'in alto fiacca il voler in basso.</span>`}),
+  diderot: ({p1,p2,rec,genere}) => ({sig:"— Diderot", luogo:"Parigi", text:`${genere==='F'?'Amica,':genere==='M'?'Amico,':'Amico, Amica,'}<br>oscurità è padronanza: ciò che non si capisce non si controlla, e ciò che non si controlla obbedisce solo a chi lo nasconde. Chi sceglie <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'la chiarezza'}</em> esige che la procedura sia leggibile, il giudizio motivato, il potere esposto alla luce. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Giustizia velata si fa sùbito dispotismo di toga.</span>`}),
+  filangieri: ({p1,p2,rec,genere}) => ({sig:"— Filangieri", luogo:"Napoli", text:`${genere==='F'?'Signora,':genere==='M'?'Signore,':'Signore, Signora,'}<br>si fermi l'estro del legislatore al lido della norma scritta: ogni passo oltre è arbitrio con buone intenzioni. L'insistenza <em style="font-style:italic;">${p1 ? artSu(p1)+p1.toLowerCase() : 'sulla chiarezza'}</em> è la più antica richiesta del diritto — che la regola preceda il caso, non lo insegua. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Regola fissa non illude col lampo del giusto ignoto.</span>`}),
+  pverri: ({p1,p2,rec,genere}) => ({sig:"— P. Verri", luogo:"Milano", text:`${genere==='F'?'Sorella,':genere==='M'?'Fratello,':'Fratello, Sorella,'}<br>da fiera dogana a fiera sentenza, ho visto sempre la stessa tentazione: che il giudice si faccia legislatore. Chi antepone <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'la chiarezza'}</em> a ogni altro valore chiede che la bocca del togato pronunzi la legge, non la inventi. Altro non chiedo. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Bocca sillabica sia 'l togato.</span>`}),
+  averri: ({p1,p2,rec,genere}) => ({sig:"— A. Verri", luogo:"Roma", text:`${genere==='F'?'Amica,':genere==='M'?'Amico,':'Amico, Amica,'}<br>in carcere vidi uomini che non sapevano di quale delitto fossero accusati. La giustizia senza <em style="font-style:italic;">${p1 ? artDef(p1)+p1.toLowerCase() : 'la terzietà'}</em> non è giustizia: è una sentenza in cerca di colpevole. Chi onora questo principio difende chi ancora non sa di aver bisogno di difesa. ${rec}.<br><span style="color:var(--muted); font-style:italic;">D'Innocenza finché ignota la nequizia v'è il fregio supremo.</span>`}),
+  fouquier: ({p1,p2,rec,genere}) => ({sig:"— Fouquier", luogo:"Parigi, Tribunale Rivoluzionario", text:`${genere==='F'?'Cittadina,':genere==='M'?'Cittadino,':'Cittadini, Cittadine,'}<br>ogni appello <em style="font-style:italic;">${p1 ? artA(p1)+p1.toLowerCase() : 'alla terzietà'}</em> in aula è un chiodo nel meccanismo della giustizia rivoluzionaria. La Repubblica non attende. L'innocenza si prova dopo — se c'è un dopo. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Il fato di Francia morde in celerità le teste in disaccordo.</span>`}),
+  robespierre: ({p1,p2,rec,genere}) => ({sig:"— Robespierre", luogo:"Parigi, Comitato di Salute Pubblica", text:`${genere==='F'?'Cittadina,':genere==='M'?'Cittadino,':'Cittadini, Cittadine,'}<br>la Virtù senza il Terrore è impotente; il Terrore senza la Virtù è funesto. La vostra devozione <em style="font-style:italic;">${p1 ? artA(p1)+p1.toLowerCase() : 'alla virtù'}</em> sarebbe ammirevole, se la Nazione potesse permettersi il lusso della moderazione. Non può. ${rec}.<br><span style="color:var(--muted); font-style:italic;">Il tribunale rivoluzionario non conosce indugi: ogni ritardo è tradimento della Repubblica.</span>`})
+};
+
+function buildLettre(recLabel, topPrinciples, delta, authorKey, genere){
+  genere = genere || 'N';
+  const p1=topPrinciples[0]||null; const p2=topPrinciples[1]||null;
+  const recRaw=recLabel==="si"?"mi pare più conforme dare assenso":recLabel==="no"?"mi pare più conforme negare l'assenso":"mi pare più conforme sospendere il giudizio";
+  const rec=recRaw.charAt(0).toUpperCase()+recRaw.slice(1);
+  if(!authorKey) return electorLetter(recLabel,p1,p2,delta,genere);
+  const fn=authorLetters[authorKey]; if(!fn) return electorLetter(recLabel,p1,p2,delta,genere);
+  return fn({p1,p2,rec,delta,genere});
+}
+
+function imgWithFallback(localPath, commonsFileName){ return { local: localPath, remote: "https://commons.wikimedia.org/wiki/Special:FilePath/" + encodeURIComponent(commonsFileName) }; }
+
+const profileData = {
+  montesquieu: { name:"Montesquieu", years:"1689–1755", icon:"⚖️", img:imgWithFallback("img/montesquieu.png","Montesquieu_1.png"), bio:"Libertà come sicurezza e separazione dei poteri.", coreQuotes:["« Il potere frena il potere. »"], votes:[9,8,8,4,4,7,6] },
+  beccaria: { name:"Cesare Beccaria", years:"1738–1794", icon:"📜", img:imgWithFallback("img/beccaria.jpg","Cesare_Beccaria_1738-1794.jpg"), bio:"Anti-arbitrio: legge chiara, giudice vincolato alla legge.", coreQuotes:["« L'interpretazione delle leggi non può essere affidata ai giudici. »"], votes:[6,6,7,10,6,4,7] },
+  madison: { name:"James Madison", years:"1751–1836", icon:"🏛️", img:imgWithFallback("img/madison.jpg","James_Madison_Portrait2.jpg"), bio:"Contrappesi interni: ambizione contro ambizione.", coreQuotes:["« Se gli uomini fossero angeli, non sarebbe necessario alcun governo. »"], votes:[6,6,6,3,8,10,8] },
+  hume: { name:"David Hume", years:"1711–1776", icon:"🧠", img:imgWithFallback("img/hume.jpg","David_Hume.jpg"), bio:"Scettico istituzionale: assumere interesse privato.", coreQuotes:["« La libertà vive di diffidenze ordinate. »"], votes:[6,5,6,4,8,9,5] },
+  burke: { name:"Edmund Burke", years:"1729–1797", icon:"🧱", img:imgWithFallback("img/burke.jpg","Edmund_Burke_EMWEA.jpg"), bio:"Prudenza politica: riformare per preservare.", coreQuotes:["« Il rimedio guarisce senza uccidere. »"], votes:[8,6,8,5,7,9,4],
+    affinityWarning:"🧱 Burke fu il più celebre avversario intellettuale della Rivoluzione: illuminista per epoca, non per simpatia." },
+  kant: { name:"Immanuel Kant", years:"1724–1804", icon:"🕊️", img:imgWithFallback("img/kant.jpg","Immanuel_Kant_(portrait).jpg"), bio:"Emancipazione intellettuale e legge di ragione.", coreQuotes:["« La libertà è vivere sotto leggi che la ragione dichiara. »"], votes:[7,7,7,6,6,6,5] },
+  tocqueville: { name:"A. de Tocqueville", years:"1805–1859", icon:"🕯️", img:imgWithFallback("img/tocqueville.jpg","Alexis_de_tocqueville.jpg"), bio:"La centralizzazione cresce naturalmente nelle masse.", coreQuotes:["« Dove tutto si decide in alto, in basso si disimpara a volere. »"], votes:[6,5,7,5,7,9,7] },
+  diderot: { name:"Denis Diderot", years:"1713–1784", icon:"📚", img:imgWithFallback("img/diderot.jpg","Denis_Diderot_portrait.jpg"), bio:"Sospetto verso autorità e cerimoniali imperscrutabili.", coreQuotes:["« La chiarezza è giustizia; l'oscurità, è comando. »"], votes:[7,7,6,6,7,6,6] },
+  filangieri: { name:"Gaetano Filangieri", years:"1752–1788", icon:"🏺", img:imgWithFallback("img/filangieri.jpg","Portrait_of_Gaetano_Filangieri_MET_DP805362.jpg"), bio:"Ingegneria giuridica per abbattere l'arbitrio.", coreQuotes:["« Si cerchi la regola che dura: non la promessa che brilla. »"], votes:[7,7,7,9,6,6,8] },
+  pverri: { name:"Pietro Verri", years:"1728–1797", icon:"📊", img:imgWithFallback("img/pverri.jpg","Pietro_Verri.jpg"), bio:"Dogmatica della non-interpretazione creatrice.", coreQuotes:["« Interpretare è far dire al legislatore più di quel che disse. »"], votes:[10,9,8,10,8,5,7] },
+  averri: { name:"Alessandro Verri", years:"1741–1816", icon:"✒️", img:imgWithFallback("img/averri.jpg","Alessandro_Verri.jpg"), bio:"Protettore dello status d'innocenza processuale.", coreQuotes:["« La procedura non dee essere una guerra contro l'imputato. »"], votes:[7,9,8,6,7,5,5] },
+  fouquier: { name:"Fouquier-Tinville", years:"1746–1795", icon:"⚡", img:imgWithFallback("img/fouquier.png","Antoine_Quentin_Fouquier-Tinville.jpg"), bio:"Terrore fattosi legge celere e inappellabile.", coreQuotes:["« La salute del popolo è la suprema legge. »"], votes:[1,1,1,1,1,1,10],
+    affinityWarning:"⚡ Il numero mente. Fouquier-Tinville fu il Pubblico Accusatore del Terrore: condivideva le vostre priorità sulla carta, non certo i vostri ideali." },
+  // NUOVO: Robespierre — peso massimo su C7 (celerità), disprezzo per C1 e C2
+  robespierre: {
+    name:"Maximilien Robespierre", years:"1758–1794", icon:"🗡️",
+    img: imgWithFallback("img/robespierre.jpg","Robespierre_Musee_Carnavalet.jpg"),
+    bio:"La legalità rivoluzionaria come strumento del Terrore. Vota SÌ — come Beccaria — ma per la sola celerità della ghigliottina.",
+    coreQuotes:["« La virtù senza il terrore è impotente; il terrore senza la virtù è funesto. »"],
+    votes:[2,2,3,7,3,2,9],
+    affinityWarning:"🗡️ Coincidenza aritmetica inquietante. L'Incorruttibile assegnava la stessa priorità alla celerità, ma la sua ghigliottina non era una garanzia processuale."
+  }
+};
+
+function getCompareVotes(){ return compareKey ? profileData[compareKey].votes : null; }
+
+const criteriaBody = document.getElementById("criteriaBody"), motivationList = document.getElementById("motivationList"), electorSummary = document.getElementById("electorSummary"), contribBody = document.getElementById("contribBody"), contribSum = document.getElementById("contribSum"), similarProfileNote = document.getElementById("similarProfileNote"), macroBars = document.getElementById("macroBars");
+
+function renderCriteria(){
+  criteriaBody.innerHTML = ""; motivationList.innerHTML = "";
+  for(let i=0;i<criteria.length;i++){
+    const c=criteria[i], diff=c.si-c.no, tr=document.createElement("tr");
+    tr.innerHTML = `
+      <td class="code">${c.code}</td>
+      <td><b>${c.title}</b><div class="desc">${c.sci}</div><div class="desc" style="margin-top:4px;"><i>Fonti: ${c.sources}</i></div><div class="tilt">Tendenza: ${tiltLabel(diff)} <small>(SÌ=${c.si}, NO=${c.no})</small></div><div class="why">«${c.quote}»</div></td>
+      <td><input type="number" min="1" max="10" step="1" value="${electorVotes[i]}" id="v_${i}"></td>
+      <td><span class="chip" style="padding:6px 10px;"><b id="w_${i}">—</b></span></td>
+    `;
+    criteriaBody.appendChild(tr);
+    const li=document.createElement("li"); li.innerHTML=`<b>${c.title}:</b> ${c.sci} <br><span class="desc">Fonti: ${c.sources} | SÌ=${c.si}, NO=${c.no}</span>`;
+    motivationList.appendChild(li);
+    document.getElementById(`v_${i}`).addEventListener("input",(e)=>{
+      electorVotes[i] = clamp(Number(e.target.value)||1, 1, 10); debouncedUpdate();
+    });
+  }
+}
+
+function renderProfiles(){
+  const box = document.getElementById("profiles"); box.innerHTML = "";
+  Object.keys(profileData).forEach(key=>{
+    const p=profileData[key], card=document.createElement("div"); card.className="profile"; card.id=`profile_${key}`;
+    let miniRows=""; for(let i=0;i<criteria.length;i++) miniRows+=`<tr><td class="code">${criteria[i].code}</td><td>${criteria[i].title}</td><td style="font-family:var(--mono); font-weight:bold;">${p.votes[i]}</td></tr>`;
+
+    // Macro-barre verticali con nomi per esteso
+    const macro=getMacroDimensions(p.votes);
+    const macroDims = [
+      { label:"Indipendenza", v: macro.ind },
+      { label:"Legalità",     v: macro.leg },
+      { label:"Contrappesi",  v: macro.con },
+      { label:"Efficienza",   v: macro.eff }
+    ];
+    const macroHtml = `
+      <div class="macro-wrapper" style="margin-top:10px; background:var(--bg1);">
+        ${macroDims.map(d=>`
+          <div class="bar-container-v">
+            <div class="bar-header">
+              <span>${d.label}</span>
+              <span class="bv">${d.v.toFixed(1)}/10</span>
+            </div>
+            <div class="bar-bg-v">
+              <div class="bar-fill-v" style="width:${(d.v/10)*100}%;"></div>
+            </div>
+          </div>`).join('')}
+      </div>
+    `;
+
+    card.innerHTML = `
+      <img src="${p.img.local}" alt="${p.name}" onerror="this.onerror=null; this.src='${p.img.remote}';">
+      <h3 style="margin-bottom:0;">${p.icon} ${p.name}</h3><div class="bio" style="margin-top:0;">${p.bio}</div>
+      <div class="quote">${p.coreQuotes.join('<br>')}</div>
+      <div id="affPct_${key}" class="desc" style="text-align:center; font-weight:bold; color:var(--ok); margin-top:10px; font-size:14.5px;"></div>
+      <!-- MODIFICATO: label "Tavola dei giudizi (dettaglio delle priorità)" -->
+      <details style="box-shadow:none;"><summary>Tavola dei giudizi (dettaglio delle priorità)</summary><div class="miniTable"><table><thead><tr><th>Cod.</th><th>Principio</th><th>Voto</th></tr></thead><tbody>${miniRows}</tbody></table></div></details>
+      <details style="box-shadow:none;"><summary>🏛️ Dimensioni istituzionali</summary>${macroHtml}</details>
+      <div class="btnrow" style="margin-top:15px;"><button data-compare="${key}">Confronta prospetto</button><button data-eval="${key}" class="secondary">Giudizio profilo</button></div>
+      <div class="desc" id="profileEval_${key}" style="display:none; text-align:center; background:var(--panel2); padding:15px; border-radius:10px; margin-top:10px; border:1px solid var(--line);"></div>
+    `;
+    box.appendChild(card);
+  });
+
+  box.querySelectorAll("button[data-compare]").forEach(btn=>{ btn.addEventListener("click",()=>{ compareKey=(compareKey===btn.getAttribute("data-compare"))?null:btn.getAttribute("data-compare"); refreshCompareHighlight(); updateAll(); const r=document.getElementById('radar'); if(r) r.scrollIntoView({behavior:'smooth', block:'center'}); }); });
+  box.querySelectorAll("button[data-eval]").forEach(btn=>{ btn.addEventListener("click",()=>{ const key=btn.getAttribute("data-eval"), el=document.getElementById(`profileEval_${key}`), open=(el.style.display==="block"); el.style.display=open?"none":"block"; if(!open) el.innerHTML=buildProfileJudgementHTML(key); }); });
+  refreshCompareHighlight();
+}
+
+function refreshCompareHighlight(){
+  const legend=document.getElementById("legendCompare"), name=document.getElementById("legendCompareName");
+  Object.keys(profileData).forEach(k=>{ const el=document.getElementById(`profile_${k}`); if(el) el.classList.toggle("compareOn",compareKey===k); });
+  if(compareKey){ legend.style.display="flex"; name.textContent=profileData[compareKey].name; } else { legend.style.display="none"; }
+}
+
+function getDominantCriteria(weights){ const max=Math.max(...weights), min=Math.min(...weights); if(max-min<0.02) return[]; const avg=weights.reduce((a,b)=>a+b,0)/weights.length; return weights.map((w,i)=>({w,i})).filter(x=>x.w>avg*1.2).sort((a,b)=>b.w-a.w).map(x=>x.i).slice(0,2); }
+
+function diffSummary(a,b){ const df=a.map((v,i)=>({i,d:(b[i]-v)})); df.sort((x,y)=>Math.abs(y.d)-Math.abs(x.d)); return { parts:df.slice(0,3).map(x=>`${x.d>0?"+":""}${x.d} su C${x.i+1}`) }; }
+
+function buildProfileJudgementHTML(key){
+  const p=profileData[key], w=normalizeVotes(p.votes), si=scoreOption(w,"si"), no=scoreOption(w,"no"), d=si-no;
+  const dom=getDominantCriteria(w), rec=d>0?"favorisce SÌ":d<0?"favorisce NO":"pareggio";
+  const letHtml=buildLettre(d>0?"si":d<0?"no":"pareggio", dom.map(i=>criteria[i].short), d, key);
+  return `<b>Giudizio simulato:</b> SÌ=${si.toFixed(2)}, NO=${no.toFixed(2)} ⇒ <b style="color:var(--primary-dark)">${rec.toUpperCase()}</b>.<br><div style="margin-top:8px; font-size:13px; text-align:justify;">La simulazione assegna la supremazia al voto di ${p.name}. Ecco l'epistola conseguente:</div><div class="letterBox" style="text-align:left; box-shadow:none;">${letHtml.luogo ? `<div class="letter-luogo">${letHtml.luogo}</div>` : ''}<div class="dropcap">${letHtml.text}</div><div class="sig">${letHtml.sig}</div></div>`;
+}
+
+const radarCanvas = document.getElementById("radar"), radarCtx = radarCanvas.getContext("2d");
+function fitCanvas(c){ const dpr=window.devicePixelRatio||1, rect=c.getBoundingClientRect(), w=Math.max(320,Math.floor(rect.width)), h=Math.max(320,Math.floor(rect.height)); if(c.width!==Math.floor(w*dpr)||c.height!==Math.floor(h*dpr)){ c.width=Math.floor(w*dpr); c.height=Math.floor(h*dpr); } return{w,h,dpr}; }
+
+function drawRadar(){
+  const {w,h,dpr} = fitCanvas(radarCanvas); radarCtx.setTransform(dpr,0,0,dpr,0,0); radarCtx.clearRect(0,0,w,h);
+  const n=criteria.length, cx=w/2, cy=h*0.55, R=Math.min(w,h)*0.28, rot=-Math.PI/2;
+  const A=electorVotes, B=getCompareVotes();
+  radarCtx.fillStyle= "rgba(30,41,59,0.95)"; radarCtx.font=`${Math.max(12, Math.floor(w/60))}px var(--sans)`; radarCtx.textAlign="center"; radarCtx.textBaseline="top"; radarCtx.fillText("Comparativa Pesi (Scala 1–10)", cx, 15);
+
+  const gStroke="rgba(148,163,184,0.35)", axis="rgba(148,163,184,0.6)";
+  function poly(rr,strk,lw){ radarCtx.beginPath(); for(let i=0;i<n;i++){ const a=rot+i*(2*Math.PI/n), x=cx+rr*Math.cos(a), y=cy+rr*Math.sin(a); if(i===0) radarCtx.moveTo(x,y); else radarCtx.lineTo(x,y); } radarCtx.closePath(); radarCtx.strokeStyle=strk; radarCtx.lineWidth=lw; radarCtx.stroke(); }
+  for(let r=1;r<=5;r++) poly((R*r)/5, gStroke, 1);
+  for(let i=0;i<n;i++){ const a=rot+i*(2*Math.PI/n); radarCtx.beginPath(); radarCtx.moveTo(cx,cy); radarCtx.lineTo(cx+R*Math.cos(a),cy+R*Math.sin(a)); radarCtx.strokeStyle=axis; radarCtx.lineWidth=1; radarCtx.stroke(); }
+
+  radarCtx.fillStyle="rgba(100,116,139,0.8)"; radarCtx.font=`${Math.max(9, Math.floor(w/70))}px var(--mono)`; radarCtx.textBaseline="middle";
+  for(let t=0;t<=10;t+=2) radarCtx.fillText(String(t), cx, cy-(R*t/10));
+
+  radarCtx.fillStyle="rgba(30,41,59,0.95)"; radarCtx.font=`${Math.max(10, Math.floor(w/70))}px var(--sans)`;
+  for(let i=0;i<n;i++){
+    const a=rot+i*(2*Math.PI/n), ux=Math.cos(a), uy=Math.sin(a), x=cx+(R+(w<500?20:30))*ux, y=cy+(R+(w<500?20:30))*uy;
+    radarCtx.textAlign=ux>0.25?"left":ux<-0.25?"right":"center"; radarCtx.textBaseline=uy>0.25?"top":uy<-0.25?"bottom":"middle";
+    const text=`C${i+1} · ${criteria[i].short}`;
+    radarCtx.fillText(text,x,y);
+  }
+
+  const AStroke="rgba(96,136,165,0.95)", AFill="rgba(96,136,165,0.18)", BStroke="rgba(139,64,64,0.92)", BFill="rgba(139,64,64,0.13)";
+  function drawD(vals, strk, fill, shift){
+    const pts=vals.map((v,i)=>{ const a=rot+i*(2*Math.PI/n), r=R*(v/10); return{x:cx+r*Math.cos(a), y:cy+r*Math.sin(a), a, v:v}; });
+    radarCtx.beginPath(); pts.forEach((p,i)=>i===0?radarCtx.moveTo(p.x,p.y):radarCtx.lineTo(p.x,p.y)); radarCtx.closePath();
+    radarCtx.fillStyle=fill; radarCtx.fill(); radarCtx.strokeStyle=strk; radarCtx.lineWidth=2.5; radarCtx.stroke();
+    radarCtx.fillStyle=strk; pts.forEach(p=>{ radarCtx.beginPath(); radarCtx.arc(p.x,p.y,w<500?3:4.5,0,Math.PI*2); radarCtx.fill(); });
+    radarCtx.font=`${Math.max(9, Math.floor(w/80))}px var(--mono)`; radarCtx.fillStyle=strk;
+    pts.forEach(p=>{
+      const ux=Math.cos(p.a), uy=Math.sin(p.a), lx=p.x+ux*12+(-uy)*shift, ly=p.y+uy*12+(ux)*shift;
+      radarCtx.textAlign=ux>0.25?"left":ux<-0.25?"right":"center"; radarCtx.textBaseline=uy>0.25?"top":uy<-0.25?"bottom":"middle";
+      radarCtx.lineWidth=3; radarCtx.strokeStyle="#fff"; radarCtx.strokeText(p.v.toFixed(0),lx,ly); radarCtx.fillText(p.v.toFixed(0),lx,ly);
+    });
+  }
+  drawD(A, AStroke, AFill, w<500?-5:-8);
+  if(B) drawD(B, BStroke, BFill, w<500?5:8);
+}
+
+function debounce(fn, ms){ let t; return (...a)=>{ clearTimeout(t); t=setTimeout(()=>fn(...a), ms); }; }
+const debouncedUpdate = debounce(updateAll, 150);
+
+function updateAll(){
+  const weights=normalizeVotes(electorVotes), si=scoreOption(weights,"si"), no=scoreOption(weights,"no"), d=si-no;
+  document.getElementById("sumChip").innerHTML = `Voti: <b>${sum(electorVotes)}</b> — Pesi: quadratici (V²/ΣV²)`;
+  for(let i=0;i<7;i++){ const e=document.getElementById(`w_${i}`); if(e) e.textContent=weights[i].toFixed(3); }
+  document.getElementById("siScore").textContent = si.toFixed(2);
+  document.getElementById("noScore").textContent = no.toFixed(2);
+
+  const win=document.getElementById("winner"), del=document.getElementById("delta");
+  win.classList.remove("ok","bad"); del.classList.remove("ok","bad");
+  del.innerHTML = `Diff.(SÌ−NO): <b>${d.toFixed(2)}</b>`;
+  const baseWhy = getDominantCriteria(weights).length? `Principî di vetta: "${criteria[getDominantCriteria(weights)[0]].title}"` : "Pesi sparsi, bilancia piana.";
+
+  if(Math.abs(d)<0.0001){ win.innerHTML="Esito: <b>PAREGGIO</b>"; document.getElementById("whyChoice").innerHTML=`Giudizio finale neutro. ${baseWhy}`; }
+  else if(d>0){ win.innerHTML="Esito: <b>SÌ</b>"; win.classList.add("ok"); del.classList.add("ok"); document.getElementById("whyChoice").innerHTML=`Inclinazione al SÌ. ${baseWhy}`; }
+  else { win.innerHTML="Esito: <b>NO</b>"; win.classList.add("bad"); del.classList.add("bad"); document.getElementById("whyChoice").innerHTML=`Inclinazione al NO. ${baseWhy}`; }
+
+  document.getElementById("equalWeightsNote").style.display = (Math.max(...weights)-Math.min(...weights)<0.01)?"block":"none";
+
+  // Affinità profili
+  Object.keys(profileData).forEach(k => {
+    const p = document.getElementById(`affPct_${k}`);
+    if(p) p.innerHTML=`Sintonia d'idee: ${(manhattanPct(manhattanDist(electorVotes, profileData[k].votes),7)).toFixed(1)}% <br><span style="font-size:12px; font-weight:normal; color:var(--muted);">(Scarto assoluto: ${manhattanDist(electorVotes,profileData[k].votes)} pt)</span>`;
+  });
+
+  const sim = findMostSimilarProfile(electorVotes);
+  if(sim.bestKey){
+    similarProfileNote.style.display="block";
+    const bestProfile = profileData[sim.bestKey];
+    const warningNote = bestProfile.affinityWarning
+      ? `<br><span style="font-size:12.5px; color:var(--bad); font-style:italic;">${bestProfile.affinityWarning}</span>`
+      : "";
+    similarProfileNote.innerHTML=`🎯 Profilo Illuminato a Voi più sodale: <a href="#" onclick="document.querySelector('button[data-compare=${sim.bestKey}]').click(); return false;">${bestProfile.name}</a> (Sintonia ${sim.pct.toFixed(1)}%)${warningNote}`;
+    Object.keys(profileData).forEach(k=>{ const e=document.getElementById(`profile_${k}`); if(e){ k===sim.bestKey? e.classList.add("mostSimilar"): e.classList.remove("mostSimilar");} });
+  }
+
+  // Macro barre elettore — layout verticale (allineato ai profili)
+  const uMac = getMacroDimensions(electorVotes);
+  macroBars.innerHTML = [{l:'Indipendenza',v:uMac.ind},{l:'Legalità',v:uMac.leg},{l:'Contrappesi',v:uMac.con},{l:'Efficienza',v:uMac.eff}]
+    .map(i=>`<div class="bar-container-v">
+      <div class="bar-header">
+        <span>${i.l}</span>
+        <span class="bv">${i.v.toFixed(1)}/10</span>
+      </div>
+      <div class="bar-bg-v">
+        <div class="bar-fill-v" style="width:${(i.v/10)*100}%; background:var(--primary);"></div>
+      </div>
+    </div>`).join('');
+
+  // MODIFICATO: Contributi con vista qualitativa
+  const qualContribEl = document.getElementById("qualContrib");
+  if(qualContribEl){
+    qualContribEl.innerHTML = criteria.map((c,i)=>{
+      const contrib = weights[i] * (c.si - c.no);
+      let icon, dir, color;
+      if      (contrib >  0.12) { icon="🟢"; dir="Spinge con forza verso il SÌ";     color="var(--ok)"; }
+      else if (contrib >  0.02) { icon="🟡"; dir="Spinge lievemente verso il SÌ";    color="var(--primary)"; }
+      else if (contrib < -0.12) { icon="🔴"; dir="Spinge con forza verso il NO";     color="var(--bad)"; }
+      else if (contrib < -0.02) { icon="🟠"; dir="Spinge lievemente verso il NO";    color="var(--bad)"; }
+      else                      { icon="⚪"; dir="Neutro sul risultato";              color="var(--muted)"; }
+      return `<div class="qual-row">
+        <span class="qual-icon">${icon}</span>
+        <span class="qual-label"><b>C${i+1}</b> — ${c.short}</span>
+        <span class="qual-dir" style="color:${color};">${dir}</span>
+      </div>`;
+    }).join('');
+  }
+
+  // Tabella contributi matematici (rimane nella sezione annidata)
+  contribBody.innerHTML = ""; let sc=0;
+  for(let i=0;i<7;i++){
+    const df=criteria[i].si-criteria[i].no, cw=weights[i]*df; sc+=cw;
+    contribBody.innerHTML+=`<tr><td class="code">C${i+1}</td><td>${criteria[i].short}</td><td>${weights[i].toFixed(3)}</td><td>${df.toFixed(0)}</td><td style="font-family:var(--mono);">${cw.toFixed(3)}</td></tr>`;
+  }
+  contribSum.textContent = sc.toFixed(3);
+
+  // MODIFICATO: colonna Impatto sul risultato con valore numerico e icona
+  electorSummary.innerHTML = "";
+  for(let i=0;i<7;i++){
+    const impact = weights[i] * (criteria[i].si - criteria[i].no);
+    const impactIcon = impact >  0.02 ? "🟢" : impact < -0.02 ? "🔴" : "⚪";
+    const impactColor = impact > 0.02 ? "var(--ok)" : impact < -0.02 ? "var(--bad)" : "var(--muted)";
+    const impactStr = (impact >= 0 ? "+" : "") + impact.toFixed(3);
+    electorSummary.innerHTML+=`<tr>
+      <td class="code">C${i+1}</td>
+      <td><b>${electorVotes[i]}</b></td>
+      <td style="font-family:var(--mono);">${weights[i].toFixed(3)}</td>
+      <td style="font-family:var(--mono); color:${impactColor};">${impactIcon} ${impactStr}</td>
+    </tr>`;
+  }
+
+  const genere = (document.getElementById('inputGenere') ? document.getElementById('inputGenere').value : 'N');
+  const le = buildLettre(d>0?"si":d<0?"no":"pareggio", getDominantCriteria(weights).map(i=>criteria[i].short), d, null, genere);
+  document.getElementById("lettreElector").innerHTML = le.text;
+  document.getElementById("lettreElectorSig").textContent = le.sig;
+  const luogoEl = document.getElementById("lettreElectorLuogo");
+  if(luogoEl) luogoEl.textContent = le.luogo || '';
+  const labelEl = document.getElementById("lettreElectorLabel");
+  if(labelEl) labelEl.textContent = genere==='F' ? 'Lettera persiana — A Voi, Signora' : genere==='M' ? 'Lettera persiana — A Voi, Signore' : 'Lettera persiana';
+
+  const B=getCompareVotes(), cn=document.getElementById("compareNote");
+  if(B && compareKey){
+    const sd=diffSummary(electorVotes,B);
+    cn.style.display="block";
+    cn.innerHTML=`<b style="color:var(--primary-dark);">Comparazione (${profileData[compareKey].name}):</b> le discrepanze massime vòlgono a ${sd.parts.join("; ")}.<br><span class="desc">Scarto Assoluto (Tot. punti di difetto): <b style="font-family:var(--mono);">${manhattanDist(electorVotes,B)}</b>.</span>`;
+  } else cn.style.display="none";
+
+  drawRadar();
+}
+
+/* ================================================================
+   GENERATORE ESTRATTO DI STAMPA PERSONALE — LCP MDCCXCVI
+   ================================================================ */
+function toCalendarioRivoluzionario(date){
+  const mesi=[
+    'Vendemmiaio','Brumaio','Frimaio',
+    'Nevoso','Piovoso','Ventoso',
+    'Germinale','Fiorile','Pratile',
+    'Messidoro','Termidoro','Fruttidoro'
+  ];
+  const giorni=['primo','secondo','terzo','quarto','quinto','sesto','settimo','ottavo','nono','decimo',
+    'undicesimo','dodicesimo','tredicesimo','quattordicesimo','quindicesimo','sedicesimo','diciassettesimo',
+    'diciottesimo','diciannovesimo','ventesimo','ventunesimo','ventiduesimo','ventitreesimo','ventiquattresimo',
+    'venticinquesimo','ventiseiesimo','ventisettesimo','ventottesimo','ventinovesimo','trentesimo'];
+  const y=date.getFullYear(), m=date.getMonth(), d=date.getDate();
+  const inizio = (m>8||(m===8&&d>=22)) ? new Date(y,8,22) : new Date(y-1,8,22);
+  const gg = Math.floor((date-inizio)/(864e5));
+  if(gg>=360) return `Sansculottidi, giorno ${gg-359}`;
+  const im=Math.floor(gg/30), id=gg%30;
+  return `${giorni[id]} ${mesi[im]}`;
+}
+
+function generateFoglioHTML(){
+  const nomeLettore = (document.getElementById('inputNomeLettore').value.trim()) || 'Lettore Anonimo';
+  const genere = (document.getElementById('inputGenere') ? document.getElementById('inputGenere').value : 'N');
+  const weights = normalizeVotes(electorVotes);
+  const si = scoreOption(weights,'si'), no = scoreOption(weights,'no'), d = si-no;
+  const dom = getDominantCriteria(weights);
+  const rec = d>0?'SÌ':d<0?'NO':'PAREGGIO';
+  const deltaColor = d>0?'#4b7b8a':d<0?'#b25d53':'#64748b';
+  const userMac = getMacroDimensions(electorVotes);
+  const p1label = dom[0]!=null ? criteria[dom[0]].short : null;
+  const p2label = dom[1]!=null ? criteria[dom[1]].short : null;
+  const giudizioTesto = p1label && p2label
+    ? `La Vostra bilancia s'inclina al <strong style="color:${deltaColor}">${rec}</strong> poiché la Vostra Ragione ha posto somma importanza ne <em>la ${p1label.toLowerCase()}</em> e ne <em>la ${p2label.toLowerCase()}</em>.`
+    : `La Vostra bilancia s'inclina al <strong style="color:${deltaColor}">${rec}</strong>. I pesi risultano distribuiti con ugual mano tra i principî.`;
+
+  // Lettere
+  const usrLet = buildLettre(d>0?'si':d<0?'no':'pareggio', dom.map(i=>criteria[i].short), d, null, genere);
+  const sim = findMostSimilarProfile(electorVotes);
+  const pProf = profileData[sim.bestKey];
+  const simLetRaw = buildLettre(
+    (()=>{ const pw=normalizeVotes(pProf.votes), sd=scoreOption(pw,'si')-scoreOption(pw,'no'); return sd>0?'si':sd<0?'no':'pareggio'; })(),
+    getDominantCriteria(normalizeVotes(pProf.votes)).map(i=>criteria[i].short), 0, sim.bestKey
+  );
+
+  // Radar come immagine
+  const radarImg = document.getElementById('radar').toDataURL('image/png');
+
+  // Tabella voti
+  let tbRows='';
+  for(let i=0;i<7;i++){
+    const impact=weights[i]*(criteria[i].si-criteria[i].no);
+    const impIcon=impact>0.02?'🟢':impact<-0.02?'🔴':'⚪';
+    const sign=impact>=0?'+':'';
+    const bgRow = i%2===0?'#ffffff':'#f8fafc';
+    tbRows+=`<tr style="background:${bgRow}">
+      <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;font-family:monospace;font-weight:900;color:#6088a5;font-size:13px;">C${i+1}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;font-size:13px;">${criteria[i].short}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:center;font-family:monospace;font-weight:900;color:#3a5f78;">${electorVotes[i]}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;text-align:center;font-family:monospace;color:#64748b;">${weights[i].toFixed(3)}</td>
+      <td style="padding:8px 10px;border-bottom:1px solid #e2e8f0;font-family:monospace;font-size:12px;">${impIcon} ${sign}${impact.toFixed(3)}</td>
+    </tr>`;
+  }
+
+  // Data calendario rivoluzionario
+  const oggi = new Date();
+  const dataRiv = toCalendarioRivoluzionario(oggi);
+  const annoRom = 'MMXXVI';
+
+  // Slogan da criterio dominante
+  const sloganCriterio = [
+    'Il potere non si sorveglia da solo.',           // C1 Politica
+    'La bilancia non mente se il braccio è pari.',  // C2 Terzietà
+    'La libertà comincia ove cessa il timore.',      // C3 Sicurezza
+    'Il giudice esegue la norma: non la inventa, non la corregge.', // C4 Aderenza alla Norma
+    'Chi controlla i controllori custodisce la Repubblica.', // C5 Anticattura
+    'Ciò che regge oggi dee reggere domani.',        // C6 Contrappesi
+    'Giustizia ritardata è giustizia negata.'        // C7 Efficienza
+  ];
+  const sloganNeutro = 'La Ragione pesa; la scelta rimane vostra.';
+  const sloganC = dom.length > 0 ? sloganCriterio[dom[0]] : sloganNeutro;
+
+  // Slogan da macro-dimensione dominante
+  const macroKeys = [{k:'ind',v:userMac.ind},{k:'leg',v:userMac.leg},{k:'con',v:userMac.con},{k:'eff',v:userMac.eff}];
+  const macroMax = macroKeys.reduce((a,b)=>b.v>a.v?b:a).k;
+  const sloganMacro = {
+    ind: 'Pratichiamo l\'indipendenza. Dal MDCCXCVI.',
+    leg: 'Pratichiamo la certezza della norma. Dal MDCCXCVI.',
+    con: 'Nessun potere senza freno. Dal MDCCXCVI.',
+    eff: 'La giustizia non attende. Dal MDCCXCVI.'
+  }[macroMax];
+
+  // Avviso ironico profilo
+  const warningHtml = pProf.affinityWarning
+    ? `<p style="margin:10px 0 0;padding:8px 12px;background:rgba(139,64,64,0.07);border-left:3px solid #8b4040;border-radius:0 6px 6px 0;color:#8b4040;font-size:12.5px;font-style:italic;">${pProf.affinityWarning}</p>`
+    : '';
+
+  const html = `<!doctype html>
+<html lang="it">
+<head>
+<meta charset="utf-8">
+<title>Estratto di Stampa — ${nomeLettore}</title>
+<style>
+  /* ── Base (schermo) ── */
+  @page { size: A4 portrait; margin: 9mm 11mm; }
+  * { box-sizing: border-box; }
+  body { font-family:"Georgia","Times New Roman",serif; background:#f0f4f8; margin:0; padding:24px 12px; color:#1e293b; font-size:11px; line-height:1.45; }
+  .page { max-width:740px; margin:0 auto; background:#fdfdfa; padding:28px 34px 22px; border:1px solid #cbd5e1; border-radius:6px; box-shadow:0 8px 24px rgba(30,41,59,0.09); position:relative; }
+  .page::before,.page::after { content:""; position:absolute; width:22px; height:22px; border-color:#6088a5; border-style:solid; }
+  .page::before { top:9px; left:9px; border-width:1.5px 0 0 1.5px; }
+  .page::after  { bottom:9px; right:9px; border-width:0 1.5px 1.5px 0; }
+
+  /* ── Testata ── */
+  .fregio { text-align:center; color:#6088a5; font-size:17px; letter-spacing:6px; margin:0 0 2px; }
+  .titolo { text-align:center; font-size:17px; font-weight:900; color:#3a5f78; letter-spacing:2px; margin:2px 0 1px; }
+  .sottotitolo { text-align:center; font-size:10.5px; color:#64748b; font-style:italic; margin:1px 0; }
+  .nome-lettore { text-align:center; font-size:12px; color:#3a5f78; font-weight:900; margin:2px 0; }
+  .data-rev { text-align:center; font-size:9.5px; color:#94a3b8; margin:2px 0 8px; }
+
+  /* ── Verdetto + KPI ── */
+  .verdetto { text-align:center; font-size:12px; line-height:1.5; margin:6px 0; padding:7px 14px; background:rgba(96,136,165,0.06); border:1px solid #cbd5e1; border-radius:6px; }
+  .kpi-row { display:flex; gap:7px; justify-content:center; margin:6px 0 8px; }
+  .kpi { border:1px solid #6088a5; border-radius:6px; padding:5px 12px; text-align:center; background:#fff; min-width:80px; }
+  .kpi-lab { font-family:sans-serif; font-size:8px; text-transform:uppercase; color:#64748b; font-weight:700; letter-spacing:0.6px; }
+  .kpi-val { font-family:monospace; font-size:15px; font-weight:900; margin-top:2px; color:#3a5f78; }
+
+  /* ── Sezioni ── */
+  h2.sez { font-size:9px; font-family:"Georgia",serif; font-weight:900; color:#3a5f78; letter-spacing:1.5px; text-transform:uppercase; border-bottom:1px solid #cbd5e1; padding-bottom:3px; margin:10px 0 6px; }
+
+  /* ── Doppia colonna lettere ── */
+  .col2 { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin:6px 0; }
+  .lettera-box { border:1px solid #cbd5e1; padding:9px 11px; background:#fff; border-radius:5px; font-size:10px; line-height:1.42; }
+  .lettera-box.affine { background:#fffaf5; border-color:#c9b97a; }
+  .lettera-label { font-family:sans-serif; font-size:8px; text-transform:uppercase; letter-spacing:1px; color:#6088a5; font-weight:700; margin-bottom:5px; }
+  .lettera-label.affine { color:#8b6914; }
+  .prof-nome { font-size:10.5px; font-weight:900; color:#3a5f78; margin-bottom:1px; }
+  .prof-anni { font-size:8.5px; color:#64748b; font-style:italic; margin-bottom:5px; }
+  .dropcap::first-letter { float:left; font-size:24px; line-height:0.8; padding-right:4px; font-weight:900; color:#6088a5; }
+  .sig { text-align:right; font-style:italic; font-weight:bold; color:#3a5f78; margin-top:5px; font-size:9.5px; }
+  .letter-luogo { text-align:right; font-style:italic; font-size:8.5px; color:#94a3b8; margin-bottom:5px; letter-spacing:0.3px; }
+
+  /* ── Bolla ── */
+  .bolla { border:1.5px solid #3a5f78; border-radius:8px; padding:7px 14px; margin:7px 0; background:rgba(96,136,165,0.04); display:flex; align-items:center; gap:14px; flex-wrap:wrap; }
+  .bolla-left { flex:0 0 auto; text-align:center; }
+  .bolla-right { flex:1; }
+  .bolla-intro { font-family:sans-serif; font-size:8px; text-transform:uppercase; letter-spacing:0.8px; color:#64748b; }
+  .bolla-nome { font-size:13px; font-weight:900; color:#3a5f78; margin:1px 0; }
+  .bolla-pct { font-family:monospace; font-size:11px; color:#4b7b8a; font-weight:700; }
+  .bolla-quote { font-style:italic; font-size:9.5px; color:#64748b; margin-top:4px; border-top:1px dashed #cbd5e1; padding-top:4px; }
+
+  /* ── Sezione III: griglia tabella + radar ── */
+  .sez3 { display:grid; grid-template-columns:1fr 1fr; gap:14px; align-items:start; margin:6px 0; }
+  table { width:100%; border-collapse:collapse; font-size:9.5px; background:#fff; border:1px solid #e2e8f0; }
+  th { background:#f1f5f9; padding:4px 7px; text-align:left; border-bottom:1px solid #cbd5e1; color:#3a5f78; font-family:sans-serif; font-size:8px; text-transform:uppercase; letter-spacing:0.5px; }
+  td { padding:3px 7px; border-bottom:1px solid #f1f5f9; }
+  .mac-label { font-family:sans-serif; font-size:8px; text-transform:uppercase; letter-spacing:0.5px; color:#3a5f78; font-weight:700; margin:8px 0 4px; }
+  .mac-grid { display:grid; grid-template-columns:1fr 1fr; gap:2px 12px; }
+  .mac-row { display:flex; justify-content:space-between; font-size:9.5px; padding:2px 0; border-bottom:1px dotted #e2e8f0; }
+  .radar-label { font-family:sans-serif; font-size:8px; text-transform:uppercase; letter-spacing:0.5px; color:#3a5f78; font-weight:700; margin:8px 0 4px; }
+  .radar-wrap img { max-width:100%; max-height:200px; border:1px solid #cbd5e1; border-radius:6px; display:block; margin:0 auto; }
+
+  /* ── Footer ── */
+  .footer { margin-top:10px; padding-top:8px; border-top:1px solid #cbd5e1; text-align:center; }
+  .footer-firma { font-family:"Georgia",serif; font-size:12px; font-weight:900; color:#3a5f78; letter-spacing:1.5px; }
+  .footer-data { font-family:"Georgia",serif; font-size:9px; color:#94a3b8; font-style:italic; margin:2px 0 4px; }
+  .footer-slogan-c { font-family:"Georgia",serif; font-size:9.5px; color:#3a5f78; font-style:italic; margin:2px 0 1px; }
+  .footer-slogan-m { font-family:"Georgia",serif; font-size:9px; color:#6088a5; letter-spacing:0.4px; }
+
+  /* ── Print overrides ── */
+  @media print {
+    body { background:#fff; padding:0; font-size:9.5pt; }
+    .page { box-shadow:none; border:none; max-width:100%; padding:0; }
+    .page::before,.page::after { display:none; }
+    * { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="fregio">☙ &nbsp; ❧</div>
+  <div class="titolo">AL LUME DELLA RAGIONE</div>
+  <div class="sottotitolo">Estratto critico ponderato delle opinioni del Lettore</div>
+  <div class="nome-lettore">${nomeLettore}</div>
+  <div class="data-rev">${dataRiv}, anno ${annoRom}</div>
+
+  <div class="verdetto">${giudizioTesto}</div>
+
+  <div class="kpi-row">
+    <div class="kpi" style="border-color:${deltaColor}">
+      <div class="kpi-lab">Esito</div>
+      <div class="kpi-val" style="color:${deltaColor}">${rec}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lab">Indice SÌ</div>
+      <div class="kpi-val">${si.toFixed(3)}</div>
+    </div>
+    <div class="kpi">
+      <div class="kpi-lab">Indice NO</div>
+      <div class="kpi-val">${no.toFixed(3)}</div>
+    </div>
+    <div class="kpi" style="border-color:${deltaColor}">
+      <div class="kpi-lab">Δ (SÌ − NO)</div>
+      <div class="kpi-val" style="color:${deltaColor}">${d>=0?'+':''}${d.toFixed(3)}</div>
+    </div>
+  </div>
+
+  <h2 class="sez">I · Il Vostro Carteggio</h2>
+  <div class="col2">
+    <div class="lettera-box">
+      <div class="lettera-label">La Vostra Lettera Persiana</div>
+      ${usrLet.luogo ? `<div class="letter-luogo">${usrLet.luogo}</div>` : ''}
+      <div class="dropcap">${usrLet.text}</div>
+      <div class="sig">${usrLet.sig}</div>
+    </div>
+    <div class="lettera-box affine">
+      <div class="lettera-label affine">L’Epistola del Vostro Confidente Illuminista</div>
+      <div class="prof-nome">${pProf.icon} ${pProf.name}</div>
+      <div class="prof-anni">Sintonia ${sim.pct.toFixed(1)}%</div>
+      ${simLetRaw.luogo ? `<div class="letter-luogo">${simLetRaw.luogo}</div>` : ''}
+      <div class="dropcap">${simLetRaw.text}</div>
+      <div class="sig">${simLetRaw.sig}</div>
+    </div>
+  </div>
+
+  <h2 class="sez">II · Bolla di Affinità</h2>
+  <div class="bolla">
+    <div class="bolla-left">
+      <div class="bolla-nome">${pProf.icon} ${pProf.name}</div>
+      <div class="bolla-pct">${sim.pct.toFixed(1)}% sintonia</div>
+    </div>
+    <div class="bolla-right">
+      <div class="bolla-intro">Voi appartenete alla famiglia intellettuale di</div>
+      <div class="bolla-quote">${pProf.coreQuotes[0]}</div>
+      ${warningHtml}
+    </div>
+  </div>
+
+  <h2 class="sez">III · Scomposizione della Bilancia</h2>
+  <div class="sez3">
+    <div>
+      <table>
+        <thead><tr><th>Cod.</th><th>Principio</th><th>Voto</th><th>Peso</th><th>Impatto</th></tr></thead>
+        <tbody>${tbRows}</tbody>
+      </table>
+    </div>
+    <div>
+      <div class="mac-label">Macro-Dimensioni</div>
+      <div class="mac-grid">
+        <div class="mac-row"><span>Indipendenza</span><span style="font-family:monospace;font-weight:700;color:#3a5f78;">${userMac.ind.toFixed(2)}</span></div>
+        <div class="mac-row"><span>Legalità</span><span style="font-family:monospace;font-weight:700;color:#3a5f78;">${userMac.leg.toFixed(2)}</span></div>
+        <div class="mac-row"><span>Contrappesi</span><span style="font-family:monospace;font-weight:700;color:#3a5f78;">${userMac.con.toFixed(2)}</span></div>
+        <div class="mac-row" style="border:none;"><span>Efficienza</span><span style="font-family:monospace;font-weight:700;color:#3a5f78;">${userMac.eff.toFixed(2)}</span></div>
+      </div>
+      <div class="radar-label">Prospetto Radiale</div>
+      <div class="radar-wrap"><img src="${radarImg}" alt="Radar dei pesi"></div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-firma">— LCP —</div>
+    <div class="footer-slogan-m">${sloganMacro}</div>
+    <div class="footer-slogan-c">«${sloganC}»</div>
+    <div class="footer-data">${dataRiv}, anno ${annoRom} · Stampata in Milano</div>
+  </div>
+
+</div>
+
+</body>
+</html>`;
+
+  const blob = new Blob([html], {type: 'text/html; charset=utf-8'});
+  const blobUrl = URL.createObjectURL(blob);
+  const dlLink = document.createElement('a');
+  dlLink.href = blobUrl;
+  // MODIFICA RICHIESTA: nome del file personalizzato con spazi mantenuti
+  const safeName = nomeLettore.replace(/[^a-zA-Z0-9_\- ]/g, '_'); // permette spazi
+  dlLink.download = 'LCP Critica Ponderata del Pensiero di ' + safeName + '.html';
+  document.body.appendChild(dlLink);
+  dlLink.click();
+  document.body.removeChild(dlLink);
+  setTimeout(function(){ URL.revokeObjectURL(blobUrl); }, 2000);
+}
+
+
+
+function init(){
+  renderCriteria(); renderProfiles();
+  document.getElementById("btnReset").addEventListener("click", ()=>{ electorVotes=[5,5,5,5,5,5,5]; for(let i=0;i<7;i++)document.getElementById(`v_${i}`).value=5; updateAll(); });
+  updateAll(); window.addEventListener("resize", drawRadar);
+}
+init();
+</script>
+</body>
+</html>
