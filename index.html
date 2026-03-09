@@ -919,7 +919,7 @@ function updateAll(){
   const luogoEl = document.getElementById("lettreElectorLuogo");
   if(luogoEl) luogoEl.textContent = le.luogo || '';
   const labelEl = document.getElementById("lettreElectorLabel");
-  if(labelEl) labelEl.textContent = genere==='F' ? 'Lettera persiana — A Voi, Signora' : genere==='M' ? 'Lettera persiana — A Voi, Signore' : 'Lettera persiana';
+  if(labelEl) labelEl.textContent = genere==='F' ? 'Lettera persiana — A Voi, Signora' : genere==='M' ? 'La Vostra Lettera Persiana' : 'Lettera persiana';
 
   const B=getCompareVotes(), cn=document.getElementById("compareNote");
   if(B && compareKey){
