@@ -457,7 +457,7 @@
         </select>
       </div>
       <div style="display:flex; flex-direction:column; gap:6px; align-items:flex-start;">
-        <button id="btnStampa" class="secondary" onclick="generateFoglioHTML()" style="font-size:13.5px; padding:10px 18px;">⬇ Scaricate il Vostro Foglio di Ragione</button>
+        <button id="btnStampa" class="secondary" onclick="generateFoglioHTML()" style="font-size:13.5px; padding:10px 18px;">⬇ Scaricate un Compendio de' Vostri Ragionamenti</button>
         <span style="font-family:var(--sans); font-size:11px; color:var(--muted); font-style:italic;">Sarà aperta l’opzione di stampa, a parte.<br>Scegliete «Salva l’estratto» per serbarne memoria.</span>
       </div>
     </div>
@@ -505,7 +505,7 @@
 <div class="project-info">
   <span>📖 Progetto posto in luce a cura della <b style="color:var(--primary-dark);">LCP (MDCCXCVI)</b></span>
   <span>🄯 Licenza <a href="https://creativecommons.org/licenses/by-sa/4.0/deed.it" target="_blank">CC BY-SA 4.0</a></span>
-  <span>📧 <a href="/cdn-cgi/l/email-protection#620e011215020c09130c0d0a03220f030b0e4c010d0f"><span class="__cf_email__" data-cfemail="99f5faebe8fff1f4eef1f0f7fed9f4f8f0f5b7faf6f4">[email&#160;protected]</span></a></span>
+  <span>📧 <a href="/cdn-cgi/l/email-protection#1e727d6e697e70756f7071767f5e737f7772307d7173"><span class="__cf_email__" data-cfemail="2f434c5f584f41445e4140474e6f424e4643014c4042">[email&#160;protected]</span></a></span>
   <span style="font-family: var(--serif); font-style: italic; color: var(--muted); font-size: 13px;">✦ <em>Editio secunda, emendata et aucta</em> — MMXXVI</span>
   <div class="share-buttons">
     <button onclick="navigator.clipboard.writeText(window.location.href).then(() => alert('Link copiato negli appunti!'))" style="background:var(--line2); color:#fff; border-radius:99px; font-family:var(--sans);">🔗 Copia Link Pagina</button>
@@ -1113,10 +1113,10 @@ function generateFoglioHTML(){
 <div class="page">
 
   <div class="fregio">☙ &nbsp; ❧</div>
-  <div class="titolo">AL LUME DELLA RAGIONE</div>
-  <div class="sottotitolo">Estratto critico ponderato delle opinioni del Lettore</div>
+  <div class="titolo">Di talune considerazioni svolte al Lume della Ragione</div>
+  <div class="sottotitolo">in vista della consultazione referendaria prevista nei giorni secondo Germinale e terzo Germinale, anno MMXXVI, a beneficio ${genere === 'F' ? 'della Signora' : 'del Signor'}</div>
   <div class="nome-lettore">${nomeLettore}</div>
-  <div class="data-rev">${dataRiv}, anno ${annoRom}</div>
+  <div class="data-rev">${dataRiv}, anno ${annoRom} — LCP</div>
 
   <div class="verdetto">${giudizioTesto}</div>
 
